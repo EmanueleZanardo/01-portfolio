@@ -49,7 +49,7 @@ export function About() {
               ))}
             </ul>
              <Button asChild size="lg" className="mt-8 bg-primary text-primary-foreground hover:bg-primary/90">
-                <a href="/cv-emanuele-zanardo.pdf" download="cv-emanuele-zanardo.pdf" target="_blank">
+                <a href="/cv-emanuele-zanardo.pdf" download="cv-emanuele-zanardo.pdf" target="_blank" rel="noopener noreferrer">
                     <Download className="mr-2 h-5 w-5" />
                     Download my CV
                 </a>
