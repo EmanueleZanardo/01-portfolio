@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://emanuelezanardo.info'),
   title: 'Emanuele Zanardo | Electronic Engineer',
   description: 'Professional portfolio of Emanuele Zanardo, Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
+  alternates: { canonical: '/' },
   openGraph: {
     title: 'Emanuele Zanardo | Electronic Engineer',
     description: 'Professional portfolio of Emanuele Zanardo.',
