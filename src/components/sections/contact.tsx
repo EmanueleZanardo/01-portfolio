@@ -145,7 +145,7 @@ export function Contact() {
             </div>
             <div className="flex items-center gap-4">
               <Linkedin className="h-6 w-6 text-primary" />
-              <Link href="https://www.linkedin.com/in/emanuele-zanardo-1954aa193" target="_blank" className="text-lg text-muted-foreground hover:text-primary transition-colors">
+              <Link href="https://www.linkedin.com/in/emanuele-zanardo-1954aa193" target="_blank" rel="noopener noreferrer" className="text-lg text-muted-foreground hover:text-primary transition-colors">
                 Emanuele Zanardo
               </Link>
             </div>
