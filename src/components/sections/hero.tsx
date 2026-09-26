@@ -39,9 +39,9 @@ export function Hero() {
           </Button>
           
           <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-            <a href="https://czpox8o8x6arnxw96txnvt.streamlit.app/" target="_blank" rel="noopener noreferrer">
+            <Link href="/singularity">
               Singularity ETRM
-            </a>
+            </Link>
           </Button>
 
         </div>
