@@ -38,7 +38,6 @@ export function Hero() {
             </Link>
           </Button>
           
-          {/* IL BOTTONE MODIFICATO È QUESTO QUI SOTTO */}
           <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
             <a href="https://czpox8o8x6arnxw96txnvt.streamlit.app/" target="_blank" rel="noopener noreferrer">
               Singularity ETRM
