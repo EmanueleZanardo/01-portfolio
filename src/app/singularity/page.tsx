@@ -12,6 +12,14 @@ export const metadata: Metadata = {
     url: '/singularity',
     siteName: 'Emanuele Zanardo Portfolio',
     type: 'website',
+    images: [
+      {
+        url: 'https://i.postimg.cc/0j6WsZRn/istockphoto-1372200846-612x612.jpg',
+        width: 612,
+        height: 612,
+        alt: 'Singularity Quant ETRM by Emanuele Zanardo',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
