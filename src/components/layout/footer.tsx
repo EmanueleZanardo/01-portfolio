@@ -11,12 +11,12 @@ export function Footer() {
         </p>
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" asChild>
-            <Link href="https://github.com/EmanueleZanardo" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <Link href="https://github.com/EmanueleZanardo" target="_blank" rel="noopener noreferrer me" aria-label="GitHub">
               <Github className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
             </Link>
           </Button>
           <Button variant="ghost" size="icon" asChild>
-            <Link href="https://www.linkedin.com/in/emanuele-zanardo-1954aa193" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <Link href="https://www.linkedin.com/in/emanuele-zanardo-1954aa193" target="_blank" rel="noopener noreferrer me" aria-label="LinkedIn">
               <Linkedin className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
             </Link>
           </Button>
