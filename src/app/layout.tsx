@@ -5,6 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://emanuelezanardo.info'),
+  themeColor: '#333333',
   title: 'Emanuele Zanardo | Electronic Engineer',
   description: 'Professional portfolio of Emanuele Zanardo, Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
   alternates: { canonical: '/' },
