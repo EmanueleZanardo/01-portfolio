@@ -3,6 +3,7 @@ import type {NextConfig} from 'next';
 const nextConfig: NextConfig = {
   /* config options here */
   // Note: no X-Frame-Options/DENY here — /singularity embeds a Streamlit iframe.
+  // No CSP either (would need per-page tuning); these headers are safe globally.
   async headers() {
     return [
       {
@@ -10,6 +11,7 @@ const nextConfig: NextConfig = {
         headers: [
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=()' },
         ],
       },
     ];
