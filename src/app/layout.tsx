@@ -15,6 +15,25 @@ export const metadata: Metadata = {
     locale: 'en_US',
     type: 'website',
   },
+  twitter: {
+    card: 'summary',
+    title: 'Emanuele Zanardo | Electronic Engineer',
+    description: 'Professional portfolio of Emanuele Zanardo.',
+  },
+};
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Emanuele Zanardo',
+  url: 'https://emanuelezanardo.info',
+  jobTitle: 'Electronic Engineer',
+  description:
+    'Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
+  sameAs: [
+    'https://github.com/EmanueleZanardo',
+    'https://www.linkedin.com/in/emanuele-zanardo-1954aa193',
+  ],
 };
 
 export default function RootLayout({
@@ -25,6 +44,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
