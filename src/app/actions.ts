@@ -28,11 +28,20 @@ export async function sendContactMessage(
 ) {
   const { name, email, message } = values;
 
+  const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
+  if (!gmailAppPassword) {
+    console.error("GMAIL_APP_PASSWORD env var is not set");
+    return {
+      success: false,
+      error: "The contact form is not configured yet. Please use the email address shown on this page instead.",
+    };
+  }
+
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
       user: "emanuele1998zanardo@gmail.com",
-      pass: "tyjx kboa kfpe iklo",
+      pass: gmailAppPassword,
     },
   });
 
