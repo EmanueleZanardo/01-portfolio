@@ -7,7 +7,8 @@ export function Hero() {
     <section id="hero" className="relative h-[calc(100vh)] min-h-[500px] w-full flex items-center justify-center text-center text-white">
       <Image
         src="https://i.postimg.cc/0j6WsZRn/istockphoto-1372200846-612x612.jpg"
-        alt="Emanuele Zanardo"
+        alt=""
+        aria-hidden="true"
         fill
         className="object-cover"
         priority
