@@ -1,3 +1,20 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Singularity Quant ETRM | Emanuele Zanardo',
+  description:
+    'Singularity Quant ETRM — live energy trading and risk management terminal by Emanuele Zanardo: Swissix price analytics, KPIs, load curves, time bands and Monte Carlo simulator.',
+  alternates: { canonical: '/singularity' },
+  openGraph: {
+    title: 'Singularity Quant ETRM | Emanuele Zanardo',
+    description:
+      'Live energy trading terminal demo: price analytics, KPIs, load curves and Monte Carlo simulator.',
+    url: '/singularity',
+    siteName: 'Emanuele Zanardo Portfolio',
+    type: 'website',
+  },
+};
+
 export default function SingularityPage() {
   return (
     <div className="w-full h-screen bg-[#030712] flex flex-col">
