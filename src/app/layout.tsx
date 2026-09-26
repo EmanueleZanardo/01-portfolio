@@ -14,11 +14,20 @@ export const metadata: Metadata = {
     siteName: 'Emanuele Zanardo Portfolio',
     locale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: 'https://i.postimg.cc/0j6WsZRn/istockphoto-1372200846-612x612.jpg',
+        width: 612,
+        height: 612,
+        alt: 'Emanuele Zanardo',
+      },
+    ],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: 'Emanuele Zanardo | Electronic Engineer',
     description: 'Professional portfolio of Emanuele Zanardo.',
+    images: ['https://i.postimg.cc/0j6WsZRn/istockphoto-1372200846-612x612.jpg'],
   },
 };
 
