@@ -13,6 +13,13 @@ export const metadata: Metadata = {
     siteName: 'Emanuele Zanardo Portfolio',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Singularity Quant ETRM | Emanuele Zanardo',
+    description:
+      'Live energy trading terminal demo: price analytics, KPIs, load curves and Monte Carlo simulator.',
+    images: ['https://i.postimg.cc/0j6WsZRn/istockphoto-1372200846-612x612.jpg'],
+  },
 };
 
 export default function SingularityPage() {
