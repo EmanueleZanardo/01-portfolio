@@ -36,7 +36,7 @@ export function DesignVariations() {
     <section id="ai-designs" className="py-20 lg:py-32">
       <div className="container mx-auto px-4 max-w-4xl text-center">
         <div className="inline-block p-4 bg-primary/10 rounded-full mb-4">
-          <Bot className="h-8 w-8 text-primary" />
+          <Bot aria-hidden="true" className="h-8 w-8 text-primary" />
         </div>
         <h2 className="font-headline text-4xl md:text-5xl text-primary">Need a Fresh Look?</h2>
         <p className="mt-2 text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -49,9 +49,9 @@ export function DesignVariations() {
           className="mt-8 bg-accent text-accent-foreground hover:bg-accent/90"
         >
           {loading ? (
-            <Loader className="mr-2 h-5 w-5 animate-spin" />
+            <Loader aria-hidden="true" className="mr-2 h-5 w-5 animate-spin" />
           ) : (
-            <Sparkles className="mr-2 h-5 w-5" />
+            <Sparkles aria-hidden="true" className="mr-2 h-5 w-5" />
           )}
           {loading ? "Generating Ideas..." : "Generate Design Ideas"}
         </Button>
@@ -65,7 +65,7 @@ export function DesignVariations() {
           )}
           {suggestions.map((suggestion, index) => (
             <Alert key={index} className="border-accent bg-card">
-              <Sparkles className="h-4 w-4 !text-accent" />
+              <Sparkles aria-hidden="true" className="h-4 w-4 !text-accent" />
               <AlertTitle className="font-headline text-accent tracking-wider">Suggestion {index + 1}</AlertTitle>
               <AlertDescription className="text-foreground/80">
                 {suggestion}

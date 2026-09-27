@@ -44,14 +44,14 @@ export function About() {
             <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {SKILLS.map((skill) => (
                 <li key={skill} className="flex items-center gap-2">
-                  <CheckCircle className="h-5 w-5 text-accent" />
+                  <CheckCircle aria-hidden="true" className="h-5 w-5 text-accent" />
                   <span className="font-medium text-sm md:text-base">{skill}</span>
                 </li>
               ))}
             </ul>
              <Button asChild size="lg" className="mt-8 bg-primary text-primary-foreground hover:bg-primary/90">
                 <a href="/cv-emanuele-zanardo.pdf" download="cv-emanuele-zanardo.pdf" target="_blank" rel="noopener noreferrer">
-                    <Download className="mr-2 h-5 w-5" />
+                    <Download aria-hidden="true" className="mr-2 h-5 w-5" />
                     Download my CV
                 </a>
             </Button>

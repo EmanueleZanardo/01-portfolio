@@ -124,7 +124,7 @@ export function Contact() {
                   )}
                 />
                 <Button type="submit" size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={isSubmitting}>
-                  {isSubmitting && <Loader className="mr-2 h-4 w-4 animate-spin" />}
+                  {isSubmitting && <Loader aria-hidden="true" className="mr-2 h-4 w-4 animate-spin" />}
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
@@ -132,19 +132,19 @@ export function Contact() {
           </div>
           <div className="flex flex-col justify-center space-y-6">
             <div className="flex items-center gap-4">
-              <Phone className="h-6 w-6 text-primary" />
+              <Phone aria-hidden="true" className="h-6 w-6 text-primary" />
               <a href="tel:+393451114337" className="text-lg text-muted-foreground hover:text-primary transition-colors">
                 +39 3451114337
               </a>
             </div>
             <div className="flex items-center gap-4">
-              <Mail className="h-6 w-6 text-primary" />
+              <Mail aria-hidden="true" className="h-6 w-6 text-primary" />
               <a href="mailto:emanuele1998zanardo@gmail.com" className="text-lg text-muted-foreground hover:text-primary transition-colors">
                 emanuele1998zanardo@gmail.com
               </a>
             </div>
             <div className="flex items-center gap-4">
-              <Linkedin className="h-6 w-6 text-primary" />
+              <Linkedin aria-hidden="true" className="h-6 w-6 text-primary" />
               <Link href="https://www.linkedin.com/in/emanuele-zanardo-1954aa193" target="_blank" rel="noopener noreferrer me" className="text-lg text-muted-foreground hover:text-primary transition-colors">
                 Emanuele Zanardo
               </Link>
