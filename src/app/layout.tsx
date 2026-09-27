@@ -48,6 +48,17 @@ const personJsonLd = {
     'https://github.com/EmanueleZanardo',
     'https://www.linkedin.com/in/emanuele-zanardo-1954aa193',
   ],
+  knowsAbout: [
+    'Embedded systems',
+    'Firmware development',
+    'Firmware validation',
+    'Industrial automation',
+    'PCB design',
+    'ESP32',
+    'KiCad',
+    'Power electronics',
+    'Energy trading analytics',
+  ],
 };
 
 export default function RootLayout({
