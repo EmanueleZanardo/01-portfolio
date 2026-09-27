@@ -51,7 +51,7 @@ export function Header() {
           </Link>
         </div>
 
-        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+        <nav aria-label="Primary" className="hidden md:flex items-center space-x-6 text-sm font-medium">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -78,7 +78,7 @@ export function Header() {
                     <span className="font-bold font-headline text-lg text-primary">Emanuele Zanardo</span>
                   </Link>
                 </div>
-                <nav className="flex flex-col gap-4 mt-8">
+                <nav aria-label="Primary" className="flex flex-col gap-4 mt-8">
                   {NAV_LINKS.map((link) => (
                     <Link
                       key={link.href}
