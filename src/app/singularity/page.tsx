@@ -53,7 +53,7 @@ export default function SingularityPage() {
   };
 
   return (
-    <main id="main-content" className="w-full h-screen bg-[#030712] flex flex-col">
+    <main id="main-content" tabIndex={-1} className="w-full h-screen bg-[#030712] flex flex-col focus:outline-none">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
