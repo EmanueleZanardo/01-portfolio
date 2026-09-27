@@ -53,6 +53,7 @@ const personJsonLd = {
   jobTitle: 'Electronic Engineer',
   description:
     'Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
+  image: 'https://emanuelezanardo.info/og-image.png',
   sameAs: [
     'https://github.com/EmanueleZanardo',
     'https://www.linkedin.com/in/emanuele-zanardo-1954aa193',
