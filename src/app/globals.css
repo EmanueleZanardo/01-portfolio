@@ -1,1 +1,100 @@
-QHRhaWx3aW5kIGJhc2U7CkB0YWlsd2luZCBjb21wb25lbnRzOwpAdGFpbHdpbmQgdXRpbGl0aWVzOwoKaHRtbCB7CiAgc2Nyb2xsLWJlaGF2aW9yOiBzbW9vdGg7Cn0KCkBtZWRpYSAocHJlZmVycy1yZWR1Y2VkLW1vdGlvbjogcmVkdWNlKSB7CiAgaHRtbCB7CiAgICBzY3JvbGwtYmVoYXZpb3I6IGF1dG87CiAgfQp9CgovKiBBbmNob3IgbGlua3MgKCNhYm91dCwgI3Byb2plY3RzLCAjY29udGFjdCkgbXVzdCBub3QgaGlkZSBzZWN0aW9uIHRpdGxlcwogICBiZWhpbmQgdGhlIGZpeGVkIGgtMTQgaGVhZGVyICovCnNlY3Rpb25baWRdIHsKICBzY3JvbGwtbWFyZ2luLXRvcDogNC41cmVtOwp9CgpAbGF5ZXIgYmFzZSB7CiAgOnJvb3QgewogICAgLS1iYWNrZ3JvdW5kOiAwIDAlIDEwMCU7CiAgICAtLWZvcmVncm91bmQ6IDAgMCUgMy45JTsKICAgIC0tY2FyZDogMCAwJSAxMDAlOwogICAgLS1jYXJkLWZvcmVncm91bmQ6IDAgMCUgMy45JTsKICAgIC0tcG9wb3ZlcjogMCAwJSAxMDAlOwogICAgLS1wb3BvdmVyLWZvcmVncm91bmQ6IDAgMCUgMy45JTsKICAgIC0tcHJpbWFyeTogMCAwJSA5JTsKICAgIC0tcHJpbWFyeS1mb3JlZ3JvdW5kOiAwIDAlIDk4JTsKICAgIC0tc2Vjb25kYXJ5OiAwIDAlIDk2LjElOwogICAgLS1zZWNvbmRhcnktZm9yZWdyb3VuZDogMCAwJSA5JTsKICAgIC0tbXV0ZWQ6IDAgMCUgOTYuMSU7CiAgICAtLW11dGVkLWZvcmVncm91bmQ6IDAgMCUgNDUuMSU7CiAgICAtLWFjY2VudDogMCAwJSA5Ni4xJTsKICAgIC0tYWNjZW50LWZvcmVncm91bmQ6IDAgMCUgOSU7CiAgICAtLWRlc3RydWN0aXZlOiAwIDg0LjIlIDYwLjIlOwogICAgLS1kZXN0cnVjdGl2ZS1mb3JlZ3JvdW5kOiAwIDAlIDk4JTsKICAgIC0tYm9yZGVyOiAwIDAlIDg5LjglOwogICAgLS1pbnB1dDogMCAwJSA4OS44JTsKICAgIC0tcmluZzogMCAwJSAzLjklOwogICAgLS1jaGFydC0xOiAxMiA3NiUgNjElOwogICAgLS1jaGFydC0yOiAxNzMgNTglIDM5JTsKICAgIC0tY2hhcnQtMzogMTk3IDM3JSAyNCU7CiAgICAtLWNoYXJ0LTQ6IDQzIDc0JSA2NiU7CiAgICAtLWNoYXJ0LTU6IDI3IDg3JSA2NyU7CiAgICAtLXJhZGl1czogMC41cmVtOwogICAgLS1zaWRlYmFyLWJhY2tncm91bmQ6IDAgMCUgOTglOwogICAgLS1zaWRlYmFyLWZvcmVncm91bmQ6IDI0MCA1LjMlIDI2LjElOwogICAgLS1zaWRlYmFyLXByaW1hcnk6IDI0MCA1LjklIDEwJTsKICAgIC0tc2lkZWJhci1wcmltYXJ5LWZvcmVncm91bmQ6IDAgMCUgOTglOwogICAgLS1zaWRlYmFyLWFjY2VudDogMjQwIDQuOCUgOTUuOSU7CiAgICAtLXNpZGViYXItYWNjZW50LWZvcmVncm91bmQ6IDI0MCA1LjklIDEwJTsKICAgIC0tc2lkZWJhci1ib3JkZXI6IDIyMCAxMyUgOTElOwogICAgLS1zaWRlYmFyLXJpbmc6IDIxNy4yIDkxLjIlIDU5LjglOwogIH0KICAuZGFyayB7CiAgICAtLWJhY2tncm91bmQ6IDAgMCUgMjAlOwogICAgLS1mb3JlZ3JvdW5kOiAwIDAlIDk4JTsKICAgIC0tY2FyZDogMCAwJSAyNCU7CiAgICAtLWNhcmQtZm9yZWdyb3VuZDogMCAwJSA5OCU7CiAgICAtLXBvcG92ZXI6IDAgMCUgMjQlOwogICAgLS1wb3BvdmVyLWZvcmVncm91bmQ6IDAgMCUgOTglOwogICAgLS1wcmltYXJ5OiA2MCAxMDAlIDYxJTsKICAgIC0tcHJpbWFyeS1mb3JlZ3JvdW5kOiAwIDAlIDMuOSU7CiAgICAtLXNlY29uZGFyeTogMCAwJSAxNC45JTsKICAgIC0tc2Vjb25kYXJ5LWZvcmVncm91bmQ6IDAgMCUgOTglOwogICAgLS1tdXRlZDogMCAwJSAxNC45JTsKICAgIC0tbXV0ZWQtZm9yZWdyb3VuZDogMCAwJSA2My45JTsKICAgIC0tYWNjZW50OiAzMCAxMDAlIDYwJTsKICAgIC0tYWNjZW50LWZvcmVncm91bmQ6IDAgMCUgMy45JTsKICAgIC0tZGVzdHJ1Y3RpdmU6IDAgNjIuOCUgMzAuNiU7CiAgICAtLWRlc3RydWN0aXZlLWZvcmVncm91bmQ6IDAgMCUgOTglOwogICAgLS1ib3JkZXI6IDAgMCUgMzAlOwogICAgLS1pbnB1dDogMCAwJSAzMCU7CiAgICAtLXJpbmc6IDYwIDEwMCUgNjElOwogICAgLS1jaGFydC0xOiAyMjAgNzAlIDUwJTsKICAgIC0tY2hhcnQtMjogMTYwIDYwJSA0NSU7CiAgICAtLWNoYXJ0LTM6IDMwIDgwJSA1NSU7CiAgICAtLWNoYXJ0LTQ6IDI4MCA2NSUgNjAlOwogICAgLS1jaGFydC01OiAzNDAgNzUlIDU1JTsKICAgIC0tc2lkZWJhci1iYWNrZ3JvdW5kOiAwIDAlIDIwJTsKICAgIC0tc2lkZWJhci1mb3JlZ3JvdW5kOiAwIDAlIDk4JTsKICAgIC0tc2lkZWJhci1wcmltYXJ5OiA2MCAxMDAlIDYxJTsKICAgIC0tc2lkZWJhci1wcmltYXJ5LWZvcmVncm91bmQ6IDAgMCUgMy45JTsKICAgIC0tc2lkZWJhci1hY2NlbnQ6IDMwIDEwMCUgNjAlOwogICAgLS1zaWRlYmFyLWFjY2VudC1mb3JlZ3JvdW5kOiAwIDAlIDMuOSU7CiAgICAtLXNpZGViYXItYm9yZGVyOiAwIDAlIDMwJTsKICAgIC0tc2lkZWJhci1yaW5nOiA2MCAxMDAlIDYxJTsKICB9Cn0KCkBsYXllciBiYXNlIHsKICAqIHsKICAgIEBhcHBseSBib3JkZXItYm9yZGVyOwogIH0KICBib2R5IHsKICAgIEBhcHBseSBiZy1iYWNrZ3JvdW5kIHRleHQtZm9yZWdyb3VuZDsKICB9Cn0K
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Anchor links (#about, #projects, #contact) must not hide section titles
+   behind the fixed h-14 header */
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+  .dark {
+    --background: 0 0% 20%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 24%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 24%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 60 100% 61%;
+    --primary-foreground: 0 0% 3.9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 30 100% 60%;
+    --accent-foreground: 0 0% 3.9%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 30%;
+    --input: 0 0% 30%;
+    --ring: 60 100% 61%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 0 0% 20%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 60 100% 61%;
+    --sidebar-primary-foreground: 0 0% 3.9%;
+    --sidebar-accent: 30 100% 60%;
+    --sidebar-accent-foreground: 0 0% 3.9%;
+    --sidebar-border: 0 0% 30%;
+    --sidebar-ring: 60 100% 61%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
