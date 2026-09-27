@@ -123,7 +123,7 @@ export function Contact() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={isSubmitting}>
+                <Button type="submit" size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={isSubmitting} aria-busy={isSubmitting}>
                   {isSubmitting && <Loader aria-hidden="true" className="mr-2 h-4 w-4 animate-spin" />}
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
