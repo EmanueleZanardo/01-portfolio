@@ -1,5 +1,6 @@
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ScrollToTop } from '@/components/layout/scroll-to-top';
 import Link from 'next/link';
 
 export function Footer() {
@@ -27,6 +28,7 @@ export function Footer() {
           </Button>
         </div>
       </div>
+      <ScrollToTop />
     </footer>
   );
 }
