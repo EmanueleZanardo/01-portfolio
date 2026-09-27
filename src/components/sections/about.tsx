@@ -22,7 +22,7 @@ export function About() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative aspect-square max-w-md mx-auto">
              <Image
-                src="https://i.postimg.cc/7YqYj8sd/Gemini-Generated-Image-8i7wqu8i7wqu8i7w-removebg-preview.png"
+                src="/portrait.png"
                 alt="Emanuele Zanardo"
                 width={500}
                 height={500}
