@@ -36,7 +36,12 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Emanuele Zanardo | Electronic Engineer',
     description: 'Professional portfolio of Emanuele Zanardo.',
-    images: ['/og-image.png'],
+    images: [
+      {
+        url: '/og-image.png',
+        alt: 'Emanuele Zanardo — Electronic Engineer',
+      },
+    ],
   },
 };
 
