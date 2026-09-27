@@ -23,10 +23,24 @@ const contactFormSchema = z.object({
   message: z.string(),
 });
 
+// Escape user input before interpolating it into HTML email bodies,
+// otherwise a crafted message can inject arbitrary HTML into the emails.
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 export async function sendContactMessage(
   values: z.infer<typeof contactFormSchema>
 ) {
   const { name, email, message } = values;
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
 
   const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
   if (!gmailAppPassword) {
@@ -48,13 +62,13 @@ export async function sendContactMessage(
   const mailOptionsOwner = {
     from: "emanuele1998zanardo@gmail.com",
     to: "emanuele1998zanardo@gmail.com",
-    subject: `New Contact Form Message from ${name}`,
+    subject: `New Contact Form Message from ${safeName}`,
     html: `
       <h2>New Message from Portfolio Contact Form</h2>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Name:</strong> ${safeName}</p>
+      <p><strong>Email:</strong> ${safeEmail}</p>
       <p><strong>Message:</strong></p>
-      <p>${message}</p>
+      <p>${safeMessage}</p>
     `,
   };
 
@@ -63,7 +77,7 @@ export async function sendContactMessage(
     to: email,
     subject: "Thank you for your message!",
     html: `
-      <h2>Hello ${name},</h2>
+      <h2>Hello ${safeName},</h2>
       <p>Thank you for contacting me through my portfolio website.</p>
       <p>I have received your message and will get back to you as soon as possible.</p>
       <br>
