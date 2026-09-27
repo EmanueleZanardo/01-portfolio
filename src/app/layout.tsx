@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: 'Emanuele Zanardo | Electronic Engineer',
   description: 'Professional portfolio of Emanuele Zanardo, Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
   alternates: { canonical: '/' },
+  icons: {
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
     title: 'Emanuele Zanardo | Electronic Engineer',
     description: 'Professional portfolio of Emanuele Zanardo.',
