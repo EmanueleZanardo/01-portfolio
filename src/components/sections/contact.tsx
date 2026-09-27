@@ -30,6 +30,8 @@ const formSchema = z.object({
   message: z.string().min(10, {
     message: "Message must be at least 10 characters.",
   }),
+  // Honeypot: real users leave this empty, bots tend to fill it.
+  company: z.string().optional(),
 });
 
 export function Contact() {
@@ -42,6 +44,7 @@ export function Contact() {
       name: "",
       email: "",
       message: "",
+      company: "",
     },
   });
 
@@ -123,6 +126,17 @@ export function Contact() {
                     </FormItem>
                   )}
                 />
+                {/* Honeypot anti-spam field: hidden from real users, bots usually fill it. */}
+                <div aria-hidden="true" className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden">
+                  <label htmlFor="company">Company</label>
+                  <input
+                    id="company"
+                    type="text"
+                    autoComplete="off"
+                    tabIndex={-1}
+                    {...form.register("company")}
+                  />
+                </div>
                 <Button type="submit" size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={isSubmitting} aria-busy={isSubmitting}>
                   {isSubmitting && <Loader aria-hidden="true" className="mr-2 h-4 w-4 animate-spin" />}
                   {isSubmitting ? "Sending..." : "Send Message"}
