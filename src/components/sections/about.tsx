@@ -26,6 +26,7 @@ export function About() {
                 alt="Emanuele Zanardo"
                 width={500}
                 height={500}
+                sizes="(max-width: 768px) 100vw, 500px"
                 data-ai-hint="portrait man"
                 className="object-cover"
               />
