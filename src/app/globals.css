@@ -6,6 +6,12 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Anchor links (#about, #projects, #contact) must not hide section titles
+   behind the fixed h-14 header */
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
