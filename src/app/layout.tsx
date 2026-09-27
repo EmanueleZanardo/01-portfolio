@@ -5,6 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 
 export const viewport: Viewport = {
   themeColor: '#333333',
+  colorScheme: 'dark',
 };
 
 export const metadata: Metadata = {
