@@ -24,10 +24,10 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://i.postimg.cc/0j6WsZRn/istockphoto-1372200846-612x612.jpg',
-        width: 612,
-        height: 612,
-        alt: 'Emanuele Zanardo',
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Emanuele Zanardo — Electronic Engineer',
       },
     ],
   },
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Emanuele Zanardo | Electronic Engineer',
     description: 'Professional portfolio of Emanuele Zanardo.',
-    images: ['https://i.postimg.cc/0j6WsZRn/istockphoto-1372200846-612x612.jpg'],
+    images: ['/og-image.png'],
   },
 };
 
