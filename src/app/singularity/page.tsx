@@ -31,8 +31,33 @@ export const metadata: Metadata = {
 };
 
 export default function SingularityPage() {
+  const softwareJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Singularity Quant ETRM',
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'Web',
+    url: 'https://emanuelezanardo.info/singularity',
+    author: {
+      '@type': 'Person',
+      name: 'Emanuele Zanardo',
+      url: 'https://emanuelezanardo.info',
+    },
+    description:
+      'Live energy trading and risk management terminal: Swissix price analytics, KPIs, load curves, time bands (F1/F2/F3) and Monte Carlo simulator.',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'CHF',
+    },
+  };
+
   return (
     <main id="main-content" className="w-full h-screen bg-[#030712] flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
+      />
       <div className="p-4 bg-[#111827] border-b border-gray-800 flex justify-between items-center">
         <h1 className="text-blue-400 font-mono text-lg font-bold">💠 Singularity Quant ETRM - Live Terminal</h1>
         <a 
