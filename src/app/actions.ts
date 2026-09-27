@@ -21,6 +21,8 @@ const contactFormSchema = z.object({
   name: z.string(),
   email: z.string().email(),
   message: z.string(),
+  // Honeypot field: bots fill it, real users leave it empty.
+  company: z.string().optional(),
 });
 
 // Escape user input before interpolating it into HTML email bodies,
@@ -37,7 +39,14 @@ function escapeHtml(value: string): string {
 export async function sendContactMessage(
   values: z.infer<typeof contactFormSchema>
 ) {
-  const { name, email, message } = values;
+  const { name, email, message, company } = values;
+
+  // Honeypot: pretend success for bots so they don't learn the trap.
+  if (company && company.trim() !== "") {
+    console.warn("Contact form: honeypot triggered, dropping message from", email);
+    return { success: true };
+  }
+
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
   const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
