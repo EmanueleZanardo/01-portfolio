@@ -66,9 +66,9 @@ export function Header() {
         <div className="flex flex-1 items-center justify-end md:hidden">
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" aria-expanded={isMobileMenuOpen} aria-controls="mobile-nav">
                 <Menu aria-hidden="true" className="h-6 w-6" />
-                <span className="sr-only">Open menu</span>
+                <span className="sr-only">{isMobileMenuOpen ? "Close menu" : "Open menu"}</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
@@ -78,7 +78,7 @@ export function Header() {
                     <span className="font-bold font-headline text-lg text-primary">Emanuele Zanardo</span>
                   </Link>
                 </div>
-                <nav aria-label="Primary" className="flex flex-col gap-4 mt-8">
+                <nav id="mobile-nav" aria-label="Primary" className="flex flex-col gap-4 mt-8">
                   {NAV_LINKS.map((link) => (
                     <Link
                       key={link.href}
