@@ -14,9 +14,9 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://i.postimg.cc/0j6WsZRn/istockphoto-1372200846-612x612.jpg',
-        width: 612,
-        height: 612,
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
         alt: 'Singularity Quant ETRM by Emanuele Zanardo',
       },
     ],
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     title: 'Singularity Quant ETRM | Emanuele Zanardo',
     description:
       'Live energy trading terminal demo: price analytics, KPIs, load curves and Monte Carlo simulator.',
-    images: ['https://i.postimg.cc/0j6WsZRn/istockphoto-1372200846-612x612.jpg'],
+    images: ['/og-image.png'],
   },
 };
 
