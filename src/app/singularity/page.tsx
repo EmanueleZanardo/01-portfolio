@@ -68,12 +68,23 @@ export default function SingularityPage() {
       />
       <div className="p-4 bg-[#111827] border-b border-gray-800 flex justify-between items-center">
         <h1 className="text-blue-400 font-mono text-lg font-bold">💠 Singularity Quant ETRM - Live Terminal</h1>
-        <a 
-          href="/" 
-          className="text-sm font-mono text-gray-400 hover:text-white bg-gray-800 px-3 py-1 rounded"
-        >
-          ← Torna al Portfolio
-        </a>
+        <div className="flex items-center gap-2">
+          {/* ux: fallback diretto se l'embed Streamlit è bloccato o lento (reti aziendali, app in sleep) */}
+          <a
+            href="https://czpox8o8x6arnxw96txnvt.streamlit.app/?embed=true"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-mono text-gray-400 hover:text-white bg-gray-800 px-3 py-1 rounded"
+          >
+            Open in new tab ↗
+          </a>
+          <a
+            href="/"
+            className="text-sm font-mono text-gray-400 hover:text-white bg-gray-800 px-3 py-1 rounded"
+          >
+            ← Torna al Portfolio
+          </a>
+        </div>
       </div>
       <div className="flex-grow w-full">
         <iframe
