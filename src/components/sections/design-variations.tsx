@@ -33,7 +33,7 @@ export function DesignVariations() {
   };
 
   return (
-    <section id="ai-designs" className="py-20 lg:py-32">
+    <section id="ai-designs" className="py-20 lg:py-32 scroll-mt-16">
       <div className="container mx-auto px-4 max-w-4xl text-center">
         <div className="inline-block p-4 bg-primary/10 rounded-full mb-4">
           <Bot aria-hidden="true" className="h-8 w-8 text-primary" />
