@@ -89,7 +89,7 @@ export function Contact() {
                     <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your name" autoComplete="name" {...field} disabled={isSubmitting} />
+                        <Input placeholder="Your name" autoComplete="name" maxLength={100} {...field} disabled={isSubmitting} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -102,7 +102,7 @@ export function Contact() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input type="email" inputMode="email" autoComplete="email" placeholder="your.email@example.com" {...field} disabled={isSubmitting}/>
+                        <Input type="email" inputMode="email" autoComplete="email" placeholder="your.email@example.com" maxLength={254} {...field} disabled={isSubmitting}/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -118,6 +118,7 @@ export function Contact() {
                         <Textarea
                           placeholder="Tell me about your project or idea..."
                           className="min-h-[150px]"
+                          maxLength={5000}
                           {...field}
                           disabled={isSubmitting}
                         />
