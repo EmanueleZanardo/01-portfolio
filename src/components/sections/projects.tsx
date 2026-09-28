@@ -41,10 +41,10 @@ const experiences = [
 
 export function Projects() {
   return (
-    <section id="projects" className="py-20 lg:py-32 scroll-mt-16">
+    <section id="projects" aria-labelledby="projects-heading" className="py-20 lg:py-32 scroll-mt-16">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="font-headline text-4xl md:text-5xl text-primary">Professional Experiences</h2>
+          <h2 id="projects-heading" className="font-headline text-4xl md:text-5xl text-primary">Professional Experiences</h2>
           <p className="mt-2 text-lg text-muted-foreground max-w-2xl mx-auto">
             A selection of my work experiences that showcase my skills.
           </p>
