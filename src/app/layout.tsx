@@ -74,6 +74,73 @@ const personJsonLd = {
   ],
 };
 
+// Structured data for the freelance Engineering Services section (homepage)
+const servicesJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Emanuele Zanardo — Engineering Services',
+  url: 'https://emanuelezanardo.info/#services',
+  description:
+    'Freelance electronics engineering services: hardware design, firmware development, and PCB layout & testing.',
+  provider: {
+    '@type': 'Person',
+    name: 'Emanuele Zanardo',
+    url: 'https://emanuelezanardo.info',
+    jobTitle: 'Electronic Engineer',
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Engineering Services',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Hardware Design',
+          description:
+            'Analog and digital circuit design, power supplies, component selection, schematic capture and design reviews.',
+        },
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          price: '50',
+          priceCurrency: 'EUR',
+          description: 'Indicative rate, per hour. Final quote depends on project scope.',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Firmware Development',
+          description:
+            'Bare-metal C and RTOS-based firmware for STM32, ESP32 and other MCUs; drivers, communication stacks and bootloaders.',
+        },
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          price: '50',
+          priceCurrency: 'EUR',
+          description: 'Indicative rate, per hour. Final quote depends on project scope.',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'PCB Layout & Testing',
+          description:
+            'PCB layout and routing, board bring-up, debugging and hardware validation; DRC-clean designs ready for manufacturing.',
+        },
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          price: '50',
+          priceCurrency: 'EUR',
+          description: 'Indicative rate, per hour. Final quote depends on project scope.',
+        },
+      },
+    ],
+  },
+};
+
 const FONT_CSS_URL =
   'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Mono:wght@400;700&display=swap';
 
@@ -88,6 +155,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
