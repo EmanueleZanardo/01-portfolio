@@ -18,9 +18,9 @@ export async function generateDesigns(input: GenerateDesignVariationsInput) {
 }
 
 const contactFormSchema = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  message: z.string(),
+  name: z.string().min(1).max(100),
+  email: z.string().email().max(254),
+  message: z.string().min(1).max(5000),
   // Honeypot field: bots fill it, real users leave it empty.
   company: z.string().optional(),
 });
