@@ -15,7 +15,6 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
   authors: [{ name: 'Emanuele Zanardo', url: 'https://emanuelezanardo.info' }],
   creator: 'Emanuele Zanardo',
-  themeColor: '#333333', // matches manifest.webmanifest theme_color: dark brand bar on mobile
   icons: {
     apple: '/apple-touch-icon.png',
   },
