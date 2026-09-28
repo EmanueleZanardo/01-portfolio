@@ -85,11 +85,11 @@ export function Contact() {
                 <FormField
                   control={form.control}
                   name="name"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your name" autoComplete="name" maxLength={100} {...field} disabled={isSubmitting} />
+                        <Input placeholder="Your name" autoComplete="name" maxLength={100} aria-invalid={fieldState.error ? true : undefined} {...field} disabled={isSubmitting} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -98,11 +98,11 @@ export function Contact() {
                 <FormField
                   control={form.control}
                   name="email"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input type="email" inputMode="email" autoComplete="email" placeholder="your.email@example.com" maxLength={254} {...field} disabled={isSubmitting}/>
+                        <Input type="email" inputMode="email" autoComplete="email" placeholder="your.email@example.com" maxLength={254} aria-invalid={fieldState.error ? true : undefined} {...field} disabled={isSubmitting}/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -111,7 +111,7 @@ export function Contact() {
                 <FormField
                   control={form.control}
                   name="message"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem>
                       <FormLabel>Message</FormLabel>
                       <FormControl>
@@ -119,6 +119,7 @@ export function Contact() {
                           placeholder="Tell me about your project or idea..."
                           className="min-h-[150px]"
                           maxLength={5000}
+                          aria-invalid={fieldState.error ? true : undefined}
                           {...field}
                           disabled={isSubmitting}
                         />
