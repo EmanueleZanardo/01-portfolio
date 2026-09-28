@@ -54,6 +54,9 @@ export default function SingularityPage() {
 
   return (
     <main id="main-content" tabIndex={-1} className="w-full h-screen bg-[#030712] flex flex-col focus:outline-none">
+      {/* perf: avvia subito la connessione TLS verso l'origine dell'embed Streamlit (contenuto principale della pagina) */}
+      <link rel="preconnect" href="https://czpox8o8x6arnxw96txnvt.streamlit.app" />
+      <link rel="dns-prefetch" href="https://czpox8o8x6arnxw96txnvt.streamlit.app" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
