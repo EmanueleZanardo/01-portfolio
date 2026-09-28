@@ -66,7 +66,7 @@ export function Services() {
             quote depends on project scope.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-4">
-            <Button asChild size="lg" className="bg-[#25D366] text-white hover:bg-[#1fb857]">
+            <Button asChild size="lg" className="bg-[#0e7a3f] text-white hover:bg-[#0c6535]">
               <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
                 <MessageCircle aria-hidden="true" className="mr-2 h-5 w-5" />
                 Chat on WhatsApp
