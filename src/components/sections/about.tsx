@@ -17,7 +17,7 @@ const SKILLS = [
 
 export function About() {
   return (
-    <section id="about" className="py-20 lg:py-32 bg-card">
+    <section id="about" className="py-20 lg:py-32 bg-card scroll-mt-16">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="relative aspect-square max-w-md mx-auto">
