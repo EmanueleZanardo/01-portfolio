@@ -74,6 +74,9 @@ const personJsonLd = {
   ],
 };
 
+const FONT_CSS_URL =
+  'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Mono:wght@400;700&display=swap';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -88,10 +91,9 @@ export default function RootLayout({
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Mono:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
+        {/* perf: early-fetch hint for the font CSS, which is render-blocking */}
+        <link rel="preload" as="style" href={FONT_CSS_URL} />
+        <link rel="stylesheet" href={FONT_CSS_URL} />
       </head>
       <body className={cn('font-body antialiased min-h-screen bg-background')}>
         <a
