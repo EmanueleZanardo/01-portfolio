@@ -107,3 +107,11 @@ section[id] {
     @apply bg-background text-foreground;
   }
 }
+
+/* Tastiera: indicatore di focus sempre visibile su ogni elemento
+   interattivo (link, bottoni, input) — usa il colore ring del tema */
+:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  border-radius: 2px;
+}
