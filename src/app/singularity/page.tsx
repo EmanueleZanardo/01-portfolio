@@ -74,6 +74,7 @@ export default function SingularityPage() {
             href="https://czpox8o8x6arnxw96txnvt.streamlit.app/?embed=true"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Open Singularity Quant ETRM live terminal in new tab"
             className="text-sm font-mono text-gray-400 hover:text-white bg-gray-800 px-3 py-1 rounded"
           >
             Open in new tab ↗
