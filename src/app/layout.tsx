@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   icons: {
     apple: '/apple-touch-icon.png',
   },
+  manifest: '/manifest.webmanifest',
   openGraph: {
     title: 'Emanuele Zanardo | Electronic Engineer',
     description: 'Professional portfolio of Emanuele Zanardo.',
