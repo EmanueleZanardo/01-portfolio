@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   title: 'Emanuele Zanardo | Electronic Engineer',
   description: 'Professional portfolio of Emanuele Zanardo, Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
   alternates: { canonical: '/' },
+  authors: [{ name: 'Emanuele Zanardo', url: 'https://emanuelezanardo.info' }],
+  creator: 'Emanuele Zanardo',
   icons: {
     apple: '/apple-touch-icon.png',
   },
