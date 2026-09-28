@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
+// Note: Next.js auto-injects <meta name="robots" content="noindex"/> on
+// error statuses (app-render NonIndex), so no robots key here — adding one
+// would duplicate the tag.
 export const metadata: Metadata = {
   title: 'Page Not Found | Emanuele Zanardo',
   description: 'The page you are looking for does not exist or has been moved.',
-  robots: { index: false, follow: false },
 };
 
 export default function NotFound() {
