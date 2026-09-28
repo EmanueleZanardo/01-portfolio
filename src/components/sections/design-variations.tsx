@@ -33,12 +33,12 @@ export function DesignVariations() {
   };
 
   return (
-    <section id="ai-designs" className="py-20 lg:py-32 scroll-mt-16">
+    <section id="ai-designs" aria-labelledby="ai-designs-heading" className="py-20 lg:py-32 scroll-mt-16">
       <div className="container mx-auto px-4 max-w-4xl text-center">
         <div className="inline-block p-4 bg-primary/10 rounded-full mb-4">
           <Bot aria-hidden="true" className="h-8 w-8 text-primary" />
         </div>
-        <h2 className="font-headline text-4xl md:text-5xl text-primary">Need a Fresh Look?</h2>
+        <h2 id="ai-designs-heading" className="font-headline text-4xl md:text-5xl text-primary">Need a Fresh Look?</h2>
         <p className="mt-2 text-lg text-muted-foreground max-w-2xl mx-auto">
           Use the power of AI to explore alternative layouts and color schemes for this portfolio. Get instant design inspiration based on the current content.
         </p>
