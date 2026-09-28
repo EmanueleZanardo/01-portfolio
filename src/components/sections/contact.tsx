@@ -70,10 +70,10 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 lg:py-32 bg-card scroll-mt-16">
+    <section id="contact" aria-labelledby="contact-heading" className="py-20 lg:py-32 bg-card scroll-mt-16">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="font-headline text-4xl md:text-5xl text-primary">Contact Me</h2>
+          <h2 id="contact-heading" className="font-headline text-4xl md:text-5xl text-primary">Contact Me</h2>
           <p className="mt-2 text-lg text-muted-foreground max-w-2xl mx-auto">
             Have a project in mind or just want to say hello? Feel free to write to me.
           </p>
