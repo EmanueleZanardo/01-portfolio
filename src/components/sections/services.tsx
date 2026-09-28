@@ -67,7 +67,7 @@ export function Services() {
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-4">
             <Button asChild size="lg" className="bg-[#0e7a3f] text-white hover:bg-[#0c6535]">
-              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp (opens in new tab)">
                 <MessageCircle aria-hidden="true" className="mr-2 h-5 w-5" />
                 Chat on WhatsApp
               </a>
