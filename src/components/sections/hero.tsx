@@ -12,6 +12,7 @@ export function Hero() {
         fill
         className="object-cover"
         priority
+        sizes="100vw"
         data-ai-hint="portrait man"
       />
       <div className="absolute inset-0 bg-black/60" />
