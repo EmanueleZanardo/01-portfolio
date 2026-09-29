@@ -67,7 +67,7 @@ export default function SingularityPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
       />
       <div className="p-4 bg-[#111827] border-b border-gray-800 flex justify-between items-center">
-        <h1 className="text-blue-400 font-mono text-lg font-bold">💠 Singularity Quant ETRM - Live Terminal</h1>
+        <h1 className="text-blue-400 font-mono text-lg font-bold"><span aria-hidden="true">💠</span> Singularity Quant ETRM - Live Terminal</h1>
         <div className="flex items-center gap-2">
           {/* ux: fallback diretto se l'embed Streamlit è bloccato o lento (reti aziendali, app in sleep) */}
           <a
