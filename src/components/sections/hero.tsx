@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section id="hero" className="relative h-[calc(100vh)] min-h-[500px] w-full flex items-center justify-center text-center text-white">
+    <section id="hero" className="relative h-screen supports-[height:100dvh]:h-[100dvh] min-h-[500px] w-full flex items-center justify-center text-center text-white">
       <Image
         src="/hero-bg.jpg"
         alt=""
