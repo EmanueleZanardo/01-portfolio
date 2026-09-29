@@ -2,7 +2,12 @@ import type {NextConfig} from 'next';
 
 const STREAMLIT_URL = 'https://czpox8o8x6arnxw96txnvt.streamlit.app';
 
-// Note: no X-Frame-Options/DENY here — /singularity embeds a Streamlit iframe.
+// Security headers: single source of truth for this site (dev + prod).
+// Previously these were duplicated between vercel.json and this file, which
+// sent doubled headers (with slightly different Permissions-Policy values).
+// X-Frame-Options: DENY is safe here: it only prevents OTHER sites from
+// framing OUR pages, it does not affect the Streamlit iframe we embed on
+// /singularity (that direction is governed by frame-src in the CSP).
 const csp = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline'",
@@ -29,7 +34,8 @@ const nextConfig: NextConfig = {
         headers: [
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=()' },
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=()' },
           { key: 'Content-Security-Policy', value: csp },
         ],
       },
