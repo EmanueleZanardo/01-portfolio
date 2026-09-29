@@ -14,6 +14,10 @@ const csp = [
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
+  // Modern complement to the legacy X-Frame-Options: DENY in vercel.json —
+  // this governs framing of OUR pages (unlike frame-src, which governs the
+  // Streamlit iframe we embed on /singularity).
+  "frame-ancestors 'none'",
 ].join('; ');
 
 const nextConfig: NextConfig = {
