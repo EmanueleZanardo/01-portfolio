@@ -13,7 +13,6 @@ export function Hero() {
         className="object-cover"
         priority
         sizes="100vw"
-        data-ai-hint="portrait man"
       />
       <div className="absolute inset-0 bg-black/60" />
       <div className="relative z-10 max-w-4xl mx-auto px-4">
