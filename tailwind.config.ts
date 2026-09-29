@@ -10,9 +10,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['"Roboto Mono"', 'monospace'],
-        headline: ['"Bebas Neue"', 'sans-serif'],
-        code: ['"Roboto Mono"', 'monospace'],
+        body: ['var(--font-roboto-mono)', '"Roboto Mono"', 'monospace'],
+        headline: ['var(--font-bebas)', '"Bebas Neue"', 'sans-serif'],
+        code: ['var(--font-roboto-mono)', '"Roboto Mono"', 'monospace'],
       },
       colors: {
         background: 'hsl(var(--background))',
