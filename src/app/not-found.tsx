@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main id="main-content" className="min-h-screen flex flex-col items-center justify-center text-center px-4">
+    <main id="main-content" tabIndex={-1} className="min-h-screen flex flex-col items-center justify-center text-center px-4 focus:outline-none">
       <p className="font-headline text-7xl md:text-8xl text-primary" aria-hidden="true">
         404
       </p>
