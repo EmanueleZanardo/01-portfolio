@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Singularity Quant ETRM | Emanuele Zanardo',
@@ -80,12 +81,12 @@ export default function SingularityPage() {
           >
             Open in new tab ↗
           </a>
-          <a
+          <Link
             href="/"
             className="text-sm font-mono text-gray-400 hover:text-white bg-gray-800 px-3 py-1 rounded"
           >
             ← Torna al Portfolio
-          </a>
+          </Link>
         </div>
       </div>
       <div className="flex-grow w-full">
