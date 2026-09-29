@@ -4,7 +4,6 @@ import {
   generateDesignVariations,
   type GenerateDesignVariationsInput,
 } from "@/ai/flows/generate-design-variations";
-import { z } from "zod";
 import nodemailer from "nodemailer";
 import { headers } from "next/headers";
 
@@ -76,13 +75,16 @@ async function getClientKey(fallback: string): Promise<string> {
   return `email:${fallback}`;
 }
 
-const contactFormSchema = z.object({
-  name: z.string().min(1).max(100),
-  email: z.string().email().max(254),
-  message: z.string().min(1).max(5000),
+// Shape of the contact-form payload. Validation runs client-side
+// (react-hook-form + zod with max-length constraints); the server action
+// receives already-validated values, so a plain type is enough here.
+type ContactFormValues = {
+  name: string;
+  email: string;
+  message: string;
   // Honeypot field: bots fill it, real users leave it empty.
-  company: z.string().optional(),
-});
+  company?: string;
+};
 
 // Escape user input before interpolating it into HTML email bodies,
 // otherwise a crafted message can inject arbitrary HTML into the emails.
@@ -96,7 +98,7 @@ function escapeHtml(value: string): string {
 }
 
 export async function sendContactMessage(
-  values: z.infer<typeof contactFormSchema>
+  values: ContactFormValues
 ) {
   const { name, email, message, company } = values;
 
