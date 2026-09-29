@@ -2,6 +2,7 @@
 
 import nodemailer from "nodemailer";
 import { headers } from "next/headers";
+import { contactFormSchema } from "@/lib/contact-schema";
 
 // Anti-abuse: simple in-memory sliding-window rate limiter for the contact
 // form. Keyed by client IP (x-forwarded-for on Vercel) so a single sender
@@ -38,9 +39,11 @@ async function getClientKey(fallback: string): Promise<string> {
   return `email:${fallback}`;
 }
 
-// Shape of the contact-form payload. Validation runs client-side
-// (react-hook-form + zod with max-length constraints); the server action
-// receives already-validated values, so a plain type is enough here.
+// Shape of the contact-form payload. The canonical schema lives in
+// src/lib/contact-schema.ts, shared with the client form; the server
+// action re-validates with safeParse so direct calls to the action can't
+// bypass the email format or length limits (nodemailer errors and quota
+// burn on oversized messages).
 type ContactFormValues = {
   name: string;
   email: string;
@@ -63,7 +66,19 @@ function escapeHtml(value: string): string {
 export async function sendContactMessage(
   values: ContactFormValues
 ) {
-  const { name, email, message, company } = values;
+  // Server-side validation: never trust client-only validation, since the
+  // action can be invoked directly. Rejects invalid emails and oversized
+  // fields before anything touches the mail service.
+  const parsed = contactFormSchema.safeParse(values);
+  if (!parsed.success) {
+    console.warn("Contact form: server-side validation failed", parsed.error.issues.map((i) => i.path.join(".")));
+    return {
+      success: false,
+      error: "Invalid form data. Please check the fields and try again.",
+    };
+  }
+
+  const { name, email, message, company } = parsed.data;
 
   // Honeypot: pretend success for bots so they don't learn the trap.
   if (company && company.trim() !== "") {

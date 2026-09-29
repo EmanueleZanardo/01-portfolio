@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -19,26 +18,15 @@ import { Phone, Mail, Linkedin, Loader } from "lucide-react";
 import Link from "next/link";
 import { sendContactMessage } from "@/app/actions";
 import { useState } from "react";
+import { contactFormSchema, type ContactFormValues } from "@/lib/contact-schema";
 
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  message: z.string().min(10, {
-    message: "Message must be at least 10 characters.",
-  }),
-  // Honeypot: real users leave this empty, bots tend to fill it.
-  company: z.string().optional(),
-});
+const formSchema = contactFormSchema;
 
 export function Contact() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<ContactFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -48,7 +36,7 @@ export function Contact() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: ContactFormValues) {
     setIsSubmitting(true);
     const result = await sendContactMessage(values);
     setIsSubmitting(false);
