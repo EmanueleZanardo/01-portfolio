@@ -28,7 +28,6 @@ export function About() {
                 height={500}
                 sizes="(max-width: 768px) 100vw, 500px"
                 loading="lazy"
-                data-ai-hint="portrait man"
                 className="object-cover"
               />
           </div>
