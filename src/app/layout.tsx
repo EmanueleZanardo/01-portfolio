@@ -1,7 +1,25 @@
 import type { Metadata, Viewport } from 'next';
+import localFont from 'next/font/local';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
+
+// Self-hosted fonts (public/fonts/*.woff2) — no IP is sent to Google Fonts.
+const bebasNeue = localFont({
+  src: '../../public/fonts/bebas-neue-latin-400.woff2',
+  weight: '400',
+  display: 'swap',
+  variable: '--font-bebas',
+});
+
+const robotoMono = localFont({
+  src: [
+    { path: '../../public/fonts/roboto-mono-latin-400.woff2', weight: '400' },
+    { path: '../../public/fonts/roboto-mono-latin-700.woff2', weight: '700' },
+  ],
+  display: 'swap',
+  variable: '--font-roboto-mono',
+});
 
 export const viewport: Viewport = {
   themeColor: '#333333',
@@ -141,16 +159,13 @@ const servicesJsonLd = {
   },
 };
 
-const FONT_CSS_URL =
-  'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Mono:wght@400;700&display=swap';
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={cn('dark', bebasNeue.variable, robotoMono.variable)}>
       <head>
         <script
           type="application/ld+json"
@@ -160,11 +175,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* perf: early-fetch hint for the font CSS, which is render-blocking */}
-        <link rel="preload" as="style" href={FONT_CSS_URL} />
-        <link rel="stylesheet" href={FONT_CSS_URL} />
       </head>
       <body className={cn('font-body antialiased min-h-screen bg-background')}>
         <a
