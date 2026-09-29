@@ -98,6 +98,8 @@ export default function SingularityPage() {
           title="Singularity ETRM Dashboard"
           allowFullScreen
           loading="lazy"
+          // privacy: l'embed di terze parti riceve solo l'origine come referrer, mai l'URL completo della pagina
+          referrerPolicy="strict-origin-when-cross-origin"
         />
       </div>
     </main>
