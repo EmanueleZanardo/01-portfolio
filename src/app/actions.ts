@@ -1,38 +1,7 @@
 "use server";
 
-import {
-  generateDesignVariations,
-  type GenerateDesignVariationsInput,
-} from "@/ai/flows/generate-design-variations";
 import nodemailer from "nodemailer";
 import { headers } from "next/headers";
-
-export async function generateDesigns(input: GenerateDesignVariationsInput) {
-  // Anti-abuse: Groq calls burn API quota, so rate-limit them per client IP
-  // before any LLM work. The UI already renders result.error gracefully.
-  const clientKey = await getClientKey("designs");
-  if (
-    isRateLimited(
-      clientKey,
-      aiRateBuckets,
-      AI_RATE_LIMIT_WINDOW_MS,
-      AI_RATE_LIMIT_MAX,
-    )
-  ) {
-    console.warn("Design variations: rate limit hit for", clientKey);
-    return {
-      error:
-        "Too many design generations recently. Please try again later.",
-    };
-  }
-  try {
-    const output = await generateDesignVariations(input);
-    return { designSuggestions: output.designSuggestions };
-  } catch (error) {
-    console.error("Error generating design variations:", error);
-    return { error: "Failed to generate design ideas. The AI model may be temporarily unavailable." };
-  }
-}
 
 // Anti-abuse: simple in-memory sliding-window rate limiter for the contact
 // form. Keyed by client IP (x-forwarded-for on Vercel) so a single sender
@@ -42,12 +11,6 @@ export async function generateDesigns(input: GenerateDesignVariationsInput) {
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
 const RATE_LIMIT_MAX = 5; // submissions per window
 const rateBuckets = new Map<string, number[]>();
-
-// AI design generations burn Groq API quota (each call is a full LLM
-// completion), so they get their own stricter bucket: fewer calls per hour.
-const AI_RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
-const AI_RATE_LIMIT_MAX = 3; // generations per window
-const aiRateBuckets = new Map<string, number[]>();
 
 function isRateLimited(
   key: string,
