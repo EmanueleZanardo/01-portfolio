@@ -80,7 +80,8 @@ export function Header() {
                     <span className="font-bold font-headline text-lg text-primary">Emanuele Zanardo</span>
                   </Link>
                 </div>
-                <nav id="mobile-nav" aria-label="Primary" className="flex flex-col gap-4 mt-8">
+                {/* a11y: unique landmark label — desktop nav already uses "Primary" */}
+                <nav id="mobile-nav" aria-label="Mobile" className="flex flex-col gap-4 mt-8">
                   {NAV_LINKS.map((link) => (
                     <Link
                       key={link.href}
