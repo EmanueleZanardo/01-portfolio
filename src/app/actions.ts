@@ -112,6 +112,10 @@ export async function sendContactMessage(
   const mailOptionsOwner = {
     from: "emanuele1998zanardo@gmail.com",
     to: "emanuele1998zanardo@gmail.com",
+    // replyTo is the zod-validated sender address (z.string().email() rejects
+    // newlines, so no header injection); hitting "Reply" in the inbox answers
+    // the visitor directly instead of Emanuele himself.
+    replyTo: email,
     subject: `New Contact Form Message from ${safeName}`,
     html: `
       <h2>New Message from Portfolio Contact Form</h2>
