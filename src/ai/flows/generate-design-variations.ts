@@ -50,20 +50,30 @@ Respond with a JSON object only, in exactly this shape:
 {"designSuggestions": ["suggestion 1", "suggestion 2", "suggestion 3"]}
 Each suggestion is a concise description of the alternative layout and color scheme.`;
 
-  const res = await fetch(GROQ_API_URL, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: GROQ_MODEL,
-      messages: [{ role: 'user', content: prompt }],
-      response_format: { type: 'json_object' },
-      temperature: 0.8,
-      max_tokens: 1500,
-    }),
-  });
+  // Robustness: never leave the UI spinner running forever — if the Groq
+  // API hangs, abort after 30s so the caller shows its elegant error message.
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 30_000);
+  let res: Response;
+  try {
+    res = await fetch(GROQ_API_URL, {
+      method: 'POST',
+      signal: controller.signal,
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: GROQ_MODEL,
+        messages: [{ role: 'user', content: prompt }],
+        response_format: { type: 'json_object' },
+        temperature: 0.8,
+        max_tokens: 1500,
+      }),
+    });
+  } finally {
+    clearTimeout(timeout);
+  }
 
   if (!res.ok) {
     throw new Error(`Groq API error: ${res.status}`);
