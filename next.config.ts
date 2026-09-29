@@ -1,9 +1,23 @@
 import type {NextConfig} from 'next';
 
+const STREAMLIT_URL = 'https://czpox8o8x6arnxw96txnvt.streamlit.app';
+
+// Note: no X-Frame-Options/DENY here — /singularity embeds a Streamlit iframe.
+const csp = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self'",
+  "img-src 'self' data: blob:",
+  `frame-src ${STREAMLIT_URL}`,
+  `connect-src 'self' ${STREAMLIT_URL}`,
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join('; ');
+
 const nextConfig: NextConfig = {
   /* config options here */
-  // Note: no X-Frame-Options/DENY here — /singularity embeds a Streamlit iframe.
-  // No CSP either (would need per-page tuning); these headers are safe globally.
   async headers() {
     return [
       {
@@ -12,15 +26,10 @@ const nextConfig: NextConfig = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=()' },
+          { key: 'Content-Security-Policy', value: csp },
         ],
       },
     ];
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
   // images: solo asset locali (hero-bg.jpg, portrait.png in public/) —
   // nessun remotePattern: l'ottimizzatore non fa proxy di host esterni.
