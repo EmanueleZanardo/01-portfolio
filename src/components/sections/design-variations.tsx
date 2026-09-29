@@ -56,7 +56,8 @@ export function DesignVariations() {
           {loading ? "Generating Ideas..." : "Generate Design Ideas"}
         </Button>
 
-        <div className="mt-12 space-y-4 text-left">
+        {/* a11y: annuncia a screen reader il completamento della generazione (WCAG 4.1.3) */}
+        <div className="mt-12 space-y-4 text-left" aria-live="polite">
           {error && (
             <Alert variant="destructive">
               <AlertTitle>Error</AlertTitle>
