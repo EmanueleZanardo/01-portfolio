@@ -23,12 +23,14 @@ export function ScrollToTop() {
 
   if (!visible) return null;
 
+  // max() with env(safe-area-inset-*) keeps the button clear of the
+  // iPhone home indicator / side notch on edge-to-edge displays.
   return (
     <Button
       variant="secondary"
       size="icon"
       aria-label="Back to top"
-      className="fixed bottom-6 right-6 z-50 rounded-full shadow-lg"
+      className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-[max(1.5rem,env(safe-area-inset-right))] z-50 rounded-full shadow-lg"
       onClick={scrollToTop}
     >
       <ArrowUp aria-hidden="true" className="h-5 w-5" />
