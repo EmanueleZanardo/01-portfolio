@@ -6,6 +6,7 @@ import {
 } from "@/ai/flows/generate-design-variations";
 import { z } from "zod";
 import nodemailer from "nodemailer";
+import { headers } from "next/headers";
 
 export async function generateDesigns(input: GenerateDesignVariationsInput) {
   try {
@@ -15,6 +16,36 @@ export async function generateDesigns(input: GenerateDesignVariationsInput) {
     console.error("Error generating design variations:", error);
     return { error: "Failed to generate design ideas. The AI model may be temporarily unavailable." };
   }
+}
+
+// Anti-abuse: simple in-memory sliding-window rate limiter for the contact
+// form. Keyed by client IP (x-forwarded-for on Vercel) so a single sender
+// can't hammer the endpoint and burn the Gmail quota (each submit sends two
+// emails). Best-effort on serverless (per-instance memory); still stops
+// casual abuse and naive bots.
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const RATE_LIMIT_MAX = 5; // submissions per window
+const rateBuckets = new Map<string, number[]>();
+
+function isRateLimited(key: string): boolean {
+  const now = Date.now();
+  const hits = (rateBuckets.get(key) ?? []).filter(
+    (t) => now - t < RATE_LIMIT_WINDOW_MS,
+  );
+  if (hits.length >= RATE_LIMIT_MAX) return true;
+  hits.push(now);
+  rateBuckets.set(key, hits);
+  return false;
+}
+
+async function getClientKey(fallback: string): Promise<string> {
+  try {
+    const forwarded = (await headers()).get("x-forwarded-for");
+    if (forwarded) return forwarded.split(",")[0].trim();
+  } catch {
+    // headers() unavailable outside a request context; fall back to email.
+  }
+  return `email:${fallback}`;
 }
 
 const contactFormSchema = z.object({
@@ -45,6 +76,16 @@ export async function sendContactMessage(
   if (company && company.trim() !== "") {
     console.warn("Contact form: honeypot triggered, dropping message from", email);
     return { success: true };
+  }
+
+  // Rate limit real-looking submissions before touching the mail service.
+  const clientKey = await getClientKey(email);
+  if (isRateLimited(clientKey)) {
+    console.warn("Contact form: rate limit hit for", clientKey);
+    return {
+      success: false,
+      error: "Too many messages sent recently. Please try again later.",
+    };
   }
 
   const safeName = escapeHtml(name);
