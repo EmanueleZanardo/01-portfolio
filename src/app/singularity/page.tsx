@@ -11,6 +11,7 @@ export const metadata: Metadata = {
       'Live energy trading terminal demo: price analytics, KPIs, load curves and Monte Carlo simulator.',
     url: '/singularity',
     siteName: 'Emanuele Zanardo Portfolio',
+    locale: 'en_US',
     type: 'website',
     images: [
       {
