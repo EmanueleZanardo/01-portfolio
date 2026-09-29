@@ -9,6 +9,23 @@ import nodemailer from "nodemailer";
 import { headers } from "next/headers";
 
 export async function generateDesigns(input: GenerateDesignVariationsInput) {
+  // Anti-abuse: Groq calls burn API quota, so rate-limit them per client IP
+  // before any LLM work. The UI already renders result.error gracefully.
+  const clientKey = await getClientKey("designs");
+  if (
+    isRateLimited(
+      clientKey,
+      aiRateBuckets,
+      AI_RATE_LIMIT_WINDOW_MS,
+      AI_RATE_LIMIT_MAX,
+    )
+  ) {
+    console.warn("Design variations: rate limit hit for", clientKey);
+    return {
+      error:
+        "Too many design generations recently. Please try again later.",
+    };
+  }
   try {
     const output = await generateDesignVariations(input);
     return { designSuggestions: output.designSuggestions };
@@ -27,14 +44,25 @@ const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
 const RATE_LIMIT_MAX = 5; // submissions per window
 const rateBuckets = new Map<string, number[]>();
 
-function isRateLimited(key: string): boolean {
+// AI design generations burn Groq API quota (each call is a full LLM
+// completion), so they get their own stricter bucket: fewer calls per hour.
+const AI_RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const AI_RATE_LIMIT_MAX = 3; // generations per window
+const aiRateBuckets = new Map<string, number[]>();
+
+function isRateLimited(
+  key: string,
+  buckets: Map<string, number[]> = rateBuckets,
+  windowMs: number = RATE_LIMIT_WINDOW_MS,
+  max: number = RATE_LIMIT_MAX,
+): boolean {
   const now = Date.now();
-  const hits = (rateBuckets.get(key) ?? []).filter(
-    (t) => now - t < RATE_LIMIT_WINDOW_MS,
+  const hits = (buckets.get(key) ?? []).filter(
+    (t) => now - t < windowMs,
   );
-  if (hits.length >= RATE_LIMIT_MAX) return true;
+  if (hits.length >= max) return true;
   hits.push(now);
-  rateBuckets.set(key, hits);
+  buckets.set(key, hits);
   return false;
 }
 
