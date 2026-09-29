@@ -97,6 +97,7 @@ export default function SingularityPage() {
           style={{ border: 'none' }}
           title="Singularity ETRM Dashboard"
           allowFullScreen
+          loading="lazy"
         />
       </div>
     </main>
