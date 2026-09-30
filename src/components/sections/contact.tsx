@@ -139,7 +139,7 @@ export function Contact() {
             <div className="flex items-center gap-4">
               <Phone aria-hidden="true" className="h-6 w-6 text-primary" />
               <a href="tel:+393451114337" className="text-lg text-muted-foreground hover:text-primary transition-colors">
-                +39 3451114337
+                +39 345 111 4337
               </a>
             </div>
             <div className="flex items-center gap-4">
