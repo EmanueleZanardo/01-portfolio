@@ -82,7 +82,10 @@ const personJsonLd = {
   jobTitle: 'Electronic Engineer',
   description:
     'Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
-  image: 'https://emanuelezanardo.info/og-image.png',
+  // seo: Person.image should depict the person (not a banner graphic) —
+  // Google/knowledge-graph use it as the person's photo. portrait.webp is the
+  // actual portrait already published in the About section.
+  image: 'https://emanuelezanardo.info/portrait.webp',
   // seo: contact point in structured data — same number already shown
   // publicly on the site (tel:/wa.me links in the contact section).
   telephone: '+39 345 111 4337',
