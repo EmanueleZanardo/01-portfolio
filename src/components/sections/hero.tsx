@@ -4,7 +4,9 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section id="hero" className="relative h-screen supports-[height:100dvh]:h-[100dvh] min-h-[500px] w-full flex items-center justify-center text-center text-white">
+    // a11y: aria-labelledby come nelle altre sezioni (about/contact/services),
+    // per coerenza dei landmark (WCAG 4.1.2)
+    <section id="hero" aria-labelledby="hero-heading" className="relative h-screen supports-[height:100dvh]:h-[100dvh] min-h-[500px] w-full flex items-center justify-center text-center text-white">
       <Image
         src="/hero-bg.webp"
         alt=""
@@ -16,7 +18,7 @@ export function Hero() {
       />
       <div className="absolute inset-0 bg-black/60" />
       <div className="relative z-10 max-w-4xl mx-auto px-4">
-        <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl tracking-wider uppercase text-primary">
+        <h1 id="hero-heading" className="font-headline text-5xl md:text-7xl lg:text-8xl tracking-wider uppercase text-primary">
           Emanuele Zanardo
         </h1>
         <p className="mt-4 text-lg md:text-xl max-w-2xl mx-auto text-neutral-300">
