@@ -76,7 +76,10 @@ export function Header() {
         <div className="flex flex-1 items-center justify-end md:hidden">
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-expanded={isMobileMenuOpen} aria-controls="mobile-nav">
+              {/* a11y: Radix SheetTrigger gestisce da solo aria-expanded/aria-controls sul
+                  trigger. Quelli manuali sono stati rimossi: aria-controls="mobile-nav"
+                  puntava a un elemento smontato quando il menu e' chiuso (dangling id). */}
+              <Button variant="ghost" size="icon">
                 <Menu aria-hidden="true" className="h-6 w-6" />
                 <span className="sr-only">{isMobileMenuOpen ? "Close menu" : "Open menu"}</span>
               </Button>
