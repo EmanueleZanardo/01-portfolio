@@ -23,6 +23,9 @@ const csp = [
   // this governs framing of OUR pages (unlike frame-src, which governs the
   // Streamlit iframe we embed on /singularity).
   "frame-ancestors 'none'",
+  // upgrade-insecure-requests: difesa in profondità — il sito e l'embed
+  // Streamlit sono già interamente HTTPS, quindi nessun effetto collaterale.
+  "upgrade-insecure-requests",
 ].join('; ');
 
 const nextConfig: NextConfig = {
