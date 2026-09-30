@@ -75,6 +75,9 @@ const personJsonLd = {
   description:
     'Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
   image: 'https://emanuelezanardo.info/og-image.png',
+  // seo: contact point in structured data — same number already shown
+  // publicly on the site (tel:/wa.me links in the contact section).
+  telephone: '+39 345 111 4337',
   sameAs: [
     'https://github.com/EmanueleZanardo',
     'https://www.linkedin.com/in/emanuele-zanardo-1954aa193',
