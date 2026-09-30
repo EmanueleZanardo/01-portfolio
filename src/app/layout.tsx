@@ -28,7 +28,12 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://emanuelezanardo.info'),
-  title: 'Emanuele Zanardo | Electronic Engineer',
+  title: {
+    // seo: single source of truth for title branding — every subpage that
+    // sets its own title gets "… | Emanuele Zanardo" automatically.
+    default: 'Emanuele Zanardo | Electronic Engineer',
+    template: '%s | Emanuele Zanardo',
+  },
   description: 'Professional portfolio of Emanuele Zanardo, Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
   alternates: { canonical: '/' },
   authors: [{ name: 'Emanuele Zanardo', url: 'https://emanuelezanardo.info' }],

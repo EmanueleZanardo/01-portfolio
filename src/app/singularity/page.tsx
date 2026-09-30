@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Singularity Quant ETRM | Emanuele Zanardo',
+  // Title suffix "| Emanuele Zanardo" comes from the layout's title template.
+  title: 'Singularity Quant ETRM',
   description:
     'Singularity Quant ETRM — live energy trading and risk management terminal by Emanuele Zanardo: Swissix price analytics, KPIs, load curves, time bands and Monte Carlo simulator.',
   alternates: { canonical: '/singularity' },
