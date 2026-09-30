@@ -29,7 +29,8 @@ export function Toaster() {
           </Toast>
         )
       })}
-      <ToastViewport />
+      {/* a11y: announce toast outcomes (e.g. "Message Sent!") to screen readers */}
+      <ToastViewport aria-live="polite" />
     </ToastProvider>
   )
 }
