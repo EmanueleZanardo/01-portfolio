@@ -41,6 +41,11 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
   authors: [{ name: 'Emanuele Zanardo', url: 'https://emanuelezanardo.info' }],
   creator: 'Emanuele Zanardo',
+  // micro-ux: iOS Safari auto-detects phone-like text and wraps it in its own
+  // unstyled <a>, clashing with (or double-linking) the explicit styled tel:
+  // link in the contact section. The number is intentionally linked there,
+  // so auto-detection is disabled.
+  formatDetection: { telephone: false },
   icons: {
     apple: '/apple-touch-icon.png',
   },
