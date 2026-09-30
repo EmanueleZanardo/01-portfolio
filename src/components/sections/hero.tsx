@@ -6,7 +6,7 @@ export function Hero() {
   return (
     <section id="hero" className="relative h-screen supports-[height:100dvh]:h-[100dvh] min-h-[500px] w-full flex items-center justify-center text-center text-white">
       <Image
-        src="/hero-bg.jpg"
+        src="/hero-bg.webp"
         alt=""
         aria-hidden="true"
         fill
