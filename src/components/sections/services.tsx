@@ -32,7 +32,7 @@ const WHATSAPP_URL =
 
 export function Services() {
   return (
-    <section id="services" aria-labelledby="services-heading" className="py-20 lg:py-32 bg-card scroll-mt-16">
+    <section id="services" aria-labelledby="services-heading" tabIndex={-1} className="py-20 lg:py-32 bg-card scroll-mt-16 focus:outline-none">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 id="services-heading" className="font-headline text-4xl md:text-5xl text-primary">

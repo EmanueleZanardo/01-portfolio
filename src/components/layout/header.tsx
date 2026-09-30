@@ -23,6 +23,16 @@ export function Header() {
   // micro-ux + a11y: highlight the nav link of the section in view.
   const activeSection = useActiveSection(NAV_SECTION_IDS);
 
+  // a11y: anchor navigation jumps the viewport but leaves keyboard/screen-reader
+  // focus on the nav link (WCAG 2.4.3). Move focus to the target section so the
+  // reading position follows the visual one. preventScroll avoids a second
+  // scroll jump after the browser's native anchor scroll.
+  const moveFocusToSection = (sectionId: string) => {
+    window.setTimeout(() => {
+      document.getElementById(sectionId)?.focus({ preventScroll: true });
+    }, 60);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const heroSectionHeight = window.innerHeight - 56; // 56 is header height (h-14)
@@ -63,6 +73,7 @@ export function Header() {
               key={link.href}
               href={link.href}
               aria-current={activeSection === link.href.slice(1) ? "true" : undefined}
+              onClick={() => moveFocusToSection(link.href.slice(1))}
               className={cn(
                 "transition-colors hover:text-primary",
                 activeSection === link.href.slice(1) && "text-primary"
@@ -104,7 +115,10 @@ export function Header() {
                         "text-lg font-medium transition-colors hover:text-primary",
                         activeSection === link.href.slice(1) && "text-primary"
                       )}
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        moveFocusToSection(link.href.slice(1));
+                      }}
                     >
                       {link.label}
                     </Link>

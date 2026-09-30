@@ -41,7 +41,7 @@ const experiences = [
 
 export function Projects() {
   return (
-    <section id="projects" aria-labelledby="projects-heading" className="py-20 lg:py-32 scroll-mt-16">
+    <section id="projects" aria-labelledby="projects-heading" tabIndex={-1} className="py-20 lg:py-32 scroll-mt-16 focus:outline-none">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 id="projects-heading" className="font-headline text-4xl md:text-5xl text-primary">Professional Experiences</h2>
