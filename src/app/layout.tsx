@@ -46,6 +46,14 @@ export const metadata: Metadata = {
   // link in the contact section. The number is intentionally linked there,
   // so auto-detection is disabled.
   formatDetection: { telephone: false },
+  // micro-ux: quando l'utente aggiunge il sito alla home di iOS, si comporta
+  // da web app standalone con status bar nera opaca in tinta col tema dark
+  // (default: Safari con chrome chiaro che stona col design).
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black',
+    title: 'E. Zanardo',
+  },
   icons: {
     apple: '/apple-touch-icon.png',
   },
