@@ -100,6 +100,20 @@ const servicesJsonLd = {
   url: 'https://emanuelezanardo.info/#services',
   description:
     'Freelance electronics engineering services: hardware design, firmware development, and PCB layout & testing.',
+  // seo: geo-relevance for local search — services target the cross-border
+  // area where Emanuele actually works (Varese province IT + Ticino CH).
+  areaServed: [
+    {
+      '@type': 'AdministrativeArea',
+      name: 'Provincia di Varese',
+      addressCountry: 'IT',
+    },
+    {
+      '@type': 'AdministrativeArea',
+      name: 'Canton Ticino',
+      addressCountry: 'CH',
+    },
+  ],
   provider: {
     '@type': 'Person',
     name: 'Emanuele Zanardo',
