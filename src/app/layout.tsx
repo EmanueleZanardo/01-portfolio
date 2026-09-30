@@ -35,6 +35,9 @@ export const metadata: Metadata = {
     template: '%s | Emanuele Zanardo',
   },
   description: 'Professional portfolio of Emanuele Zanardo, Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
+  // seo: keywords metadata — search engines can use them as an extra relevance
+  // signal; kept focused on his actual services and service areas.
+  keywords: ['Electronic Engineer', 'embedded systems', 'firmware development', 'firmware validation', 'PCB design', 'KiCad', 'ESP32', 'industrial automation', 'Ticino', 'Varese', 'Switzerland', 'Italy'],
   alternates: { canonical: '/' },
   authors: [{ name: 'Emanuele Zanardo', url: 'https://emanuelezanardo.info' }],
   creator: 'Emanuele Zanardo',
