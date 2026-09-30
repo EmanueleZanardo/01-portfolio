@@ -43,7 +43,9 @@ const nextConfig: NextConfig = {
   },
   // images: solo asset locali (hero-bg.jpg, portrait.png in public/) —
   // nessun remotePattern: l'ottimizzatore non fa proxy di host esterni.
-  images: {},
+  // perf: AVIF first per i browser che lo supportano (WebP fallback),
+  // riduce hero-bg.jpg e portrait.png rispetto al PNG/JPEG originale.
+  images: { formats: ['image/avif', 'image/webp'] },
 };
 
 export default nextConfig;
