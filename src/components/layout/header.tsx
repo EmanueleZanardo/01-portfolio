@@ -6,6 +6,7 @@ import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import { useActiveSection } from "@/hooks/use-active-section";
 
 const NAV_LINKS = [
   { href: "#projects", label: "Experiences" },
@@ -14,9 +15,13 @@ const NAV_LINKS = [
   { href: "#contact", label: "Contact" },
 ];
 
+const NAV_SECTION_IDS = NAV_LINKS.map((link) => link.href.slice(1));
+
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  // micro-ux + a11y: highlight the nav link of the section in view.
+  const activeSection = useActiveSection(NAV_SECTION_IDS);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +62,11 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="transition-colors hover:text-primary"
+              aria-current={activeSection === link.href.slice(1) ? "true" : undefined}
+              className={cn(
+                "transition-colors hover:text-primary",
+                activeSection === link.href.slice(1) && "text-primary"
+              )}
             >
               {link.label}
             </Link>
@@ -87,7 +96,11 @@ export function Header() {
                     <Link
                       key={link.href}
                       href={link.href}
-                      className="text-lg font-medium transition-colors hover:text-primary"
+                      aria-current={activeSection === link.href.slice(1) ? "true" : undefined}
+                      className={cn(
+                        "text-lg font-medium transition-colors hover:text-primary",
+                        activeSection === link.href.slice(1) && "text-primary"
+                      )}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {link.label}
