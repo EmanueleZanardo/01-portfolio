@@ -88,7 +88,9 @@ const personJsonLd = {
   image: 'https://emanuelezanardo.info/portrait.webp',
   // seo: contact point in structured data — same number already shown
   // publicly on the site (tel:/wa.me links in the contact section).
-  telephone: '+39 345 111 4337',
+  // E.164 without spaces: canonical machine-readable format per schema.org
+  // and Google's contact-point guidance (previous commit used "+39 345 111 4337").
+  telephone: '+393451114337',
   sameAs: [
     'https://github.com/EmanueleZanardo',
     'https://www.linkedin.com/in/emanuele-zanardo-1954aa193',
