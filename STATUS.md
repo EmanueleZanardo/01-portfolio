@@ -14,8 +14,9 @@
 - Push su GitHub e redeploy Vercel verificati, build OK.
 
 ## Prossimi passi
-- Da parte di Emanuele: impostare `GMAIL_APP_PASSWORD` e `GOOGLE_GENAI_API_KEY` su Vercel, se non ancora impostate.
+- Da parte di Emanuele: impostare solo `GMAIL_APP_PASSWORD` su Vercel, se non ancora impostata (form contatti).
+- AI: il 28/09/2026 la dipendenza Google AI (Genkit/Gemini) e' stata rimossa dal repo (commit 293baf6); il sito non usa piu' alcuna AI di Google. NON impostare `GOOGLE_GENAI_API_KEY` — non serve piu' e va rimossa da Vercel se presente.
 - QA continuo orario attivo (monitoraggio sito + dashboard).
 
 ## Blocchi
-- Nessuno sul lato repo; in attesa delle variabili d'ambiente lato Emanuele.
+- Nessuno sul lato repo; in attesa di `GMAIL_APP_PASSWORD` lato Emanuele.
