@@ -28,7 +28,7 @@ const WHATSAPP_URL =
   "https://wa.me/393451114337?text=" +
   encodeURIComponent(
     "Hi Emanuele, I'm interested in your electronics engineering services. I'd like a quote for a project."
-  );
+  ).replace(/'/g, "%27");
 
 export function Services() {
   return (
