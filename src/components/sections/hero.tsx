@@ -18,7 +18,10 @@ export function Hero() {
   return (
     // a11y: aria-labelledby come nelle altre sezioni (about/contact/services),
     // per coerenza dei landmark (WCAG 4.1.2)
-    <section id="hero" aria-labelledby="hero-heading" className="relative h-screen supports-[height:100dvh]:h-[100dvh] min-h-[500px] w-full flex items-center justify-center text-center text-white">
+    // a11y: tabIndex={-1} come nelle altre sezioni — rende la hero focusabile
+    // programmaticamente (stesso pattern moveFocusToSection, WCAG 2.4.3);
+    // tabindex negativo non altera l'ordine di tabulazione
+    <section id="hero" aria-labelledby="hero-heading" tabIndex={-1} className="relative h-screen supports-[height:100dvh]:h-[100dvh] min-h-[500px] w-full flex items-center justify-center text-center text-white">
       <Image
         src="/hero-bg.webp"
         alt=""
