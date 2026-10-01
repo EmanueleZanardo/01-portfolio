@@ -1,12 +1,12 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 01/10/2026 ~11:56 CEST**
+**Ultimo aggiornamento: 01/10/2026 ~14:40 CEST**
 
 ## Stato
 - Live su https://emanuelezanardo.info/ (Vercel) — deploy attivo.
 - Stack: Next.js 15.
 - Build verde: 8/8 pagine.
-- Ultimo commit: (QA 01/10 ~11:56 CEST: SEO/a11y — date di impiego come `<time dateTime>` in projects.tsx).
+- Ultimo commit: (QA 01/10 ~14:40 CEST: a11y — link "Download my CV" annuncia il formato (PDF) via sr-only + aria-label, WCAG 2.4.4).
 
 ## Ultimi eventi verificati (30/09–01/10/2026)
 - QA ~13:45 CEST 01/10: nessun bug trovato (build verde 8/8 pre+post fix; 200 su /, /singularity, robots.txt, sitemap.xml, manifest.webmanifest, cv-emanuele-zanardo.pdf, favicon.ico, og-image.png, apple-touch-icon.png, hero-bg.webp, portrait.webp; 404 corretta su URL inesistente; meta/OG/Twitter/canonical/lang/theme-color/format-detection presenti; JSON-LD Person+SoftwareApplication OK; security headers live: CSP, X-Frame-Options DENY, Permissions-Policy, nosniff, Referrer-Policy strict-origin-when-cross-origin, COOP same-origin, CORP same-origin; nessun placeholder reale — solo attributi placeholder legittimi dei campi form; nessun link interno rotto; tutti i target=_blank con rel=noopener). Miglioria: `<link rel="preconnect">` all'origine Streamlit su /singularity accanto al dns-prefetch esistente — DNS+TLS+TCP stabiliti in anticipo per l'iframe principale (coerente con la decisione di non usare loading="lazy" sull'iframe); commit f1245e7 pushato su origin/main via Contents API.
