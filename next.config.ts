@@ -45,6 +45,13 @@ const nextConfig: NextConfig = {
           // separato) e l'iframe cross-origin di /singularity non dipende
           // dall'opener.
           { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+          // security: impedisce ad altri origin di embeddare le nostre
+          // risorse (difesa in profondita' contro XS-Leaks, completamento
+          // naturale della COOP qui sopra). Sicuro qui: tutti gli asset
+          // (immagini, font, _next/*) sono same-origin. NON aggiungere
+          // Cross-Origin-Embedder-Policy: richiederebbe CORP opt-in anche
+          // dall'iframe cross-origin di Streamlit e lo bloccherebbe.
+          { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=()' },
           { key: 'Content-Security-Policy', value: csp },
         ],
