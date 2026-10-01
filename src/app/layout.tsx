@@ -93,6 +93,12 @@ const personJsonLd = {
   name: 'Emanuele Zanardo',
   url: 'https://emanuelezanardo.info',
   jobTitle: 'Electronic Engineer',
+  // seo: current employer, already public on the site (experience section) —
+  // enriches the knowledge-graph signal with zero privacy exposure.
+  worksFor: {
+    '@type': 'Organization',
+    name: 'CENTIEL',
+  },
   description:
     'Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
   // seo: Person.image should depict the person (not a banner graphic) —
