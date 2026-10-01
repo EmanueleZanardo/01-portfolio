@@ -1,14 +1,15 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 01/10/2026 ~06:55 CEST**
+**Ultimo aggiornamento: 01/10/2026 ~07:55 CEST**
 
 ## Stato
 - Live su https://emanuelezanardo.info/ (Vercel) — deploy attivo.
 - Stack: Next.js 15.
 - Build verde: 8/8 pagine.
-- Ultimo commit: (QA 01/10 ~06:55 CEST: security header Cross-Origin-Opener-Policy: same-origin in next.config.ts).
+- Ultimo commit: (QA 01/10 ~07:55 CEST: security header Cross-Origin-Resource-Policy: same-origin in next.config.ts).
 
 ## Ultimi eventi verificati (30/09–01/10/2026)
+- QA ~07:55 CEST 01/10: nessun bug trovato (build verde 8/8 pre+post; 200 su /, /singularity, robots.txt, sitemap.xml, manifest.webmanifest, cv-emanuele-zanardo.pdf, favicon.ico, og-image.png; 404 corretta su URL inesistente; meta/OG/Twitter/canonical/lang/theme-color/format-detection presenti; JSON-LD Person+ProfessionalService OK; security headers live: CSP, X-Frame-Options DENY, Permissions-Policy, nosniff, HSTS, Referrer-Policy strict-origin, COOP same-origin; nessun placeholder reale; ancore #about/#contact/#projects/#services/#main-content tutte con id corrispondenti; rel=noopener su tutti i target=_blank; nessun link interno rotto). Miglioria: header `Cross-Origin-Resource-Policy: same-origin` in next.config.ts — completamento naturale dell'hardening COOP del ciclo ~06:55 (difesa contro XS-Leaks, tutti gli asset sono same-origin; COEP volutamente NON aggiunto perché bloccherebbe l'iframe cross-origin di Streamlit su /singularity); deploy Vercel verificato live (header servito, /singularity ancora 200 con embed funzionante).
 - QA ~06:55 CEST 01/10: nessun bug trovato (build verde 8/8; 200 su / e /singularity; CV PDF, manifest, favicon, og-image, apple-touch-icon, portrait.webp, hero-bg.webp, robots.txt, sitemap.xml tutti 200; meta/OG/Twitter/JSON-LD presenti; nessun placeholder reale — solo classi placeholder: del form; link esterni tutti con rel=noopener; honeypot form correttamente nascosto; security headers live verificati: CSP, X-Frame-Options, Permissions-Policy, nosniff). Miglioria: header `Cross-Origin-Opener-Policy: same-origin` aggiunto in next.config.ts — era l'unico hardening standard mancante; sicuro qui (nessun popup, l'unico _blank è un anchor normale verso l'app Streamlit).
 - QA ~05:50 CEST 01/10: nessun bug trovato (build verde 8/8; 200 su / e /singularity; CV PDF, manifest, favicon, og-image, apple-touch-icon, robots.txt, sitemap.xml tutti 200; canonical /singularity OK; meta/OG/Twitter/JSON-LD presenti; nessun placeholder reale — solo attributi placeholder legittimi del form; form contatti gestisce già con messaggio chiaro il caso GMAIL_APP_PASSWORD mancante). Miglioria: `<FocusMainOnMount />` aggiunto anche alla homepage — la navigazione client-side da /singularity a / non spostava il focus sul nuovo <main> (stesso pattern WCAG 2.4.3 già applicato a /singularity, hero CTA e header nav).
 - QA ~03:05 CEST 01/10: nessun bug trovato. Miglioria: CTA hero (Experiences/About Me/Contact) ora spostano il focus sulla sezione target dopo lo scroll — stesso pattern WCAG 2.4.3 già usato nella nav dell'header (hero.tsx diventa client component, +0.6 kB sulla home). Build verde 8/8.
