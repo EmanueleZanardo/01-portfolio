@@ -35,10 +35,13 @@ export function About() {
             <h2 id="about-heading" className="font-headline text-4xl md:text-5xl text-primary">About Me</h2>
             <div className="mt-4 space-y-4">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                I am Emanuele Zanardo, an electronic engineer who graduated from SUPSI. My journey began at a technical institute that trained me as an electronics technician specializing in automation. Later, I decided to embrace the challenge of becoming an electronic engineer, developing a strong interest in engineering in general.
+                I am Emanuele Zanardo, an electronic engineer with a Bachelor&apos;s degree in Electronic Engineering from SUPSI in Lugano. My journey began at a technical institute, where I trained as an electronics technician specializing in automation — and I later took on the challenge of becoming an engineer.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                I am a dynamic person and a team player. I enjoy developing projects of all kinds, especially those related to my studies, but also anything concerning project design and process management. Thanks to university, I have been able to carry out interesting projects such as embedded systems and software development in various languages.
+                Today I work as an After-Sales Technician at CENTIEL in Cadro, helping keep energy-efficient UPS systems for critical infrastructure running at maximum reliability: field commissioning, on-site maintenance, factory witness tests, and technical training for clients worldwide. Before that, I spent over four years as a Test &amp; Certification Engineer at FZsonick (HORIEN group), stress-testing battery management systems in C and project-managing UL&nbsp;1973, UL&nbsp;1741, IEC&nbsp;61508, and ABS certification projects.
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                At university I built embedded systems, developed software in several programming languages, and managed solar generation plants with storage — the same hands-on mindset I bring to every project.
               </p>
             </div>
             <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
