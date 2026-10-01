@@ -39,8 +39,9 @@ export function Services() {
             Engineering Services
           </h2>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Freelance electronics engineering for your next project — hardware,
-            firmware and PCB design, handled by an electronic engineer.
+            Freelance electronics engineering for your next project — hardware
+            design, firmware development and PCB layout &amp; testing, from
+            schematic to tested board.
           </p>
         </div>
 
