@@ -37,23 +37,37 @@ export function Contact() {
   });
 
   async function onSubmit(values: ContactFormValues) {
+    // robustezza: se la server action rifiuta la promise (timeout/500 di
+    // rete), senza try/finally isSubmitting restava true per sempre — il
+    // bottone si bloccava su "Sending..." senza toast e senza possibilita'
+    // di riprovare. Ora l'utente riceve sempre un esito e il form si sblocca.
     setIsSubmitting(true);
-    const result = await sendContactMessage(values);
-    setIsSubmitting(false);
+    try {
+      const result = await sendContactMessage(values);
 
-    if (result.success) {
-      toast({
-        title: "Message Sent!",
-        description:
-          "Thank you for contacting me. I will get back to you as soon as possible.",
-      });
-      form.reset();
-    } else {
+      if (result.success) {
+        toast({
+          title: "Message Sent!",
+          description:
+            "Thank you for contacting me. I will get back to you as soon as possible.",
+        });
+        form.reset();
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: result.error,
+        });
+      }
+    } catch {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: result.error,
+        description:
+          "Could not send your message. Please check your connection and try again.",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
