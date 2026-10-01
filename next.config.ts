@@ -38,6 +38,13 @@ const nextConfig: NextConfig = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'X-Frame-Options', value: 'DENY' },
+          // security: isola il browsing context della pagina dai documenti
+          // cross-origin — difesa contro attacchi cross-origin (es. XS-Leaks).
+          // Sicuro qui: il sito non apre popup (l'unico _blank e' un anchor
+          // normale verso l'app Streamlit, che funziona anche in un contesto
+          // separato) e l'iframe cross-origin di /singularity non dipende
+          // dall'opener.
+          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=()' },
           { key: 'Content-Security-Policy', value: csp },
         ],
