@@ -65,13 +65,13 @@ export default function SingularityPage() {
     <main id="main-content" tabIndex={-1} className="w-full h-screen bg-[#030712] flex flex-col focus:outline-none">
       {/* a11y: sposta il focus sul <main> dopo la navigazione client-side (WCAG 2.4.3) */}
       <FocusMainOnMount />
-      {/* perf: avvia subito la connessione TLS verso l'origine dell'embed Streamlit (contenuto principale della pagina) */}
-      {/* perf: il terminale Streamlit e' il contenuto principale della pagina —
-          preconnect stabilisce DNS+TLS+TCP in anticipo rispetto all'iframe
-          (dns-prefetch solo DNS). Allineato alla decisione del ciclo precedente
-          di NON usare loading="lazy" sull'iframe: il contenuto deve partire subito. */}
-      <link rel="dns-prefetch" href="https://czpox8o8x6arnxw96txnvt.streamlit.app" />
+      {/* perf: avvia subito la connessione TLS verso l'origine dell'embed Streamlit
+          (contenuto principale della pagina) — preconnect copre gia' DNS+TLS+TCP,
+          dns-prefetch sarebbe ridondante; */}
       <link rel="preconnect" href="https://czpox8o8x6arnxw96txnvt.streamlit.app" />
+      {/* perf: il terminale Streamlit e' il contenuto principale della pagina —
+          l'iframe (sotto) non usa loading="lazy" perche' deve iniziare a
+          caricarsi subito, non dopo il round-trip dell'IntersectionObserver */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
