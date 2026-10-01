@@ -16,9 +16,16 @@ export function ScrollToTop() {
 
   // Respect the user's reduced-motion preference: CSS disables smooth
   // scrolling, but this JS-driven scroll would otherwise ignore it.
+  // a11y: il bottone smonta quando lo scroll torna < 400px (WCAG 2.4.3) —
+  // senza spostare il focus, la tastiera lo perderebbe su <body>. Stesso
+  // pattern di moveFocusToSection in hero.tsx: preventScroll evita un
+  // secondo salto mentre l'animazione smooth e' in corso.
   const scrollToTop = () => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    window.setTimeout(() => {
+      document.getElementById('main-content')?.focus({ preventScroll: true });
+    }, 60);
   };
 
   if (!visible) return null;
