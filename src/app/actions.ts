@@ -20,6 +20,16 @@ function isRateLimited(
   max: number = RATE_LIMIT_MAX,
 ): boolean {
   const now = Date.now();
+  // robustness: la mappa e' in memoria per istanza — senza pruning cresce
+  // senza limiti su istanze long-lived. Quando supera una soglia, elimina i
+  // bucket completamente scaduti prima di valutare.
+  if (buckets.size > 1000) {
+    for (const [k, hits] of buckets) {
+      const fresh = hits.filter((t) => now - t < windowMs);
+      if (fresh.length === 0) buckets.delete(k);
+      else buckets.set(k, fresh);
+    }
+  }
   const hits = (buckets.get(key) ?? []).filter(
     (t) => now - t < windowMs,
   );
@@ -99,6 +109,11 @@ export async function sendContactMessage(
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
   const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
+  // bugfix: il subject e' plain text, non HTML — usare safeName (escaped)
+  // mostrerebbe entita' come &#39; a chi legge l'email. In piu' `name` e'
+  // solo z.string() (i \n sono permessi): stripparli evita tentativi di
+  // header injection nel subject.
+  const subjectName = name.replace(/[\r\n]+/g, " ").trim().slice(0, 100);
 
   const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
   if (!gmailAppPassword) {
@@ -124,7 +139,7 @@ export async function sendContactMessage(
     // newlines, so no header injection); hitting "Reply" in the inbox answers
     // the visitor directly instead of Emanuele himself.
     replyTo: email,
-    subject: `New Contact Form Message from ${safeName}`,
+    subject: `New Contact Form Message from ${subjectName}`,
     html: `
       <h2>New Message from Portfolio Contact Form</h2>
       <p><strong>Name:</strong> ${safeName}</p>
@@ -148,10 +163,13 @@ export async function sendContactMessage(
     `,
   };
 
+  // edge case: i due invii sono separati. Se la conferma all'utente
+  // fallisce dopo che il messaggio al proprietario e' partito, ritornare
+  // success:false farebbe riprovare l'utente e duplicare l'email ricevuta —
+  // il messaggio e' gia' arrivato, quindi e' success comunque (l'errore
+  // resta nei log per diagnosi).
   try {
     await transporter.sendMail(mailOptionsOwner);
-    await transporter.sendMail(mailOptionsUser);
-    return { success: true };
   } catch (error) {
     console.error("Error sending email:", error);
     return {
@@ -159,4 +177,10 @@ export async function sendContactMessage(
       error: "There was an error sending your message. Please ensure the mailing service is properly configured.",
     };
   }
+  try {
+    await transporter.sendMail(mailOptionsUser);
+  } catch (error) {
+    console.error("Error sending confirmation email to user:", error);
+  }
+  return { success: true };
 }
