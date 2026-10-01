@@ -37,7 +37,7 @@ export function Hero() {
           Emanuele Zanardo
         </h1>
         <p className="mt-4 text-lg md:text-xl max-w-2xl mx-auto text-neutral-300">
-          Electronic Engineer with a passion for creating modern and responsive web experiences from scratch.
+          Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
