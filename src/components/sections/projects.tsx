@@ -12,28 +12,42 @@ const experiences = [
   {
     title: "After-Sales Engineer",
     company: "CENTIEL",
-    period: "January 2026 - Present",
+    // seo/a11y: machine-readable employment dates for the <time> elements
+    // below (Google parses dateTime; "to: null" = still employed).
+    from: "2026-01",
+    fromLabel: "January 2026",
+    to: null as string | null,
+    toLabel: null as string | null,
     description: "Centiel is a leading Swiss manufacturer of energy-efficient UPS systems for critical infrastructure. As an After-Sales Technician based in Cadro, I ensure the maximum reliability and availability of these systems for clients worldwide. My role requires hands-on field expertise to perform remote troubleshooting, on-site maintenance, and complex field testing and commissioning in high-tech environments, including CyrusOne datacenters. Additionally, I drive customer engagement by building strong relationships, independently managing factory witness tests, and delivering specialized technical training. To ensure continuous improvement, I collaborate closely with R&D and engineering teams, analyzing field data and recurring issues to propose actionable product enhancements.",
     tags: ["After-Sales", "UPS Systems", "Field Engineering", "Troubleshooting"]
   },
   {
     title: "Test & Certification Engineer",
     company: "FZSONICK S.A. (HORIEN Group)",
-    period: "February 2022 - December 2025",
+    from: "2022-02",
+    fromLabel: "February 2022",
+    to: "2025-12",
+    toLabel: "December 2025",
     description: "World leader in the design and production of molten salt storage systems for backup, sustainable mobility, and energy storage. My work mainly consists of product certification, test writing, and verification, proposing FW or HW patches to improve the product. I follow certification projects for UL 1973, UL1741, IEC 61508, and ABS regulations.",
     tags: ["Product Certification", "Testing", "Storage Systems"]
   },
   {
     title: "Project Engineer",
     company: "Elektro Solar System Sagl",
-    period: "October 2021 - January 2022",
+    from: "2021-10",
+    fromLabel: "October 2021",
+    to: "2022-01",
+    toLabel: "January 2022",
     description: "A small company in the center of Chiasso specializing in feasibility analysis, design, construction, and maintenance of photovoltaic, micro-wind, and electrical systems. I created and presented initial proposals to clients with the sizing and selected products for a high-efficiency photovoltaic system.",
     tags: ["Engineering", "Photovoltaics", "Design"]
   },
   {
     title: "Food Deliverer",
     company: "Italian Hamburgeria",
-    period: "March 2019 - October 2019",
+    from: "2019-03",
+    fromLabel: "March 2019",
+    to: "2019-10",
+    toLabel: "October 2019",
     description: "Managed deliveries and warehouse orders in a small business in the center of Varese.",
     tags: ["Logistics", "Order Management"]
   }
@@ -55,7 +69,19 @@ export function Projects() {
               <CardHeader className="p-6">
                 <CardTitle className="font-headline text-2xl tracking-wide mb-1">{exp.title}</CardTitle>
                 <p className="text-sm text-muted-foreground font-semibold">{exp.company}</p>
-                <p className="text-xs text-muted-foreground">{exp.period}</p>
+                <p className="text-xs text-muted-foreground">
+                  {/* a11y/seo: <time> with machine-readable dateTime lets search
+                      engines and screen readers parse employment dates precisely;
+                      a single <time> cannot express a range, so start and end
+                      are separate elements (present tense when `to` is null). */}
+                  <time dateTime={exp.from}>{exp.fromLabel}</time>
+                  {" – "}
+                  {exp.to && exp.toLabel ? (
+                    <time dateTime={exp.to}>{exp.toLabel}</time>
+                  ) : (
+                    "Present"
+                  )}
+                </p>
               </CardHeader>
               <CardContent className="flex-grow p-6 pt-0">
                 <CardDescription>{exp.description}</CardDescription>
