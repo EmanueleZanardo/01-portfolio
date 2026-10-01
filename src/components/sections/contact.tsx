@@ -77,7 +77,7 @@ export function Contact() {
         <div className="text-center mb-12">
           <h2 id="contact-heading" className="font-headline text-4xl md:text-5xl text-primary">Contact Me</h2>
           <p className="mt-2 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a project in mind or just want to say hello? Feel free to write to me.
+            Have an electronics project in mind, or just want to say hello? Feel free to write to me.
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-12">
