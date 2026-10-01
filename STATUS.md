@@ -1,12 +1,12 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 01/10/2026 ~18:45 CEST**
+**Ultimo aggiornamento: 01/10/2026 ~20:15 CEST**
 
 ## Stato
 - Live su https://emanuelezanardo.info/ (Vercel) — deploy attivo.
 - Stack: Next.js 15.
 - Build verde: 8/8 pagine.
-- Ultimo commit: (QA 01/10 ~18:45 CEST: a11y — metodi di contatto come lista reale `<ul>`/`<li>` (WCAG 1.3.1); segnalato www.emanuelezanardo.info NXDOMAIN — serve azione DNS di Emanuele).
+- Ultimo commit: (contenuti 01/10 ~20:15 CEST, worker B crescita: testi About riscritti e allineati al CV, intro esperienze, tag certificazioni UL/IEC, intro contatti).
 - NOTA DNS (01/10 ~18:45 CEST): `www.emanuelezanardo.info` NON esiste nel DNS (NXDOMAIN verificato via DoH Cloudflare; apex → 216.198.79.1 OK). Chi digita www. ottiene "sito non raggiungibile". Fix lato Emanuele: in IONOS aggiungere CNAME `www` → `cname.vercel-dns.com`, poi in Vercel → Settings → Domains aggiungere `www.emanuelezanardo.info` (redirect a apex o servito).
 
 ## Ultimi eventi verificati (30/09–01/10/2026)
