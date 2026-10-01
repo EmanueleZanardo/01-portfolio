@@ -30,6 +30,11 @@ const csp = [
 
 const nextConfig: NextConfig = {
   /* config options here */
+  // perf: trasforma i barrel import di lucide-react in import diretti dei
+  // singoli moduli — meno lavoro di tree-shaking, bundle JS piu' piccolo.
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
+  },
   async headers() {
     return [
       {
