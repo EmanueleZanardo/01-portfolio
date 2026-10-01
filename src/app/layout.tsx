@@ -104,6 +104,14 @@ const personJsonLd = {
   // E.164 without spaces: canonical machine-readable format per schema.org
   // and Google's contact-point guidance (previous commit used "+39 345 111 4337").
   telephone: '+393451114337',
+  // seo: region-level address for local-search geo relevance — region and
+  // country only, no street/city (privacy-safe); consistent with the
+  // areaServed on the ProfessionalService schema below.
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: 'Ticino',
+    addressCountry: 'CH',
+  },
   sameAs: [
     'https://github.com/EmanueleZanardo',
     'https://www.linkedin.com/in/emanuele-zanardo-1954aa193',
