@@ -67,7 +67,12 @@ export default function SingularityPage() {
       <FocusMainOnMount />
       {/* perf: avvia subito la connessione TLS verso l'origine dell'embed Streamlit (contenuto principale della pagina) */}
       <link rel="preconnect" href="https://czpox8o8x6arnxw96txnvt.streamlit.app" />
+      {/* perf: il terminale Streamlit e' il contenuto principale della pagina —
+          preconnect stabilisce DNS+TLS+TCP in anticipo rispetto all'iframe
+          (dns-prefetch solo DNS). Allineato alla decisione del ciclo precedente
+          di NON usare loading="lazy" sull'iframe: il contenuto deve partire subito. */}
       <link rel="dns-prefetch" href="https://czpox8o8x6arnxw96txnvt.streamlit.app" />
+      <link rel="preconnect" href="https://czpox8o8x6arnxw96txnvt.streamlit.app" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
