@@ -1,15 +1,15 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 01/10/2026 ~04:10 CEST**
+**Ultimo aggiornamento: 01/10/2026 ~05:50 CEST**
 
 ## Stato
 - Live su https://emanuelezanardo.info/ (Vercel) — deploy attivo.
 - Stack: Next.js 15.
 - Build verde: 8/8 pagine.
-- Ultimo commit: fb1543c (a11y: /singularity sposta il focus su #main-content, 01/10 ~04:05 CEST).
+- Ultimo commit: (QA 01/10 ~05:50 CEST: a11y FocusMainOnMount anche sulla homepage).
 
 ## Ultimi eventi verificati (30/09–01/10/2026)
-- QA ~04:10 CEST 01/10: nessun bug trovato. Miglioria: pagina /singularity ora sposta il focus su #main-content al mount (nuovo client component FocusMainOnMount) — la navigazione client-side da hero ("Singularity ETRM") non lasciava il focus nel contesto precedente (pattern WCAG 2.4.3 già usato per hero CTA e header nav). Build verde 8/8. Push cf3363f + fb1543c su origin/main, deploy Vercel in corso.
+- QA ~05:50 CEST 01/10: nessun bug trovato (build verde 8/8; 200 su / e /singularity; CV PDF, manifest, favicon, og-image, apple-touch-icon, robots.txt, sitemap.xml tutti 200; canonical /singularity OK; meta/OG/Twitter/JSON-LD presenti; nessun placeholder reale — solo attributi placeholder legittimi del form; form contatti gestisce già con messaggio chiaro il caso GMAIL_APP_PASSWORD mancante). Miglioria: `<FocusMainOnMount />` aggiunto anche alla homepage — la navigazione client-side da /singularity a / non spostava il focus sul nuovo <main> (stesso pattern WCAG 2.4.3 già applicato a /singularity, hero CTA e header nav).
 - QA ~03:05 CEST 01/10: nessun bug trovato. Miglioria: CTA hero (Experiences/About Me/Contact) ora spostano il focus sulla sezione target dopo lo scroll — stesso pattern WCAG 2.4.3 già usato nella nav dell'header (hero.tsx diventa client component, +0.6 kB sulla home). Build verde 8/8.
 - QA 23:39 CEST 30/09: nessun bug trovato. Miglioria: `formatDetection: { telephone: false }` nei metadata — iOS Safari non auto-linka più testo simile a numeri di telefono. Push 11f6335 su origin/main, deploy Vercel verificato live.
 - QA 22:40 CEST 30/09: build verde 8/8, live testato (200 su / e /singularity; CV PDF, manifest, favicon, og-image, apple-touch-icon, robots.txt, sitemap.xml tutti 200; 404 corretta; meta/OG/Twitter/JSON-LD Person+ProfessionalService presenti; nessun placeholder reale; skip-link "#main-content" verificato). Miglioria: telefono nel Person JSON-LD in formato E.164 (+393451114337).
