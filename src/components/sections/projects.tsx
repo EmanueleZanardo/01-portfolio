@@ -28,8 +28,8 @@ const experiences = [
     fromLabel: "February 2022",
     to: "2025-12",
     toLabel: "December 2025",
-    description: "World leader in the design and production of molten salt storage systems for backup, sustainable mobility, and energy storage. My work mainly consists of product certification, test writing, and verification, proposing FW or HW patches to improve the product. I follow certification projects for UL 1973, UL1741, IEC 61508, and ABS regulations.",
-    tags: ["Product Certification", "Testing", "Storage Systems"]
+    description: "World leader in the design and production of molten salt storage systems for backup, sustainable mobility, and energy storage. My work mainly consists of product certification, test writing, and verification, proposing FW or HW patches to improve the product. I follow certification projects for UL 1973, UL 1741, IEC 61508, and ABS regulations.",
+    tags: ["Product Certification", "Testing", "Storage Systems", "UL 1973", "IEC 61508"]
   },
   {
     title: "Project Engineer",
@@ -60,7 +60,7 @@ export function Projects() {
         <div className="text-center mb-12">
           <h2 id="projects-heading" className="font-headline text-4xl md:text-5xl text-primary">Professional Experiences</h2>
           <p className="mt-2 text-lg text-muted-foreground max-w-2xl mx-auto">
-            A selection of my work experiences that showcase my skills.
+            Engineering roles across critical power and energy storage — from product certification in the lab to commissioning in the field.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
