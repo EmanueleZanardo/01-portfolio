@@ -89,7 +89,7 @@ export default function SingularityPage() {
             href="/"
             className="text-sm font-mono text-gray-400 hover:text-white bg-gray-800 px-3 py-1 rounded"
           >
-            ← Torna al Portfolio
+            ← Back to Portfolio
           </Link>
         </div>
       </div>
