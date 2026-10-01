@@ -66,7 +66,6 @@ export default function SingularityPage() {
       {/* a11y: sposta il focus sul <main> dopo la navigazione client-side (WCAG 2.4.3) */}
       <FocusMainOnMount />
       {/* perf: avvia subito la connessione TLS verso l'origine dell'embed Streamlit (contenuto principale della pagina) */}
-      <link rel="preconnect" href="https://czpox8o8x6arnxw96txnvt.streamlit.app" />
       {/* perf: il terminale Streamlit e' il contenuto principale della pagina —
           preconnect stabilisce DNS+TLS+TCP in anticipo rispetto all'iframe
           (dns-prefetch solo DNS). Allineato alla decisione del ciclo precedente
