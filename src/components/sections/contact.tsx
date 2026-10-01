@@ -149,26 +149,28 @@ export function Contact() {
               </form>
             </Form>
           </div>
-          <div className="flex flex-col justify-center space-y-6">
-            <div className="flex items-center gap-4">
+          {/* a11y: contact methods as a real list — screen readers announce
+              "list, 3 items" and offer list navigation (WCAG 1.3.1). */}
+          <ul className="flex flex-col justify-center space-y-6">
+            <li className="flex items-center gap-4">
               <Phone aria-hidden="true" className="h-6 w-6 text-primary" />
               <a href="tel:+393451114337" className="text-lg text-muted-foreground hover:text-primary transition-colors">
                 +39 345 111 4337
               </a>
-            </div>
-            <div className="flex items-center gap-4">
+            </li>
+            <li className="flex items-center gap-4">
               <Mail aria-hidden="true" className="h-6 w-6 text-primary" />
               <a href="mailto:emanuele1998zanardo@gmail.com" className="text-lg text-muted-foreground hover:text-primary transition-colors">
                 emanuele1998zanardo@gmail.com
               </a>
-            </div>
-            <div className="flex items-center gap-4">
+            </li>
+            <li className="flex items-center gap-4">
               <Linkedin aria-hidden="true" className="h-6 w-6 text-primary" />
               <Link href="https://www.linkedin.com/in/emanuele-zanardo-1954aa193" target="_blank" rel="noopener noreferrer me" aria-label="Emanuele Zanardo on LinkedIn (opens in new tab)" className="text-lg text-muted-foreground hover:text-primary transition-colors">
                 Emanuele Zanardo
               </Link>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
