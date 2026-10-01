@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,8 +20,21 @@ const NAV_SECTION_IDS = NAV_LINKS.map((link) => link.href.slice(1));
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   // micro-ux + a11y: highlight the nav link of the section in view.
   const activeSection = useActiveSection(NAV_SECTION_IDS);
+
+  // a11y: quando l'header è nascosto (-translate-y-full in cima alla pagina)
+  // i suoi link/bottoni restano nel tab order e nell'albero di accessibilità
+  // pur essendo off-screen (WCAG 2.1.1/2.4.3). React 18 non supporta
+  // l'attributo booleano `inert` nel JSX (inert={false} verrebbe renderizzato
+  // come inert="false", che per gli attributi booleani HTML significa true),
+  // quindi lo si gestisce imperativamente: toggleAttribute lo aggiunge e
+  // rimuove correttamente. Il dialog del menu mobile (Sheet) è un portal su
+  // document.body, fuori dal subtree dell'header — non ne risente.
+  useEffect(() => {
+    headerRef.current?.toggleAttribute('inert', !isVisible);
+  }, [isVisible]);
 
   // a11y: anchor navigation jumps the viewport but leaves keyboard/screen-reader
   // focus on the nav link (WCAG 2.4.3). Move focus to the target section so the
@@ -52,6 +65,7 @@ export function Header() {
 
   return (
     <header
+      ref={headerRef}
       className={cn(
         "fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-transform duration-300",
         {
