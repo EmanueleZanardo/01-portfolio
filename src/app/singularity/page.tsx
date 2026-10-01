@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { FocusMainOnMount } from '@/components/focus-main-on-mount';
 
 export const metadata: Metadata = {
   // Title suffix "| Emanuele Zanardo" comes from the layout's title template.
@@ -62,6 +63,8 @@ export default function SingularityPage() {
 
   return (
     <main id="main-content" tabIndex={-1} className="w-full h-screen bg-[#030712] flex flex-col focus:outline-none">
+      {/* a11y: sposta il focus sul <main> dopo la navigazione client-side (WCAG 2.4.3) */}
+      <FocusMainOnMount />
       {/* perf: avvia subito la connessione TLS verso l'origine dell'embed Streamlit (contenuto principale della pagina) */}
       <link rel="preconnect" href="https://czpox8o8x6arnxw96txnvt.streamlit.app" />
       <link rel="dns-prefetch" href="https://czpox8o8x6arnxw96txnvt.streamlit.app" />
