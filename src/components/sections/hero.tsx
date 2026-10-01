@@ -1,8 +1,20 @@
+"use client";
+
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export function Hero() {
+  // a11y: la navigazione ad ancore sposta il viewport ma lascia il focus sul
+  // bottone (WCAG 2.4.3). Stesso pattern dell'header nav: dopo lo scroll
+  // nativo, il focus segue la posizione visiva sulla sezione target.
+  // preventScroll evita un secondo salto dopo lo scroll nativo dell'anchor.
+  const moveFocusToSection = (sectionId: string) => {
+    window.setTimeout(() => {
+      document.getElementById(sectionId)?.focus({ preventScroll: true });
+    }, 60);
+  };
+
   return (
     // a11y: aria-labelledby come nelle altre sezioni (about/contact/services),
     // per coerenza dei landmark (WCAG 4.1.2)
@@ -26,17 +38,17 @@ export function Hero() {
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-            <Link href="#projects">
+            <Link href="#projects" onClick={() => moveFocusToSection("projects")}>
               Experiences
             </Link>
           </Button>
           <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-            <Link href="#about">
+            <Link href="#about" onClick={() => moveFocusToSection("about")}>
               About Me
             </Link>
           </Button>
           <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-            <Link href="#contact">
+            <Link href="#contact" onClick={() => moveFocusToSection("contact")}>
               Contact
             </Link>
           </Button>
