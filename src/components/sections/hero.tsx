@@ -24,8 +24,9 @@ export function Hero() {
     <section id="hero" aria-labelledby="hero-heading" tabIndex={-1} className="relative h-screen supports-[height:100dvh]:h-[100dvh] min-h-[500px] w-full flex items-center justify-center text-center text-white">
       <Image
         src="/hero-bg.webp"
+        // a11y: decorative background — alt="" alone excludes it from the
+        // accessibility tree; no aria-hidden needed (it would be redundant)
         alt=""
-        aria-hidden="true"
         fill
         className="object-cover"
         priority
