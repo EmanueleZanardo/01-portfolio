@@ -98,3 +98,13 @@
 - Meta: description, OG/Twitter (+type, +alt), canonical, lang en, theme-color, og:locale — presenti; nessun placeholder reale (solo placeholder di form legittimi); nessun link interno rotto; rel=noopener su target=_blank.
 - Miglioria: pwa — `type: image/png` aggiunto agli icon degli shortcut PWA del manifest (coerenza con gli icon top-level; i validatori manifest segnalano le voci senza mime type).
 - Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora irraggiungibile (curl 000).
+
+## QA ~23:45 CEST 02/10
+- Pull fresco da origin/main (39b40e4, in sync), build verde (exit 0, 8/8 pagine statiche, lint+typecheck eseguiti).
+- Live: 200 su /, /singularity, robots.txt, sitemap.xml, manifest.webmanifest, cv-emanuele-zanardo.pdf, favicon.ico, og-image.png, apple-touch-icon.png; 404 corretta su URL inesistente e su path inesistente sotto /_next/static.
+- Security headers live: CSP, X-Frame-Options DENY, Permissions-Policy, nosniff, HSTS (max-age 63072000), Referrer-Policy strict-origin-when-cross-origin, COOP same-origin, CORP same-origin — su / e /singularity.
+- Meta: lang en, title singolo, description, canonical, OG/Twitter (+type/+alt), og:locale, theme-color, format-detection — presenti; JSON-LD parse-validi (home: Person+ProfessionalService; /singularity: +SoftwareApplication).
+- Ancore #main-content/#about/#services/#projects/#contact tutte con id corrispondenti; nessun link interno rotto; rel=noopener su tutti i target=_blank; nessun placeholder reale (solo placeholder di form legittimi); iframe Streamlit con title; embed Streamlit ?embed=true 200.
+- Immagini leggere e ottimizzate (og-image 34KB, hero-bg 55KB, portrait 35KB); reduced-motion rispettato (CSS + scroll-to-top).
+- Nessun bug trovato. Nessuna miglioria forzata: sweep completo — headers, CSP, JSON-LD, a11y focus, PWA, immagini, form, robots/sitemap tutto già a posto.
+- Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora irraggiungibile (curl 000, DNS non configurato).
