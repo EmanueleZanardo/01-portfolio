@@ -22,6 +22,9 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Singularity Quant ETRM by Emanuele Zanardo',
+        // seo: og:image:type — alcuni scraper/validator (es. LinkedIn,
+        // WhatsApp) lo usano per il content-type senza fare un HEAD extra.
+        type: 'image/png',
       },
     ],
   },
