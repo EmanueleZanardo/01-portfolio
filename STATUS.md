@@ -1,6 +1,13 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 02/10/2026 ~02:45 CEST**
+**Ultimo aggiornamento: 02/10/2026 ~03:45 CEST**
+
+## 02/10/2026 ~03:45 CEST — ciclo QA orario
+- RATE LIMIT VERCEL RIENTRATO: tutti i commit recenti (f7aee11, 38ac15d, 9e0aa3d, a4c1934) mostrano `Vercel | success` su GitHub — il blocco build-rate-limit del 01/10 ~17:35 CEST è finito, i deploy tornano a funzionare. Migliorie con codice di nuovo pushabili.
+- Nessun bug trovato (build verde 8/8, exit 0, lint+typecheck attivi; live 200 su /, /singularity, cv-emanuele-zanardo.pdf, manifest.webmanifest, favicon.ico, apple-touch-icon.png, og-image.png, portrait.webp, hero-bg.webp, robots.txt, sitemap.xml; 404 corretta con robots noindex e title singolo; meta/OG/Twitter/canonical/lang/theme-color/format-detection presenti; JSON-LD Person+ProfessionalService validi al parsing; security headers live: CSP, X-Frame-Options DENY, Permissions-Policy, nosniff, HSTS, Referrer-Policy strict-origin-when-cross-origin, COOP/CORP same-origin; ancore tutte con id corrispondenti; rel=noopener su tutti i target=_blank; skip link presente su / e /singularity; nessun placeholder reale — solo attributi placeholder legittimi del form; nessun link interno rotto; nessuna immagine mancante).
+- Nessuna miglioria forzata: sweep completo — Person JSON-LD ha già sameAs/knowsAbout/worksFor/address/telefono E.164, manifest PWA completo (id, categories), reduced-motion gestito, hero con priority, sitemap con lastmod basato su git, iframe con title+referrerPolicy. Tutto già a posto.
+- Blocco aperto: `www.emanuelezanardo.info` ancora NXDOMAIN — azione di Emanuele su IONOS (CNAME www → cname.vercel-dns.com) + Vercel Domains.
+- Discrepanza date Horien NON risolta: sito Feb 2022–Dec 2025 vs CV Oct 2021–Jan 2026 — servono date corrette da Emanuele.
 
 ## 02/10/2026 ~02:45 CEST — ciclo QA orario
 - Nessun bug trovato (build verde 8/8 con lint+typecheck attivi; live 200 su /, /singularity, cv-emanuele-zanardo.pdf, manifest.webmanifest, favicon.ico, apple-touch-icon.png, icon-192/512.png, og-image.png, portrait.webp, hero-bg.webp, robots.txt, sitemap.xml; 404 corretta; meta/OG/Twitter/canonical/lang/theme-color/format-detection/HSTS presenti; iframe Streamlit con title; decorative img con alt="" aria-hidden; ancore tutte con id; placeholder reali assenti — solo attributi legittimi del form; LinkedIn 999 = bot-block del crawler, non link rotto).
