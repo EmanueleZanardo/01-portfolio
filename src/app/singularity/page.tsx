@@ -56,7 +56,9 @@ export default function SingularityPage() {
       'Live energy trading and risk management terminal: Swissix price analytics, KPIs, load curves, time bands (F1/F2/F3) and Monte Carlo simulator.',
     offers: {
       '@type': 'Offer',
-      price: '0',
+      // seo: price numerico (0 = gratuito) come raccomanda schema.org —
+      // le stringhe sono accettate ma i validatori preferiscono Number
+      price: 0,
       priceCurrency: 'CHF',
     },
   };
