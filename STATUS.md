@@ -83,3 +83,11 @@
 - Deploy Vercel: status `success` su 165b7be (verificato via GitHub commit status) — live allineato al repo.
 - Nessun bug trovato. Nessuna miglioria forzata: sweep completo — headers, CSP, JSON-LD, a11y focus, immagini, form tutto già a posto.
 - Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora NXDOMAIN.
+
+## QA ~20:40 CEST 02/10
+- Pull fresco da origin/main (59947c4, in sync), build verde (exit 0, 8/8 pagine statiche, lint+typecheck eseguiti).
+- Live: 200 su /, /singularity, robots.txt, sitemap.xml, manifest.webmanifest, cv-emanuele-zanardo.pdf, favicon.ico, og-image.png, apple-touch-icon.png; 404 corretta su URL inesistente.
+- Security headers live: CSP, X-Frame-Options DENY, Permissions-Policy, nosniff, HSTS (max-age 63072000), Referrer-Policy strict-origin-when-cross-origin, COOP same-origin, CORP same-origin.
+- Meta: title singolo, description, canonical, OG/Twitter (+og:image:type), lang en, theme-color, format-detection — presenti; aria-current già su nav desktop/mobile (scroll-spy, assente in SSR = previsto); aria-label su icon links e scroll-to-top; nessuna immagine mancante; nessun placeholder reale; nessun link interno rotto; rel=noopener su target=_blank.
+- Nessun bug trovato. Nessuna miglioria forzata: sweep completo — headers, CSP, JSON-LD, a11y focus, immagini, form tutto già a posto.
+- Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora NXDOMAIN.
