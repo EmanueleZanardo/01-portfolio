@@ -91,3 +91,10 @@
 - Meta: title singolo, description, canonical, OG/Twitter (+og:image:type), lang en, theme-color, format-detection — presenti; aria-current già su nav desktop/mobile (scroll-spy, assente in SSR = previsto); aria-label su icon links e scroll-to-top; nessuna immagine mancante; nessun placeholder reale; nessun link interno rotto; rel=noopener su target=_blank.
 - Nessun bug trovato. Nessuna miglioria forzata: sweep completo — headers, CSP, JSON-LD, a11y focus, immagini, form tutto già a posto.
 - Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora NXDOMAIN.
+
+## QA ~21:40 CEST 02/10
+- Pull fresco da origin/main (13e7921, in sync), build verde (exit 0, 8/8 pagine statiche).
+- Live: 200 su /, /singularity, robots.txt, sitemap.xml; immagini _next/image (hero-bg.webp, portrait.webp) 200 con URL unescaped (i 400 visti in un primo sweep erano un artefatto del parsing HTML del test, non del sito); tel:+393451114337 corretto (errore del test che prefissava il dominio); link streamlit ?embed=true 200, plain streamlit timeout = cold start di Streamlit Cloud (transitorio); 404 corretta su URL inesistente.
+- Meta: description, OG/Twitter (+type, +alt), canonical, lang en, theme-color, og:locale — presenti; nessun placeholder reale (solo placeholder di form legittimi); nessun link interno rotto; rel=noopener su target=_blank.
+- Miglioria: pwa — `type: image/png` aggiunto agli icon degli shortcut PWA del manifest (coerenza con gli icon top-level; i validatori manifest segnalano le voci senza mime type).
+- Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora irraggiungibile (curl 000).
