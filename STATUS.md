@@ -1,6 +1,12 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 02/10/2026 ~03:45 CEST**
+**Ultimo aggiornamento: 02/10/2026 ~05:40 CEST**
+
+## 02/10/2026 ~05:40 CEST — ciclo QA orario
+- Nessun bug trovato (build verde 8/8 pre+post miglioria, exit 0, lint+typecheck attivi; live 200 su /, /singularity, sitemap.xml, robots.txt, og-image.png, cv-emanuele-zanardo.pdf, apple-touch-icon.png, manifest.webmanifest, favicon.ico; meta/OG/Twitter/canonical/lang/theme-color/format-detection presenti; placeholder reali assenti — solo attributi placeholder legittimi del form; nessun link interno rotto; nessuna immagine mancante; 2 img in home con alt adeguato, 1 decorativa con alt="" aria-hidden).
+- Miglioria micro-UX (complemento al commit 92c08ec ~04:48): input "Name" del contact form ora con `autoCapitalize="words"` + `autoCorrect="off"` — il correttore mobile non storpia più i nomi propri e ogni parola parte maiuscola (email aveva già off/off/off). Build verde, push su main.
+- Blocco aperto: `www.emanuelezanardo.info` ancora NXDOMAIN — azione di Emanuele su IONOS (CNAME www → cname.vercel-dns.com) + Vercel Domains.
+- Discrepanza date Horien NON risolta: sito Feb 2022–Dec 2025 vs CV Oct 2021–Jan 2026 — servono date corrette da Emanuele.
 
 ## 02/10/2026 ~03:45 CEST — ciclo QA orario
 - RATE LIMIT VERCEL RIENTRATO: tutti i commit recenti (f7aee11, 38ac15d, 9e0aa3d, a4c1934) mostrano `Vercel | success` su GitHub — il blocco build-rate-limit del 01/10 ~17:35 CEST è finito, i deploy tornano a funzionare. Migliorie con codice di nuovo pushabili.
