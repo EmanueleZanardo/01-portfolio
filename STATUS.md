@@ -1,6 +1,12 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 02/10/2026 ~02:00 CEST**
+**Ultimo aggiornamento: 02/10/2026 ~02:45 CEST**
+
+## 02/10/2026 ~02:45 CEST — ciclo QA orario
+- Nessun bug trovato (build verde 8/8 con lint+typecheck attivi; live 200 su /, /singularity, cv-emanuele-zanardo.pdf, manifest.webmanifest, favicon.ico, apple-touch-icon.png, icon-192/512.png, og-image.png, portrait.webp, hero-bg.webp, robots.txt, sitemap.xml; 404 corretta; meta/OG/Twitter/canonical/lang/theme-color/format-detection/HSTS presenti; iframe Streamlit con title; decorative img con alt="" aria-hidden; ancore tutte con id; placeholder reali assenti — solo attributi legittimi del form; LinkedIn 999 = bot-block del crawler, non link rotto).
+- Nessuna miglioria forzata: sweep completo — anche l'iframe su /singularity ha già title, JSON-LD validi, header di sicurezza tutti attivi, manifest PWA completo.
+- Blocco aperto: `www.emanuelezanardo.info` ancora NXDOMAIN (01/10 ~18:45) — azione di Emanuele su IONOS (CNAME www → cname.vercel-dns.com) + Vercel Domains.
+- Discrepanza date Horien NON risolta: sito Feb 2022–Dec 2025 vs CV Oct 2021–Jan 2026 — servono date corrette da Emanuele.
 
 ## 02/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
 - QA oraria attiva: nessun bug trovato nei cicli del 01/10 (build verde 8/8, live 200, meta/OG/JSON-LD/header sicurezza OK; migliorie a11y/SEO incrementali).
