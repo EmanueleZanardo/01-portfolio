@@ -1,6 +1,12 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 02/10/2026 ~01:50 CEST**
+**Ultimo aggiornamento: 02/10/2026 ~02:00 CEST**
+
+## 02/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- QA oraria attiva: nessun bug trovato nei cicli del 01/10 (build verde 8/8, live 200, meta/OG/JSON-LD/header sicurezza OK; migliorie a11y/SEO incrementali).
+- Ciclo ~01:50 CEST 02/10: lint+typecheck ora ATTIVI nel build locale (node_modules era stale, Next.js saltava silenziosamente i controlli; `npm install` dal lockfile ha ripristinato la sincronia — nessuna modifica a file tracciati). Live verificato tutto 200.
+- Blitz 01/10 21:03: 404/PWA e contenuti CV migliorati. Discrepanza Horien NON risolta: sito Feb 2022–Dec 2025 vs CV Oct 2021–Jan 2026 — servono date corrette da Emanuele.
+- Blocco aperto: `www.emanuelezanardo.info` ancora NXDOMAIN (verificato via DoH) — azione di Emanuele su IONOS (CNAME www → cname.vercel-dns.com) + Vercel Domains.
 
 ## Stato
 - Live su https://emanuelezanardo.info/ (Vercel) — deploy attivo e allineato all'ultimo commit.
