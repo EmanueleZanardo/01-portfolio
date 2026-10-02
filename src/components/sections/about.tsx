@@ -28,6 +28,9 @@ export function About() {
                 height={500}
                 sizes="(max-width: 768px) 100vw, 500px"
                 loading="lazy"
+                // perf: decoding async — immagine below-fold, la decodifica
+                // non blocca il main thread (zero effetto visivo)
+                decoding="async"
                 className="object-cover"
               />
           </div>
