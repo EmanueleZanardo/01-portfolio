@@ -66,3 +66,11 @@
 - Nessun placeholder reale; nessun link interno rotto (tutte le ancore con id); rel=noopener su tutti i target=_blank; iframe Streamlit con title; CV con download; form contatti con inputMode/enterKeyHint/autoComplete già ottimizzati.
 - Nessun bug trovato. Miglioria: `offers.price` del JSON-LD SoftwareApplication da stringa '0' a numero 0 (schema.org raccomanda Number) — commit 85f43e9 pushato su origin/main via Contents API; deploy Vercel automatico in corso.
 - Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora NXDOMAIN — CNAME www → cname.vercel-dns.com su IONOS + dominio su Vercel.
+
+## QA ~17:45 CEST 02/10
+- Pull fresco da origin/main (8b2af95, in sync), build verde 8/8 (exit 0, lint+typecheck attivi).
+- Live: 200 su /, /singularity, robots.txt, sitemap.xml, manifest.webmanifest, cv-emanuele-zanardo.pdf, favicon.ico, og-image.png, apple-touch-icon.png, hero-bg.webp, portrait.webp; 404 corretta su URL inesistente.
+- Meta: lang en, title singolo, canonical, description, OG/Twitter con dimensioni+alt, theme-color, format-detection — presenti su / e /singularity; ancore #main-content/#about/#services/#projects/#contact tutte con id corrispondenti; nessun placeholder reale; nessun link interno rotto; aria-label su icon links e scroll-to-top; sitemap con lastmod git-based.
+- Deploy Vercel: status `success` su 8b2af95 (verificato via GitHub commit status) — live allineato al repo.
+- Nessun bug trovato. Nessuna miglioria forzata: sweep completo — headers sicurezza, CSP, JSON-LD, a11y focus, PWA manifest tutto già a posto.
+- Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora NXDOMAIN.
