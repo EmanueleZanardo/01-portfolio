@@ -83,7 +83,10 @@ export function Contact() {
         <div className="grid md:grid-cols-2 gap-12">
           <div className="max-w-xl mx-auto w-full">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              {/* noValidate: la validazione e' interamente custom (react-hook-form +
+                  FormMessage/aria-invalid) — i bubble nativi del browser su
+                  type="email" la scavalcavano con errori non stilati. */}
+              <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-6">
                 <FormField
                   control={form.control}
                   name="name"
