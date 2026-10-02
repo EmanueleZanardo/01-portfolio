@@ -91,7 +91,7 @@ export function Contact() {
                     <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your name" autoComplete="name" maxLength={100} enterKeyHint="next" aria-invalid={fieldState.error ? true : undefined} {...field} disabled={isSubmitting} />
+                        <Input placeholder="Your name" autoComplete="name" maxLength={100} enterKeyHint="next" autoCapitalize="words" autoCorrect="off" aria-invalid={fieldState.error ? true : undefined} {...field} disabled={isSubmitting} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
