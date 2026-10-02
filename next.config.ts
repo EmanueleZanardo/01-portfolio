@@ -13,7 +13,10 @@ const csp = [
   "script-src 'self' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self'",
-  "img-src 'self' data: blob:",
+  // img-src: no 'blob:' — verified 02/10/2026: the built HTML/JS serves no
+  // blob: image sources and src/ has no URL.createObjectURL calls. Keeps
+  // 'data:' (used for inline SVG icons), drops the unused blob: surface.
+  "img-src 'self' data:",
   `frame-src ${STREAMLIT_URL}`,
   `connect-src 'self' ${STREAMLIT_URL}`,
   "object-src 'none'",
