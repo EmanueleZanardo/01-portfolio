@@ -125,6 +125,7 @@ export function Contact() {
                           className="min-h-[150px]"
                           maxLength={5000}
                           enterKeyHint="send"
+                          autoCapitalize="sentences"
                           aria-invalid={fieldState.error ? true : undefined}
                           {...field}
                           disabled={isSubmitting}
