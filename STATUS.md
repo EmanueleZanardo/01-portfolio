@@ -108,3 +108,10 @@
 - Immagini leggere e ottimizzate (og-image 34KB, hero-bg 55KB, portrait 35KB); reduced-motion rispettato (CSS + scroll-to-top).
 - Nessun bug trovato. Nessuna miglioria forzata: sweep completo — headers, CSP, JSON-LD, a11y focus, PWA, immagini, form, robots/sitemap tutto già a posto.
 - Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora irraggiungibile (curl 000, DNS non configurato).
+
+## QA ~00:55 CEST 03/10
+- Pull fresco da origin/main (d6311a4, in sync), build verde pre e post miglioria (exit 0, 8/8 pagine statiche, lint+typecheck via build).
+- Live: 200 su /, /singularity, robots.txt, sitemap.xml, manifest.webmanifest, cv-emanuele-zanardo.pdf, favicon.ico, apple-touch-icon.png, og-image.png, portrait.webp; 404 corretta su URL inesistente.
+- Meta: lang en, description, canonical, OG/Twitter (+type/+alt), og:locale, theme-color, format-detection, googlebot max-image-preview — presenti; security headers OK (CSP, HSTS, nosniff, DENY, Referrer-Policy, COOP/CORP, Permissions-Policy); 1 h1/pagina; JSON-LD validi; ancore tutte risolte; rel=noopener ovunque; nessun placeholder di contenuto; nessun link interno rotto; nessuna immagine mancante.
+- Nessun bug trovato.
+- Miglioria/security: RFC 9116 security.txt su /.well-known/security.txt (route handler con Expires dinamico +180 giorni, Contact mailto già pubblico nel footer) — verificato live 200 text/plain dopo il deploy Vercel.
