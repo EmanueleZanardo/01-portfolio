@@ -58,6 +58,18 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   manifest: '/manifest.webmanifest',
+  // seo: let Google show large image previews in search results
+  // (max-image-preview: large) — the 404 page is unaffected: Next.js
+  // auto-injects noindex on error statuses (see not-found.tsx).
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+    },
+  },
   openGraph: {
     title: 'Emanuele Zanardo | Electronic Engineer',
     description: 'Professional portfolio of Emanuele Zanardo, Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
