@@ -59,14 +59,13 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.webmanifest',
   // seo: let Google show large image previews in search results
-  // (max-image-preview: large) — the 404 page is unaffected: Next.js
-  // auto-injects noindex on error statuses (see not-found.tsx).
+  // (max-image-preview: large) — only the googlebot tag is emitted (no
+  // robots index/follow tag): index/follow is the default anyway, and a
+  // duplicate "robots" tag would conflict with Next.js's auto-injected
+  // noindex on error statuses (404). Verified: /404 serves only
+  // <meta name="robots" content="noindex"/>.
   robots: {
-    index: true,
-    follow: true,
     googleBot: {
-      index: true,
-      follow: true,
       'max-image-preview': 'large',
     },
   },
