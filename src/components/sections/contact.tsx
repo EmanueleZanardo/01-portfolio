@@ -104,7 +104,7 @@ export function Contact() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input type="email" inputMode="email" autoComplete="email" placeholder="your.email@example.com" maxLength={254} enterKeyHint="next" aria-invalid={fieldState.error ? true : undefined} {...field} disabled={isSubmitting}/>
+                        <Input type="email" inputMode="email" autoComplete="email" placeholder="your.email@example.com" maxLength={254} enterKeyHint="next" spellCheck={false} autoCapitalize="off" autoCorrect="off" aria-invalid={fieldState.error ? true : undefined} {...field} disabled={isSubmitting}/>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
