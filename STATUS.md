@@ -115,3 +115,12 @@
 - Meta: lang en, description, canonical, OG/Twitter (+type/+alt), og:locale, theme-color, format-detection, googlebot max-image-preview — presenti; security headers OK (CSP, HSTS, nosniff, DENY, Referrer-Policy, COOP/CORP, Permissions-Policy); 1 h1/pagina; JSON-LD validi; ancore tutte risolte; rel=noopener ovunque; nessun placeholder di contenuto; nessun link interno rotto; nessuna immagine mancante.
 - Nessun bug trovato.
 - Miglioria/security: RFC 9116 security.txt su /.well-known/security.txt (route handler con Expires dinamico +180 giorni, Contact mailto già pubblico nel footer) — verificato live 200 text/plain dopo il deploy Vercel.
+
+## QA ~01:55 CEST 03/10
+- Pull fresco da origin/main (30fe446, in sync), build verde (exit 0, Next.js 15.3.8, 8/8 pagine statiche, lint+typecheck via build; TMPDIR=~/workspace/tmp-build).
+- Live: 200 su /, /singularity, robots.txt, sitemap.xml, /.well-known/security.txt, manifest.webmanifest, cv-emanuele-zanardo.pdf, favicon.ico, apple-touch-icon.png, og-image.png; 404 corretta su URL inesistente.
+- Meta: description, canonical, OG/Twitter completi (+width/+height/+type/+alt), og:locale en_US, theme-color, format-detection, googlebot — presenti su / e /singularity; hero-bg.webp con preload immagine (priority) e font woff2 preloaded; security headers OK (CSP, HSTS, nosniff, X-Frame-Options DENY, Referrer-Policy, Permissions-Policy); 1 h1/pagina; tutte le ancore (#about/#contact/#projects/#services/#main-content) risolte; target=_blank tutti con rel=noopener (+me su social); nessun placeholder di contenuto; nessun link interno rotto; nessuna immagine mancante.
+- Link esterni: GitHub 200, LinkedIn 200, app Streamlit embeddata raggiungibile (303 redirect).
+- Nessun bug trovato.
+- Nessuna miglioria forzata: sweep completo — form (autocomplete/autocapitalize/honeypot+aria-hidden+tabIndex=-1/aria-busy/aria-invalid), a11y focus (skip-link, moveFocusToSection, tabIndex=-1 sezioni), scroll-margin-top 4.5rem per header fisso, PWA manifest completo, JSON-LD, sitemap lastmod da git, robots allow-all (security.txt raggiungibile), security headers/CSP — tutto già a posto.
+- Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora NXDOMAIN — richiede azione sua su IONOS/Vercel.
