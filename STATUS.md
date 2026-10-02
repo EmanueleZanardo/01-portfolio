@@ -74,3 +74,12 @@
 - Deploy Vercel: status `success` su 8b2af95 (verificato via GitHub commit status) — live allineato al repo.
 - Nessun bug trovato. Nessuna miglioria forzata: sweep completo — headers sicurezza, CSP, JSON-LD, a11y focus, PWA manifest tutto già a posto.
 - Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora NXDOMAIN.
+
+## QA ~18:40 CEST 02/10
+- Pull fresco da origin/main (165b7be, in sync dopo reset --hard di 3 commit locali duplicati già upstream), build verde (exit 0, 8/8 pagine statiche; nota: lint/types saltati in build locale con avviso "ESLint must be installed" — node_modules locale non in sync col lockfile, non code; su Vercel installazione pulita).
+- Live: 200 su /, /singularity, cv-emanuele-zanardo.pdf, hero-bg.webp, portrait.webp (diretti e via /_next/image), manifest, robots.txt, sitemap.xml; 404 corretta su URL inesistente.
+- Security headers live: CSP, X-Frame-Options DENY, Permissions-Policy, nosniff, HSTS (max-age 63072000), Referrer-Policy strict-origin-when-cross-origin, COOP same-origin, CORP same-origin.
+- Meta: title singolo, description, canonical, OG/Twitter, lang en, theme-color, format-detection — presenti; alt su portrait, alt="" decorativo su hero-bg; JSON-LD Person+ProfessionalService+SoftwareApplication; nessun placeholder reale; nessun link interno rotto; rel=noopener su target=_blank.
+- Deploy Vercel: status `success` su 165b7be (verificato via GitHub commit status) — live allineato al repo.
+- Nessun bug trovato. Nessuna miglioria forzata: sweep completo — headers, CSP, JSON-LD, a11y focus, immagini, form tutto già a posto.
+- Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora NXDOMAIN.
