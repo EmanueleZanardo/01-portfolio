@@ -57,3 +57,12 @@
 
 ## Blocchi
 - Nessuno sul lato repo; in attesa di `GMAIL_APP_PASSWORD` lato Emanuele.
+
+## QA ~16:45 CEST 02/10
+- Pull fresco da origin/main (37763bc), build verde 8/8 pre e post fix (lint+typecheck attivi).
+- Live: 200 su /, /singularity, robots.txt, sitemap.xml, manifest.webmanifest, cv-emanuele-zanardo.pdf, favicon.ico, og-image.png, apple-touch-icon.png; 404 corretta su URL inesistente.
+- Security headers live: CSP, X-Frame-Options DENY, Permissions-Policy, nosniff, HSTS, Referrer-Policy strict-origin-when-cross-origin, COOP same-origin, CORP same-origin.
+- Meta/OG/Twitter/canonical/lang/theme-color/format-detection presenti su / e /singularity; JSON-LD validi al parsing (home: Person+ProfessionalService; /singularity: Person+ProfessionalService+SoftwareApplication).
+- Nessun placeholder reale; nessun link interno rotto (tutte le ancore con id); rel=noopener su tutti i target=_blank; iframe Streamlit con title; CV con download; form contatti con inputMode/enterKeyHint/autoComplete già ottimizzati.
+- Nessun bug trovato. Miglioria: `offers.price` del JSON-LD SoftwareApplication da stringa '0' a numero 0 (schema.org raccomanda Number) — commit 85f43e9 pushato su origin/main via Contents API; deploy Vercel automatico in corso.
+- Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora NXDOMAIN — CNAME www → cname.vercel-dns.com su IONOS + dominio su Vercel.
