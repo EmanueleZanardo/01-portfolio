@@ -148,3 +148,12 @@
 - Nessun bug trovato.
 - Nessuna miglioria forzata: sweep completo — il sito è già coperto su tutti i fronti testati nei cicli precedenti (security.txt, CSP, JSON-LD, a11y focus, PWA manifest con shortcut, robots/sitemap, immagini ottimizzate).
 - Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora irraggiungibile (curl 000) — richiede azione sua su IONOS/Vercel.
+
+## QA ~05:45 CEST 03/10
+- Pull fresco da origin/main (2bdae10, in sync), build verde (exit 0, Next.js 15.3.8, 8/8 pagine statiche).
+- Live: 200 su /, /singularity, robots.txt, sitemap.xml, /.well-known/security.txt, manifest.webmanifest, cv-emanuele-zanardo.pdf, favicon.ico, apple-touch-icon.png, og-image.png, hero-bg.webp, portrait.webp (diretti); 404 corretta su URL inesistente.
+- Deploy Vercel: status `success` su 2bdae10 — live allineato al repo.
+- Meta: description, canonical, OG/Twitter completi, og:locale, theme-color, format-detection, googlebot — presenti; 1 h1/pagina; ancore tutte risolte; target=_blank tutti con rel=noopener; nessun placeholder di contenuto; nessun link interno rotto; nessuna immagine mancante; footer con anno dinamico.
+- Nessun bug trovato.
+- Nessuna miglioria forzata: sweep completo — il sito è già coperto su tutti i fronti testati nei cicli precedenti (security.txt, CSP, JSON-LD, a11y focus, PWA manifest, robots/sitemap, immagini ottimizzate, rate limit form).
+- Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora irraggiungibile (NXDOMAIN) — richiede azione sua su IONOS/Vercel.
