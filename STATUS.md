@@ -1,6 +1,11 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 03/10/2026 ~03:45 CEST**
+**Ultimo aggiornamento: 03/10/2026 ~04:45 CEST**
+
+## 03/10/2026 ~04:45 CEST — ciclo QA orario
+- Nessun bug trovato (build verde 8/8, exit 0, lint+typecheck via build; live 200 su /, /singularity, robots.txt, sitemap.xml, .well-known/security.txt, cv-emanuele-zanardo.pdf, favicon.ico, apple-touch-icon.png, og-image.png, manifest.webmanifest, icon-192/512.png; 404 corretta; meta/OG/Twitter/canonical/lang/theme-color presenti; security headers live: CSP, COOP, CORP, Permissions-Policy, Referrer-Policy, HSTS, nosniff, X-Frame-Options DENY; nessun placeholder reale — solo classi/attributi placeholder legittimi del form; nessun link interno rotto; nessuna immagine mancante; esterni: Streamlit embed 200; pull 4f6f9dd solo docs, nessun codice nuovo da verificare).
+- Nessuna miglioria forzata: terzo ciclo consecutivo tutto verde — sweep completo senza residui (JSON-LD, manifest PWA, security.txt RFC 9116, meta/OG completi, a11y WCAG 2.4.3, header sicurezza) tutto già a posto.
+- Blocchi aperti (azioni di Emanuele): `www.emanuelezanardo.info` ancora NXDOMAIN — fix IONOS (CNAME www → cname.vercel-dns.com) + Vercel Domains; discrepanza date Horien sito (Feb 2022–Dec 2025) vs CV (Oct 2021–Jan 2026) — servono date corrette; GMAIL_APP_PASSWORD da impostare su Vercel (form contatti).**
 
 ## 03/10/2026 ~03:45 CEST — ciclo QA orario
 - Nessun bug trovato (build verde 8/8, exit 0, lint+typecheck via build; live 200 su /, /singularity, robots.txt, sitemap.xml, .well-known/security.txt, cv-emanuele-zanardo.pdf, favicon.ico, apple-touch-icon.png, og-image.png, manifest.webmanifest, icon-192/512/512-maskable, hero-bg.webp + portrait.webp via _next/image; 404 corretta; meta/OG/Twitter/canonical/lang/theme-color/og:locale/og:image:type+alt+dimensioni presenti su entrambe le pagine; security headers live: CSP, HSTS, nosniff, X-Frame-Options DENY, Referrer-Policy, Permissions-Policy; 1 h1 per pagina; skip link; ancore tutte con id corrispondenti; rel=noopener (+me) su tutti i target=_blank; form: labels, autocomplete, honeypot, aria-invalid, noValidate, inputMode/email, spellCheck/autoCapitalize/autoCorrect off — tutto OK; nessun placeholder reale; nessun link interno rotto; nessuna immagine mancante; esterni: GitHub 200, wa.me 200, Streamlit 303 (atteso), LinkedIn 999 (bot-block anti-curl, atteso)).
