@@ -1,6 +1,11 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 03/10/2026 ~02:00 CEST**
+**Ultimo aggiornamento: 03/10/2026 ~03:45 CEST**
+
+## 03/10/2026 ~03:45 CEST — ciclo QA orario
+- Nessun bug trovato (build verde 8/8, exit 0, lint+typecheck via build; live 200 su /, /singularity, robots.txt, sitemap.xml, .well-known/security.txt, cv-emanuele-zanardo.pdf, favicon.ico, apple-touch-icon.png, og-image.png, manifest.webmanifest, icon-192/512/512-maskable, hero-bg.webp + portrait.webp via _next/image; 404 corretta; meta/OG/Twitter/canonical/lang/theme-color/og:locale/og:image:type+alt+dimensioni presenti su entrambe le pagine; security headers live: CSP, HSTS, nosniff, X-Frame-Options DENY, Referrer-Policy, Permissions-Policy; 1 h1 per pagina; skip link; ancore tutte con id corrispondenti; rel=noopener (+me) su tutti i target=_blank; form: labels, autocomplete, honeypot, aria-invalid, noValidate, inputMode/email, spellCheck/autoCapitalize/autoCorrect off — tutto OK; nessun placeholder reale; nessun link interno rotto; nessuna immagine mancante; esterni: GitHub 200, wa.me 200, Streamlit 303 (atteso), LinkedIn 999 (bot-block anti-curl, atteso)).
+- Nessuna miglioria forzata: sweep completo — JSON-LD su entrambe le pagine, manifest PWA completo (id, categories, maskable icons, shortcuts, screenshots, theme/background), appleWebApp standalone, security.txt RFC 9116, max-image-preview:large, decoding async sul ritratto, theme-color coerente (#333333 layout+manifest) — tutto già a posto.
+- Blocchi aperti (azioni di Emanuele): `www.emanuelezanardo.info` ancora NXDOMAIN — fix IONOS (CNAME www → cname.vercel-dns.com) + Vercel Domains; discrepanza date Horien sito (Feb 2022–Dec 2025) vs CV (Oct 2021–Jan 2026) — servono date corrette; GMAIL_APP_PASSWORD da impostare su Vercel (form contatti).
 
 ## 03/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
 - Cicli QA orari 02/10 tutti VERDI, nessun bug trovato: migliorie pushate — 05:40 `autoCapitalize="words"` su input Name (commit post 05:40); 07:39 `noValidate` sul contact form + rettifica protocollo Vercel: il rate limit era già rientrato (tip 570e999 deploy success 05:51, commit cc444bc); 21:40 `type: image/png` agli shortcut PWA (commit 88103e8); 22:40 `autoCapitalize="sentences"` sul textarea Message (commit 39b40e4); 23:45 sweep completo senza forzature (commit d6311a4). HEAD main: 9da6e1d (entry QA 03/10 ~01:55 CEST).
