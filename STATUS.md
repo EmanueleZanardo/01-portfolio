@@ -1,6 +1,12 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 02/10/2026 ~05:40 CEST**
+**Ultimo aggiornamento: 03/10/2026 ~02:00 CEST**
+
+## 03/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- Cicli QA orari 02/10 tutti VERDI, nessun bug trovato: migliorie pushate — 05:40 `autoCapitalize="words"` su input Name (commit post 05:40); 07:39 `noValidate` sul contact form + rettifica protocollo Vercel: il rate limit era già rientrato (tip 570e999 deploy success 05:51, commit cc444bc); 21:40 `type: image/png` agli shortcut PWA (commit 88103e8); 22:40 `autoCapitalize="sentences"` sul textarea Message (commit 39b40e4); 23:45 sweep completo senza forzature (commit d6311a4). HEAD main: 9da6e1d (entry QA 03/10 ~01:55 CEST).
+- Blocchi aperti (azioni di Emanuele): `www.emanuelezanardo.info` ancora NXDOMAIN — fix IONOS (CNAME www → cname.vercel-dns.com) + Vercel Domains; discrepanza date Horien sito (Feb 2022–Dec 2025) vs CV (Oct 2021–Jan 2026) — servono date corrette; GMAIL_APP_PASSWORD da impostare su Vercel (form contatti).
+- Prossimi passi: QA oraria continua; nessun push di feature in sospeso.
+
 
 ## 02/10/2026 ~05:40 CEST — ciclo QA orario
 - Nessun bug trovato (build verde 8/8 pre+post miglioria, exit 0, lint+typecheck attivi; live 200 su /, /singularity, sitemap.xml, robots.txt, og-image.png, cv-emanuele-zanardo.pdf, apple-touch-icon.png, manifest.webmanifest, favicon.ico; meta/OG/Twitter/canonical/lang/theme-color/format-detection presenti; placeholder reali assenti — solo attributi placeholder legittimi del form; nessun link interno rotto; nessuna immagine mancante; 2 img in home con alt adeguato, 1 decorativa con alt="" aria-hidden).
