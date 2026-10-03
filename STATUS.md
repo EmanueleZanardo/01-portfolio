@@ -157,3 +157,12 @@
 - Nessun bug trovato.
 - Nessuna miglioria forzata: sweep completo — il sito è già coperto su tutti i fronti testati nei cicli precedenti (security.txt, CSP, JSON-LD, a11y focus, PWA manifest, robots/sitemap, immagini ottimizzate, rate limit form).
 - Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora irraggiungibile (NXDOMAIN) — richiede azione sua su IONOS/Vercel.
+
+## QA ~06:45 CEST 03/10
+- Pull fresco da origin/main (3b0b053, in sync), build verde (exit 0, Next.js 15.3.8, 8/8 pagine statiche, lint+typecheck via build).
+- Live: 200 su /, /singularity, robots.txt, sitemap.xml, /.well-known/security.txt, manifest.webmanifest, cv-emanuele-zanardo.pdf, favicon.ico, apple-touch-icon.png, og-image.png, hero-bg.webp, portrait.webp (diretti); 404 corretta su URL inesistente; security.txt 200 text/plain.
+- Security headers OK (CSP completa con frame-src Streamlit, X-Frame-Options DENY, Permissions-Policy, nosniff, HSTS 63072000, Referrer-Policy strict-origin-when-cross-origin, COOP/CORP same-origin).
+- Meta: title, description, canonical, OG/Twitter completi (+width/+height/+type/+alt), og:locale en_US, theme-color, format-detection, googlebot max-image-preview — presenti su / e /singularity; ancore (#main-content/#about/#services/#projects/#contact) tutte risolte; target=_blank tutti con rel=noopener; nessun placeholder di contenuto; nessun link interno rotto; nessuna immagine mancante.
+- Nessun bug trovato.
+- Nessuna miglioria forzata: sweep completo — sito già coperto su tutti i fronti (security.txt RFC 9116, CSP, JSON-LD, a11y focus, PWA manifest con shortcut+screenshots, robots/sitemap, immagini ottimizzate, form con honeypot/rate limit, autoCapitalize mobile).
+- Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora irraggiungibile (curl 000) — richiede azione sua su IONOS/Vercel.
