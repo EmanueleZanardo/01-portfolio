@@ -174,3 +174,11 @@
 - Nessun bug trovato.
 - Nessuna miglioria forzata: sweep completo — sito già coperto su tutti i fronti (security.txt RFC 9116, CSP, JSON-LD, a11y focus, PWA manifest con shortcut+screenshots, robots/sitemap, immagini ottimizzate, form con honeypot/rate limit, autoCapitalize mobile, noValidate).
 - Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora irraggiungibile (curl 000) — richiede azione sua su IONOS/Vercel.
+## QA ~08:45 CEST 03/10
+- Pull fresco da origin/main (fdbe6ee, in sync), build verde (exit 0, Next.js 15.3.8, compilato in 27s, 8/8 pagine statiche, zero errori; TMPDIR=~/workspace/tmp-build).
+- Live: 200 su /, /singularity, robots.txt, sitemap.xml, /.well-known/security.txt, manifest.webmanifest, cv-emanuele-zanardo.pdf, favicon.ico, apple-touch-icon.png, og-image.png, hero-bg.webp, portrait.webp (diretti); 404 corretta su URL inesistente.
+- Meta live verificati su HTML reale: lang en, title singolo, description, canonical (https su / e /singularity), og:title/og:image(+type=image/png), twitter:card summary_large_image, theme-color — presenti; 1 h1 per pagina; 2 blocchi JSON-LD sulla home; 0 img senza alt; 0 target=_blank senza noopener; nessun placeholder di contenuto (solo attributi placeholder legittimi del contact form); iframe Streamlit con title + referrerPolicy.
+- Security headers live OK (CSP completa con frame-src/connect-src Streamlit, X-Frame-Options implicito via frame-ancestors 'none', HSTS, COOP same-origin, Permissions-Policy).
+- Nessun bug trovato.
+- Nessuna miglioria forzata: sweep completo — sito già coperto su tutti i fronti (security.txt RFC 9116, CSP, JSON-LD Person+ProfessionalService+SoftwareApplication, a11y focus/skip-link, PWA manifest con shortcut+screenshots, robots/sitemap con lastmod da git, immagini ottimizzate, form con honeypot/rate limit/noValidate/autoCapitalize).
+- Nota: `www.emanuelezanardo.info` ora risolve in DNS (198.18.188.97, range benchmarking) ma HTTPS resta irraggiungibile (curl 000) — DNS in movimento, ma serve ancora configurazione su IONOS/Vercel (blocco da Emanuele).
