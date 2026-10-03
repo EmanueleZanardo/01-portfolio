@@ -166,3 +166,11 @@
 - Nessun bug trovato.
 - Nessuna miglioria forzata: sweep completo — sito già coperto su tutti i fronti (security.txt RFC 9116, CSP, JSON-LD, a11y focus, PWA manifest con shortcut+screenshots, robots/sitemap, immagini ottimizzate, form con honeypot/rate limit, autoCapitalize mobile).
 - Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora irraggiungibile (curl 000) — richiede azione sua su IONOS/Vercel.
+## QA ~07:39 CEST 03/10
+- Pull fresco da origin/main (279aa33, in sync), build verde (exit 0, Next.js 15.3.8, 8/8 pagine statiche, lint+typecheck via build; ~5min per contesa CPU su VM 2 vCPU con build parallelo 12-Sito-gioielleria).
+- Live: 200 su /, /singularity, robots.txt, sitemap.xml, /.well-known/security.txt, manifest.webmanifest, cv-emanuele-zanardo.pdf, favicon.ico, apple-touch-icon.png, og-image.png, hero-bg.webp, portrait.webp (diretti); 404 corretta su URL inesistente; tip con Vercel status success (deploy operativi).
+- Security headers OK (CSP completa con frame-src Streamlit, X-Frame-Options DENY, Permissions-Policy, nosniff, HSTS 63072000, Referrer-Policy strict-origin-when-cross-origin, COOP/CORP same-origin).
+- Meta: title, description, canonical, OG/Twitter completi (+width/+height/+type/+alt), og:locale en_US, theme-color, format-detection, googlebot max-image-preview — presenti su / e /singularity; preconnect Streamlit già in pagina /singularity; ancore tutte risolte; target=_blank tutti con rel=noopener (+me sui social); alt su tutte le img; nessun placeholder di contenuto; nessun link interno rotto; nessuna immagine mancante.
+- Nessun bug trovato.
+- Nessuna miglioria forzata: sweep completo — sito già coperto su tutti i fronti (security.txt RFC 9116, CSP, JSON-LD, a11y focus, PWA manifest con shortcut+screenshots, robots/sitemap, immagini ottimizzate, form con honeypot/rate limit, autoCapitalize mobile, noValidate).
+- Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora irraggiungibile (curl 000) — richiede azione sua su IONOS/Vercel.
