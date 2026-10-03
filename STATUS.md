@@ -130,3 +130,11 @@
 - Nessun bug trovato.
 - Nessuna miglioria forzata: sweep completo — form (autocomplete/autocapitalize/honeypot+aria-hidden+tabIndex=-1/aria-busy/aria-invalid), a11y focus (skip-link, moveFocusToSection, tabIndex=-1 sezioni), scroll-margin-top 4.5rem per header fisso, PWA manifest completo, JSON-LD, sitemap lastmod da git, robots allow-all (security.txt raggiungibile), security headers/CSP — tutto già a posto.
 - Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora NXDOMAIN — richiede azione sua su IONOS/Vercel.
+
+## QA ~02:40 CEST 03/10
+- Pull fresco da origin/main (04a2ae0, in sync), build verde (exit 0, 8/8 pagine statiche, lint+typecheck via build).
+- Live: 200 su /, /singularity, robots.txt, sitemap.xml, /.well-known/security.txt, manifest.webmanifest, cv-emanuele-zanardo.pdf, og-image.png; 404 corretta su URL inesistente.
+- Meta: description, canonical, OG/Twitter completi, og:locale en_US, theme-color, format-detection, googlebot max-image-preview — presenti; 1 h1/pagina; h2 sulle sezioni; aria-label sui link social con rel noopener (+me); skip-link e focus management a posto; form con autocomplete/autocapitalize/honeypot; nessun placeholder di contenuto; nessun link interno rotto; nessuna immagine mancante; sitemap con lastmod da git (02/10).
+- Nessun bug trovato.
+- Nessuna miglioria forzata: sweep completo — il sito è già coperto su tutti i fronti testati nei cicli precedenti (security.txt, CSP, JSON-LD, a11y focus, PWA manifest con shortcut, robots/sitemap, immagini ottimizzate).
+- Blocco aperto (da Emanuele): `www.emanuelezanardo.info` ancora irraggiungibile (curl 000) — richiede azione sua su IONOS/Vercel.
