@@ -146,7 +146,9 @@ export function Header() {
                       // corrente nella nav (vedi commento sopra, nav desktop).
                       aria-current={activeSection === link.href.slice(1) ? "page" : undefined}
                       className={cn(
-                        "text-lg font-medium transition-colors hover:text-primary",
+                        // a11y (WCAG 2.5.8): py-2 porta ogni voce a ~60px di
+                        // altezza — touch target comodo su mobile.
+                        "text-lg font-medium py-2 transition-colors hover:text-primary",
                         activeSection === link.href.slice(1) && "text-primary"
                       )}
                       onClick={(e) => {
