@@ -65,7 +65,10 @@ const SheetContent = React.forwardRef<
       {...props}
     >
       {children}
-      <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+      {/* a11y (WCAG 2.5.8) + micro-ux: la X da sola misurava 16px —
+          p-3.5 porta l'hit area a 44px; right-0.5/top-0.5 compensano il
+          padding cosi' l'icona resta pixel-identica al punto di prima. */}
+      <SheetPrimitive.Close className="absolute right-0.5 top-0.5 rounded-sm p-3.5 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
         <X aria-hidden="true" className="h-4 w-4" />
         <span className="sr-only">Close</span>
       </SheetPrimitive.Close>
