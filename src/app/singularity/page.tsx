@@ -5,8 +5,11 @@ import { FocusMainOnMount } from '@/components/focus-main-on-mount';
 export const metadata: Metadata = {
   // Title suffix "| Emanuele Zanardo" comes from the layout's title template.
   title: 'Singularity Quant ETRM',
+  // seo: meta description kept ≤160 chars so Google shows it whole in SERPs
+  // (was 176 chars and got truncated); drops "risk management" from the
+  // lead — the terminal's core keyword set is preserved.
   description:
-    'Singularity Quant ETRM — live energy trading and risk management terminal by Emanuele Zanardo: Swissix price analytics, KPIs, load curves, time bands and Monte Carlo simulator.',
+    'Singularity Quant ETRM — live energy trading terminal by Emanuele Zanardo: Swissix price analytics, KPIs, load curves and Monte Carlo simulator.',
   alternates: { canonical: '/singularity' },
   openGraph: {
     title: 'Singularity Quant ETRM | Emanuele Zanardo',
@@ -93,13 +96,15 @@ export default function SingularityPage() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open Singularity Quant ETRM live terminal in new tab"
-            className="text-sm font-mono text-gray-400 hover:text-white bg-gray-800 px-3 py-1 rounded"
+            // a11y (WCAG 2.5.8): min-h 44px — touch target adeguato su mobile
+            className="text-sm font-mono text-gray-400 hover:text-white bg-gray-800 px-3 py-1 rounded min-h-[44px] inline-flex items-center"
           >
             Open in new tab ↗
           </a>
           <Link
             href="/"
-            className="text-sm font-mono text-gray-400 hover:text-white bg-gray-800 px-3 py-1 rounded"
+            // a11y (WCAG 2.5.8): min-h 44px — touch target adeguato su mobile
+            className="text-sm font-mono text-gray-400 hover:text-white bg-gray-800 px-3 py-1 rounded min-h-[44px] inline-flex items-center"
           >
             ← Back to Portfolio
           </Link>
