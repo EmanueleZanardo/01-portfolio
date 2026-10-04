@@ -28,7 +28,7 @@ const experiences = [
     fromLabel: "February 2022",
     to: "2025-12",
     toLabel: "December 2025",
-    description: "World leader in the design and production of molten salt storage systems for backup, sustainable mobility, and energy storage. My work mainly consists of product certification, test writing, and verification, proposing FW or HW patches to improve the product. I follow certification projects for UL 1973, UL 1741, IEC 61508, and ABS regulations.",
+    description: "World leader in the design and production of molten salt storage systems for backup, sustainable mobility, and energy storage. My work mainly consisted of product certification, test writing, and verification, proposing FW or HW patches to improve the product. I followed certification projects for UL 1973, UL 1741, IEC 61508, and ABS regulations.",
     tags: ["Product Certification", "Testing", "Storage Systems", "UL 1973", "IEC 61508"]
   },
   {

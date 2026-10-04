@@ -33,8 +33,15 @@ const csp = [
 
 const nextConfig: NextConfig = {
   /* config options here */
+  // security: rimuove l'header "X-Powered-By: Next.js" dalle risposte —
+  // information disclosure gratuita sullo stack (inutile per il sito, utile
+  // a chi cerca vulnerabilita' note).
+  poweredByHeader: false,
   // perf: trasforma i barrel import di lucide-react in import diretti dei
   // singoli moduli — meno lavoro di tree-shaking, bundle JS piu' piccolo.
+  // (Nota: in Next 15.3.8 la chiave resta in "experimental" — non esiste
+  // ancora come top-level stabile in questa versione; verificato nei tipi
+  // di node_modules/next 15.3.8.)
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
@@ -46,6 +53,12 @@ const nextConfig: NextConfig = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'X-Frame-Options', value: 'DENY' },
+          // security: unico header di sicurezza standard assente — il sito e'
+          // gia' interamente HTTPS (Vercel), quindi forza HTTPS lato browser
+          // per 2 anni su dominio e sottodomini, chiudendo il vettore
+          // downgrade/SSL-stripping sul primo accesso. Senza "preload" (non
+          // inviato alla preload list dei browser).
+          { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains' },
           // security: isola il browsing context della pagina dai documenti
           // cross-origin — difesa contro attacchi cross-origin (es. XS-Leaks).
           // Sicuro qui: il sito non apre popup (l'unico _blank e' un anchor

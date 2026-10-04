@@ -32,7 +32,7 @@ export function Contact() {
       name: "",
       email: "",
       message: "",
-      company: "",
+      extra_info: "",
     },
   });
 
@@ -135,15 +135,18 @@ export function Contact() {
                     </FormItem>
                   )}
                 />
-                {/* Honeypot anti-spam field: hidden from real users, bots usually fill it. */}
+                {/* Honeypot anti-spam field: hidden from real users, bots usually fill it.
+                    Named "extra_info" (see contact-schema.ts): not a browser-autofill
+                    vocabulary token, so legitimate autofill can't fill it and get
+                    the user's real message silently dropped. */}
                 <div aria-hidden="true" className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden">
-                  <label htmlFor="company">Company</label>
+                  <label htmlFor="extra_info">Extra info</label>
                   <input
-                    id="company"
+                    id="extra_info"
                     type="text"
                     autoComplete="off"
                     tabIndex={-1}
-                    {...form.register("company")}
+                    {...form.register("extra_info")}
                   />
                 </div>
                 <Button type="submit" size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={isSubmitting} aria-busy={isSubmitting}>

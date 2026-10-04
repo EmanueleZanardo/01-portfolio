@@ -59,7 +59,7 @@ type ContactFormValues = {
   email: string;
   message: string;
   // Honeypot field: bots fill it, real users leave it empty.
-  company?: string;
+  extra_info?: string;
 };
 
 // Escape user input before interpolating it into HTML email bodies,
@@ -88,10 +88,10 @@ export async function sendContactMessage(
     };
   }
 
-  const { name, email, message, company } = parsed.data;
+  const { name, email, message, extra_info } = parsed.data;
 
   // Honeypot: pretend success for bots so they don't learn the trap.
-  if (company && company.trim() !== "") {
+  if (extra_info && extra_info.trim() !== "") {
     console.warn("Contact form: honeypot triggered, dropping message from", email);
     return { success: true };
   }

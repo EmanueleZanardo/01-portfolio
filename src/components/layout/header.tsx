@@ -46,6 +46,21 @@ export function Header() {
     }, 60);
   };
 
+  // fix mobile: il tap su un link del menu laterale faceva partire il salto
+  // all'ancora mentre lo Sheet si stava ancora chiudendo (body scroll-locked
+  // + animazione di uscita) — il browser calcolava male la posizione e si
+  // atterrava a metà sezione. Ora lo scroll parte solo a menu chiuso.
+  const scrollToSection = (sectionId: string) => {
+    const el = document.getElementById(sectionId);
+    if (!el) return;
+    const headerOffset = 64; // h-14 (56px) + margine
+    const y = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+    // a11y: rispetta prefers-reduced-motion (stesso guard di scroll-to-top.tsx):
+    // lo smooth scroll forzato ignora il CSS scroll-behavior:auto della media query
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: y, behavior: reduceMotion ? "auto" : "smooth" });
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const heroSectionHeight = window.innerHeight - 56; // 56 is header height (h-14)
@@ -86,7 +101,10 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              aria-current={activeSection === link.href.slice(1) ? "true" : undefined}
+              // a11y: "page" e' il token WAI-ARIA raccomandato per la voce di
+              // navigazione corrispondente alla pagina corrente (gli screen
+              // reader annunciano "current page"; "true" e' generico).
+              aria-current={activeSection === link.href.slice(1) ? "page" : undefined}
               onClick={() => moveFocusToSection(link.href.slice(1))}
               className={cn(
                 "transition-colors hover:text-primary",
@@ -124,14 +142,24 @@ export function Header() {
                     <Link
                       key={link.href}
                       href={link.href}
-                      aria-current={activeSection === link.href.slice(1) ? "true" : undefined}
+                      // a11y: "page" = token WAI-ARIA raccomandato per la pagina
+                      // corrente nella nav (vedi commento sopra, nav desktop).
+                      aria-current={activeSection === link.href.slice(1) ? "page" : undefined}
                       className={cn(
                         "text-lg font-medium transition-colors hover:text-primary",
                         activeSection === link.href.slice(1) && "text-primary"
                       )}
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault(); // niente jump nativo: scroll solo a menu chiuso (vedi scrollToSection)
                         setIsMobileMenuOpen(false);
-                        moveFocusToSection(link.href.slice(1));
+                        // bugfix: il focus va spostato DOPO la chiusura dello Sheet.
+                        // A menu ancora aperto il focus trap di Radix riporta il focus
+                        // dentro il dialog e alla chiusura lo restituisce al bottone
+                        // del menu — la sezione restava senza focus (WCAG 2.4.3).
+                        window.setTimeout(() => {
+                          scrollToSection(link.href.slice(1));
+                          moveFocusToSection(link.href.slice(1));
+                        }, 350);
                       }}
                     >
                       {link.label}

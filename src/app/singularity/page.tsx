@@ -25,6 +25,9 @@ export const metadata: Metadata = {
         // seo: og:image:type — alcuni scraper/validator (es. LinkedIn,
         // WhatsApp) lo usano per il content-type senza fare un HEAD extra.
         type: 'image/png',
+        // seo: og:image:secure_url — richiesto esplicitamente da alcuni
+        // validator/scraper; l'URL e' https, quindi e' anche l'URL sicuro.
+        secureUrl: 'https://emanuelezanardo.info/og-image.png',
       },
     ],
   },

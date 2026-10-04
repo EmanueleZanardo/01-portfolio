@@ -16,7 +16,11 @@ export const contactFormSchema = z.object({
     message: "Message must be at least 10 characters.",
   }).max(5000),
   // Honeypot: real users leave this empty, bots tend to fill it.
-  company: z.string().optional(),
+  // robustness: named "extra_info" instead of "company" — "company" is a
+  // standard browser-autofill vocabulary token, and a legitimate autofill
+  // would fill it for a real user, silently dropping their message
+  // (the honeypot check drops filled fields with fake success).
+  extra_info: z.string().optional(),
 });
 
 export type ContactFormValues = z.infer<typeof contactFormSchema>;
