@@ -1,6 +1,12 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 03/10/2026 ~04:45 CEST**
+**Ultimo aggiornamento: 04/10/2026 ~02:00 CEST**
+
+## 04/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- **03/10 09:50 CEST — Vercel ha bloccato i deploy del portfolio per rate limit** ("retry in 24 hours", troppi deploy dai push orari QA). Sito live integro sulla versione precedente `453b3bd` (08:45); tutti gli URL rispondono 200. (HEAD remoto: f445252 "seo: sitemap — CV PDF entry + per-file lastmod").
+- QA oraria tutto il giorno verde (build 8/8, live 200, nessun bug). **Push sospesi fino alle 10:00 CEST del 04/10**; ~15 commit locali in coda da pushare in blocco.
+- Blocchi aperti (serve Emanuele): `www.emanuelezanardo.info` HTTPS irraggiungibile (NXDOMAIN, azione IONOS/Vercel); date Horien discordanti sito vs CV; `GMAIL_APP_PASSWORD` da impostare su Vercel (form contatti).
+
 
 ## 03/10/2026 ~04:45 CEST — ciclo QA orario
 - Nessun bug trovato (build verde 8/8, exit 0, lint+typecheck via build; live 200 su /, /singularity, robots.txt, sitemap.xml, .well-known/security.txt, cv-emanuele-zanardo.pdf, favicon.ico, apple-touch-icon.png, og-image.png, manifest.webmanifest, icon-192/512.png; 404 corretta; meta/OG/Twitter/canonical/lang/theme-color presenti; security headers live: CSP, COOP, CORP, Permissions-Policy, Referrer-Policy, HSTS, nosniff, X-Frame-Options DENY; nessun placeholder reale — solo classi/attributi placeholder legittimi del form; nessun link interno rotto; nessuna immagine mancante; esterni: Streamlit embed 200; pull 4f6f9dd solo docs, nessun codice nuovo da verificare).
