@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 
 const experiences = [
   {
-    title: "After-Sales Engineer",
+    title: "After-Sales Technician",
     company: "CENTIEL",
     // seo/a11y: machine-readable employment dates for the <time> elements
     // below (Google parses dateTime; "to: null" = still employed).
