@@ -194,7 +194,7 @@ const servicesJsonLd = {
         },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '50',
+          price: 50,
           priceCurrency: 'EUR',
           description: 'Indicative rate, per hour. Final quote depends on project scope.',
         },
@@ -209,7 +209,7 @@ const servicesJsonLd = {
         },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '50',
+          price: 50,
           priceCurrency: 'EUR',
           description: 'Indicative rate, per hour. Final quote depends on project scope.',
         },
@@ -224,7 +224,7 @@ const servicesJsonLd = {
         },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '50',
+          price: 50,
           priceCurrency: 'EUR',
           description: 'Indicative rate, per hour. Final quote depends on project scope.',
         },
