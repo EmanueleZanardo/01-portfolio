@@ -1,6 +1,16 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 04/10/2026 ~10:40 CEST**
+**Ultimo aggiornamento: 04/10/2026 ~11:40 CEST**
+
+## 04/10/2026 ~11:40 CEST — ciclo QA orario
+- Pull: origin/main fermo a b21c544 (nessun nuovo commit di Emanuele); clone principale ~/workspace/portfolio in sync, nessun conflitto.
+- Audit commit locali "persi" 8478c18/96f4c85 (clone secondario goal hidden_files/portfolio, cicli 05:40/06:40): verifica sostanza confermata con l'audit del ciclo 10:40 — 8478c18 (og:image:secure_url) DUPLICATO (già su origin via b21c544, verificato live); 96f4c85 (moveFocusToSection 60→350ms blanket) SUPERATO dal fix mirato in b21c544 (timeout 350ms con scrollToSection+moveFocusToSection solo nel menu mobile post-chiusura Sheet, 60ms invariati su desktop/hero). Avevo ri-applicato il blanket fix a inizio ciclo: REVERTITO dopo la verifica (avrebbe solo rallentato di 290ms il focus su desktop senza beneficio). Nessun lavoro perso.
+- Build: OK pre+post miglioria (exit 0, Next.js 15.3.8, lint+typecheck pass; log goal hidden_files/build_20261004_1140c.log; TMPDIR=~/workspace/tmp-build); text-balance verificato nel prerender (.next/server/app/index.html).
+- Live 200: /, /singularity, robots.txt, sitemap.xml (include cv-emanuele-zanardo.pdf — deploy b21c544 RIUSCITO, rate limit Vercel rientrato), manifest.webmanifest, cv-emanuele-zanardo.pdf, favicon.ico, og-image.png, .well-known/security.txt; 404 corretta; og:image:secure_url + HSTS (max-age=63072000; includeSubDomains) + honeypot extra_info tutti live; no X-Powered-By.
+- Nessun bug: 1 h1/pagina, 0 img senza alt, 0 target=_blank senza noopener, 0 placeholder di contenuto, meta/OG/Twitter/canonical/theme-color/lang OK, nessun link interno rotto.
+- Miglioria (micro-UX/tipografia): `text-balance` su h1 hero + tagline in src/components/sections/hero.tsx — niente più vedove tipografiche sul titolo più visto del sito.
+- PUSH: commit con fix hero.tsx + questa entry STATUS.md (dettagli SHA nel run log).
+- Blocchi aperti (serve Emanuele): www.emanuelezanardo.info HTTPS ancora irraggiungibile (azione IONOS/Vercel); discrepanza date Horien sito vs CV; GMAIL_APP_PASSWORD da impostare su Vercel (form contatti).
 
 ## 04/10/2026 ~10:40 CEST — ciclo QA orario (PUSH RIPRESO: sospensione rate limit Vercel scaduta alle 10:00 CEST)
 - Build: OK (exit 0, Next.js 15.3.8, 6 route: / e /singularity + not-found/robots/sitemap statiche, security.txt dinamica; log in goal hidden_files/build_20261004_1040.log).
