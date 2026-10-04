@@ -44,8 +44,10 @@ export function ScrollToTop() {
     }, 60);
   };
 
-  if (!visible) return null;
-
+  // micro-ux: il bottone resta montato e compare con un fade invece di
+  // apparire di colpo (mount/unmount). visibility:hidden lo esclude anche da
+  // tab order e albero a11y quando nascosto; motion-reduce disattiva la
+  // transizione (stesso rispetto del reduced-motion della logica di scroll).
   // max() with env(safe-area-inset-*) keeps the button clear of the
   // iPhone home indicator / side notch on edge-to-edge displays.
   return (
@@ -54,7 +56,9 @@ export function ScrollToTop() {
       variant="secondary"
       size="icon"
       aria-label="Back to top"
-      className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-[max(1.5rem,env(safe-area-inset-right))] z-50 rounded-full shadow-lg"
+      className={`fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-[max(1.5rem,env(safe-area-inset-right))] z-50 rounded-full shadow-lg transition-opacity duration-300 motion-reduce:transition-none ${
+        visible ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+      }`}
       onClick={scrollToTop}
     >
       <ArrowUp aria-hidden="true" className="h-5 w-5" />
