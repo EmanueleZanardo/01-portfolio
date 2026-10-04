@@ -1,6 +1,15 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 04/10/2026 ~11:40 CEST**
+**Ultimo aggiornamento: 04/10/2026 ~12:40 CEST**
+
+## 04/10/2026 ~12:40 CEST — ciclo QA orario (nessun push: solo entry STATUS.md, accumulata in locale per anti-rate-limit)
+- Pull: origin/main fermo a 700a332 (nessun nuovo commit di Emanuele); clone principale ~/workspace/portfolio in sync, nessun conflitto.
+- Build: OK (exit 0, Next.js 15.3.8, 8/8 pagine statiche, lint+typecheck pass; log goal hidden_files/build_20261004_1240.log; TMPDIR=~/workspace/tmp-build).
+- Live 200: /, /singularity, robots.txt, sitemap.xml (con voce cv-emanuele-zanardo.pdf), .well-known/security.txt, manifest.webmanifest, cv-emanuele-zanardo.pdf, favicon.ico, og-image.png; 404 corretta; security headers completi (CSP, HSTS 63072000+includeSubDomains, nosniff, DENY, Referrer-Policy, Permissions-Policy, no X-Powered-By).
+- Nessun bug: 1 h1/pagina, 0 img senza alt, 0 target=_blank senza noopener, 0 placeholder di contenuto, meta/OG (+secure_url/+type/+alt/+dimensioni)/Twitter/canonical/theme-color/lang/og:locale OK, tutte le ancore (#about/#services/#projects/#contact/#main-content) risolte, nessun link interno rotto, nessuna immagine mancante. Nota: aria-current="page" assente nell'HTML statico è atteso — viene impostato client-side da use-active-section (verificato in header.tsx).
+- Nessuna miglioria forzata: sweep completo (hero priority/fetchpriority, portrait lazy+async+sizes, iframe con title, label "opens in new tab" coerenti, form honeypot/labels/autocomplete, footer anno dinamico, manifest con shortcuts+screenshots, JSON-LD, reduced-motion) — nessun gap sensato rimasto; forzare un diff finto sprecherebbe un deploy Vercel.
+- PUSH: nessuno (anti-rate-limit: l'unica modifica è questa entry STATUS.md, commit locale in accumulo per il prossimo push sostanziale).
+- Blocchi aperti (serve Emanuele): www.emanuelezanardo.info HTTPS ancora irraggiungibile (azione IONOS/Vercel); discrepanza date Horien sito vs CV; GMAIL_APP_PASSWORD da impostare su Vercel (form contatti).
 
 ## 04/10/2026 ~11:40 CEST — ciclo QA orario
 - Pull: origin/main fermo a b21c544 (nessun nuovo commit di Emanuele); clone principale ~/workspace/portfolio in sync, nessun conflitto.
@@ -351,4 +360,33 @@
 - Live 200: / (0,62s), /singularity, /hero-bg.webp, /portrait.webp, /cv-emanuele-zanardo.pdf, /robots.txt, /sitemap.xml. Meta completi (title, description, keywords, OG, twitter, canonical, theme-color, charset); nessun placeholder/lorem; nessun link interno rotto.
 - Nessun bug trovato. Nessuna miglioria forzata: sweep a11y/SEO già coperto dai cicli precedenti; sito stabile, niente da stravolgere.
 - Push: NESSUNO per sospensione; coda locale cresce di 1 (questa entry) — push dopo il 04/10 10:00 CEST.
+- Aperti: www.emanuelezanardo.info HTTPS (azione Emanuele), date Horien sito vs CV, GMAIL_APP_PASSWORD su Vercel.
+
+## QA 2026-10-04 ~13:40 CEST (senza push — anti rate-limit: solo entry STATUS.md, nessuna modifica a codice)
+- Pull: nessun nuovo commit remoto (origin/main 700a332); clone locale ahead 1 (entry QA 12:40).
+- Build: OK (exit 0, Next.js 15.3.8, 8/8 pagine statiche, zero errori — log sito-build-20261004-1339.log in goal hidden_files).
+- Live 200: /, /singularity, robots.txt, sitemap.xml, manifest.webmanifest (valido: name/short_name/icons maskable/shortcuts), cv-emanuele-zanardo.pdf, og-image.png, hero-bg.webp, portrait.webp, /.well-known/security.txt, favicon.ico; 404 corretta su URL inesistente; iframe Streamlit risponde 303 (redirect normale di Streamlit Cloud, il browser lo segue — non bug).
+- Meta: title, description, OG (+secure_url/+alt/+dimensioni — deploy post-sospensione 04/10 confermato live), twitter card (+image:alt), canonical, theme-color #333333, viewport, charset, JSON-LD OK su / e /singularity; 1 h1 per pagina; nessun placeholder/lorem; nessun link interno rotto; nessuna immagine mancante (hero portrait.webp alt descrittiva, hero-bg decorativa alt="").
+- Security headers OK (CSP con frame-src Streamlit, HSTS 63072000, nosniff, DENY, Referrer-Policy strict-origin-when-cross-origin, Permissions-Policy, no X-Powered-By); rel=noopener(+me) su tutti i target=_blank.
+- a11y sweep: aria-current=page su nav scrollspy (src, client-side), autocomplete/enterKeyHint/inputMode sul form, ToastViewport aria-live="polite", icone decorative aria-hidden, honeypot, skip link, reduced-motion — tutto già coperto.
+- Nessun bug trovato. Nessuna miglioria forzata.
+- Push: NESSUNO (anti rate-limit: solo entry STATUS.md); clone locale ahead 2 dopo questa entry — push alla prossima modifica sostanziale.
+- Aperti: www.emanuelezanardo.info HTTPS (azione Emanuele), date Horien sito vs CV, GMAIL_APP_PASSWORD su Vercel.
+
+## QA 2026-10-04 ~14:40 CEST (senza push — anti rate-limit: solo entry STATUS.md, nessuna modifica a codice)
+- Pull: nessun nuovo commit remoto (origin/main 700a332); clone locale ahead 2 (entry QA 12:40, 13:40).
+- Build: OK (exit 0, Next.js 15.3.8, compilato in 5.0s, 6 route statiche + security.txt dinamica, zero errori — log sito-build-20261004-1439.log in goal hidden_files).
+- Live 200: /, /singularity, robots.txt, sitemap.xml, manifest.webmanifest, cv-emanuele-zanardo.pdf, og-image.png, hero-bg.webp, portrait.webp, /.well-known/security.txt, favicon.ico, apple-touch-icon.png, _next static JS+CSS; 404 corretta su URL inesistente.
+- Meta: title, description, OG (locale/type/secure_url/alt/dimensioni), twitter card (+image:alt), canonical, theme-color #333333, formatDetection telephone:false, appleWebApp, viewport, charset OK su / e /singularity; 1 h1 per pagina; JSON-LD presenti; nessun placeholder/lorem; nessun link interno rotto; nessuna immagine mancante.
+- Nessun bug trovato. Nessuna miglioria forzata: sweep src (hero priority+sizes, metadata, a11y nav/form, preconnect, focus, reduced-motion, rel=noopener) — tutto già coperto dai cicli precedenti.
+- Push: NESSUNO (anti rate-limit: solo entry STATUS.md); clone locale ahead 3 dopo questa entry — push alla prossima modifica sostanziale.
+- Aperti: www.emanuelezanardo.info HTTPS (azione Emanuele), date Horien sito vs CV, GMAIL_APP_PASSWORD su Vercel.
+
+## QA 2026-10-04 ~15:40 CEST (CON push — modifica sostanziale: fade back-to-top)
+- Pull: nessun nuovo commit remoto (origin/main 700a332); clone locale ahead 3 (entry QA 12:40, 13:40, 14:40).
+- Build: OK (exit 0, Next.js 15.3.8, zero errori).
+- Live 200: /; /singularity, cv-emanuele-zanardo.pdf, apple-touch-icon.png, favicon.ico, manifest.webmanifest, robots.txt, sitemap.xml; immagini hero-bg.webp (55 KB) e portrait.webp (29 KB) OK; meta title/description/OG/twitter/viewport OK; placeholder trovati solo come attributi placeholder degli input form (legittimi).
+- Bug trovati: NESSUNO.
+- Miglioria del ciclo (micro-UX + a11y): pulsante "back to top" (src/components/layout/scroll-to-top.tsx) — prima appariva/spariva di colpo per mount/unmount; ora resta montato e sfuma con transizione di opacità (opacity/invisible + pointer-events-none), visibility:hidden lo esclude da tab order e albero a11y quando nascosto, motion-reduce:transition-none rispetta il reduced-motion. Logica focus WCAG 2.4.3 invariata.
+- Push: SÌ (modifica sostanziale a codice + 4 entry STATUS.md accumulate).
 - Aperti: www.emanuelezanardo.info HTTPS (azione Emanuele), date Horien sito vs CV, GMAIL_APP_PASSWORD su Vercel.
