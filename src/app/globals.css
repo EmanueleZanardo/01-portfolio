@@ -75,7 +75,11 @@ section[id] {
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
+    /* a11y (WCAG 1.4.3): 63.9% dava 4.31:1 su bg-card (#3d3d3d) — sotto il
+       minimo AA di 4.5:1 per il testo normale (paragrafi About/Services/
+       Contact, descrizioni card). 70% porta a ~5.2:1 su card e ~6.0:1 su
+       bg-background, senza cambiare la palette del design. */
+    --muted-foreground: 0 0% 70%;
     --accent: 30 100% 60%;
     --accent-foreground: 0 0% 3.9%;
     --destructive: 0 62.8% 30.6%;
