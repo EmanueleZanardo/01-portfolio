@@ -30,10 +30,14 @@ const CardHeader = React.forwardRef<
 CardHeader.displayName = "CardHeader"
 
 const CardTitle = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+  HTMLHeadingElement,
+  React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
-  <div
+  // a11y (WCAG 1.3.1): i titoli delle card (ruoli in Projects, servizi in
+  // Services) sono heading visivi sotto gli h2 di sezione — come <div>
+  // sparivano dalla navigazione per heading degli screen reader. h3 non
+  // cambia nulla visivamente (stesse classi).
+  <h3
     ref={ref}
     className={cn(
       "text-2xl font-semibold leading-none tracking-tight",
