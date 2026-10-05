@@ -1,6 +1,15 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 04/10/2026 ~12:40 CEST**
+**Ultimo aggiornamento: 05/10/2026 ~02:00 CEST**
+
+## 05/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- **04/10 02:40 — Emanuele ha pushato lui stesso commit `b5fb48e` (STATUS.md)** durante la sospensione; deploy Vercel riuscito → rate limit sembrava rientrato.
+- **04/10 10:40 — scadenza sospensione Vercel:** pushati in blocco i 25 commit accumulati (commit `b21c544`, via Git Data API, base b5fb48e verificata su commits/main). Migliorie andate live: honeypot `extra_info`, aria-current, og:image:secure_url, HSTS, poweredByHeader false, fix focus menu mobile, reduced-motion nav, tempi verbali CV.
+- **04/10 11:40** — push `700a332` (text-balance titolo hero); deploy live verificato. **15:40** — push `8c6ff02` (back-to-top con fade) + `97e400f` (STATUS.md).
+- **04/10 16:40–16:46 — Squad SITO deep sweep** (5 worker, 12–14 commit, HEAD `2da4b42`): a11y (contrasto, CardTitle div→h3, touch target 44px), SEO (meta /singularity ≤160ch, JSON-LD price numerico), perf (form lazy, First Load 161→135 kB), fix card CENTIEL "After-Sales Engineer"→"After-Sales Technician" (verificato contro CV PDF). ⚠️ ~12 push ravvicinati = rischio rientro rate limit Vercel.
+- **04/10 18:40 / 20:40 / 22:40 — deploy Vercel BLOCCATO (~7h)**: il push delle 16:46 non è mai andato live (sitemap lastmod ferma a 13:44:18Z, live serve ancora "After-Sales Engineer"). Serve che Emanuele controlli Vercel → Deployments.
+- Blocchi aperti (serve lui): www.emanuelezanardo.info HTTPS irraggiungibile (NXDOMAIN); date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
 
 ## 04/10/2026 ~12:40 CEST — ciclo QA orario (nessun push: solo entry STATUS.md, accumulata in locale per anti-rate-limit)
 - Pull: origin/main fermo a 700a332 (nessun nuovo commit di Emanuele); clone principale ~/workspace/portfolio in sync, nessun conflitto.
