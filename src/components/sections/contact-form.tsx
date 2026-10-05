@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,21 +15,26 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader } from "lucide-react";
+import { CircleAlert, CircleCheck, Loader } from "lucide-react";
 import { useState } from "react";
-import { sendContactMessage } from "@/app/actions";
+import { sendContactMessage, type ContactFieldErrors } from "@/app/actions";
 import { contactFormSchema, type ContactFormValues } from "@/lib/contact-schema";
 
 const formSchema = contactFormSchema;
+const MESSAGE_MAX_LENGTH = 2000;
 
 // perf: il form (react-hook-form + zod + @hookform/resolvers) e' l'unico
 // consumer di queste librerie e sta tutto sotto la fold — vive in un chunk
 // client separato caricato in lazy da contact.tsx (dynamic, ssr: false), cosi'
 // non gonfia piu' il chunk condiviso di tutte le route (risparmio misurato
 // nel report wC del 04/10/2026: vedi patches/wC-report.md).
+
+type Status = { type: "success" | "error"; message: string } | null;
+
 export function ContactForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<Status>(null);
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(formSchema),
@@ -40,16 +46,22 @@ export function ContactForm() {
     },
   });
 
+  const messageValue = form.watch("message") ?? "";
+
   async function onSubmit(values: ContactFormValues) {
     // robustezza: se la server action rifiuta la promise (timeout/500 di
     // rete), senza try/finally isSubmitting restava true per sempre — il
     // bottone si bloccava su "Sending..." senza toast e senza possibilita'
     // di riprovare. Ora l'utente riceve sempre un esito e il form si sblocca.
     setIsSubmitting(true);
+    setStatus(null);
     try {
       const result = await sendContactMessage(values);
 
       if (result.success) {
+        const message =
+          "Message sent! Thank you for contacting me — I will get back to you as soon as possible.";
+        setStatus({ type: "success", message });
         toast({
           title: "Message Sent!",
           description:
@@ -57,6 +69,22 @@ export function ContactForm() {
         });
         form.reset();
       } else {
+        // Structured server-side field errors: map them onto the matching
+        // inputs so the user sees inline errors and their input is
+        // preserved (no reset on failure).
+        if (result.fieldErrors) {
+          const fields = Object.keys(result.fieldErrors) as (
+            keyof ContactFieldErrors
+          )[];
+          fields.forEach((field, index) => {
+            const message = result.fieldErrors?.[field];
+            if (message) {
+              form.setError(field, { type: "server", message });
+              if (index === 0) form.setFocus(field);
+            }
+          });
+        }
+        setStatus({ type: "error", message: result.error });
         toast({
           variant: "destructive",
           title: "Uh oh! Something went wrong.",
@@ -64,11 +92,13 @@ export function ContactForm() {
         });
       }
     } catch {
+      const message =
+        "Could not send your message. Please check your connection and try again.";
+      setStatus({ type: "error", message });
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description:
-          "Could not send your message. Please check your connection and try again.",
+        description: message,
       });
     } finally {
       setIsSubmitting(false);
@@ -89,7 +119,7 @@ export function ContactForm() {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Your name" autoComplete="name" maxLength={100} enterKeyHint="next" autoCapitalize="words" autoCorrect="off" aria-invalid={fieldState.error ? true : undefined} {...field} disabled={isSubmitting} />
+                  <Input placeholder="Your name" autoComplete="name" maxLength={60} enterKeyHint="next" autoCapitalize="words" autoCorrect="off" aria-invalid={fieldState.error ? true : undefined} {...field} disabled={isSubmitting} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -118,7 +148,7 @@ export function ContactForm() {
                   <Textarea
                     placeholder="Tell me about your project or idea..."
                     className="min-h-[150px]"
-                    maxLength={5000}
+                    maxLength={MESSAGE_MAX_LENGTH}
                     enterKeyHint="send"
                     autoCapitalize="sentences"
                     aria-invalid={fieldState.error ? true : undefined}
@@ -126,6 +156,12 @@ export function ContactForm() {
                     disabled={isSubmitting}
                   />
                 </FormControl>
+                {/* Character counter: FormDescription is always referenced by
+                    aria-describedby on the textarea (shadcn FormControl),
+                    so screen readers announce the remaining budget. */}
+                <FormDescription className="text-right text-xs">
+                  {messageValue.length}/{MESSAGE_MAX_LENGTH} characters
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -144,6 +180,27 @@ export function ContactForm() {
               {...form.register("extra_info")}
             />
           </div>
+          {/* Inline status panel: visible success/error outcome for everyone
+              (screen-reader announced via role/status or role/alert), not just
+              the auto-dismissing toast. Hidden while a new submit is pending. */}
+          {status && (
+            <div
+              role={status.type === "error" ? "alert" : "status"}
+              aria-live="polite"
+              className={
+                status.type === "error"
+                  ? "flex items-start gap-2 rounded-md border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive"
+                  : "flex items-start gap-2 rounded-md border border-green-600/40 bg-green-600/10 px-4 py-3 text-sm text-green-700 dark:text-green-400"
+              }
+            >
+              {status.type === "error" ? (
+                <CircleAlert aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
+              ) : (
+                <CircleCheck aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
+              )}
+              <p>{status.message}</p>
+            </div>
+          )}
           <Button type="submit" size="lg" className="w-full bg-primary text-primary-foreground hover:bg-primary/90" disabled={isSubmitting} aria-busy={isSubmitting}>
             {isSubmitting && <Loader aria-hidden="true" className="mr-2 h-4 w-4 animate-spin" />}
             {isSubmitting ? "Sending..." : "Send Message"}

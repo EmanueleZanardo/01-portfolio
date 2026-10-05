@@ -26,6 +26,12 @@ export const viewport: Viewport = {
   colorScheme: 'dark',
 };
 
+// seo: single source of truth for the site description (159 chars) — shared
+// by the meta description, openGraph and twitter tags, and the WebPage
+// JSON-LD, so they never drift apart.
+const siteDescription =
+  'Portfolio of Emanuele Zanardo, Electronic Engineer: embedded systems, firmware & validation, PCB design, industrial automation — Ticino, Switzerland and Italy.';
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://emanuelezanardo.info'),
   title: {
@@ -34,10 +40,10 @@ export const metadata: Metadata = {
     default: 'Emanuele Zanardo | Electronic Engineer',
     template: '%s | Emanuele Zanardo',
   },
-  description: 'Professional portfolio of Emanuele Zanardo, Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
+  description: siteDescription,
   // seo: keywords metadata — search engines can use them as an extra relevance
   // signal; kept focused on his actual services and service areas.
-  keywords: ['Electronic Engineer', 'embedded systems', 'firmware development', 'firmware validation', 'PCB design', 'KiCad', 'ESP32', 'industrial automation', 'Ticino', 'Varese', 'Switzerland', 'Italy'],
+  keywords: ['Electronic Engineer', 'embedded systems', 'firmware development', 'firmware validation', 'PCB design', 'PCB layout', 'KiCad', 'ESP32', 'STM32', 'freelance electronics engineer', 'industrial automation', 'Ticino', 'Varese', 'Switzerland', 'Italy'],
   alternates: { canonical: '/' },
   authors: [{ name: 'Emanuele Zanardo', url: 'https://emanuelezanardo.info' }],
   creator: 'Emanuele Zanardo',
@@ -71,7 +77,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Emanuele Zanardo | Electronic Engineer',
-    description: 'Professional portfolio of Emanuele Zanardo, Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
+    description: siteDescription,
     url: 'https://emanuelezanardo.info',
     siteName: 'Emanuele Zanardo Portfolio',
     locale: 'en_US',
@@ -94,7 +100,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Emanuele Zanardo | Electronic Engineer',
-    description: 'Professional portfolio of Emanuele Zanardo, Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
+    description: siteDescription,
     images: [
       {
         url: '/og-image.png',
@@ -107,6 +113,9 @@ export const metadata: Metadata = {
 const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
+  // seo: @id anchor — the WebSite/WebPage graphs below reference the person
+  // (and the service) by reference instead of duplicating the entities.
+  '@id': 'https://emanuelezanardo.info#person',
   name: 'Emanuele Zanardo',
   url: 'https://emanuelezanardo.info',
   jobTitle: 'Electronic Engineer',
@@ -156,6 +165,7 @@ const personJsonLd = {
 const servicesJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
+  '@id': 'https://emanuelezanardo.info#engineering-services',
   name: 'Emanuele Zanardo — Engineering Services',
   url: 'https://emanuelezanardo.info/#services',
   description:
@@ -233,6 +243,36 @@ const servicesJsonLd = {
   },
 };
 
+// Structured data: WebSite + WebPage graphs for the homepage. All name
+// strings below are reused from strings already present in this file
+// (siteName, title default, description) — no new names introduced. The
+// entities link to the Person and ProfessionalService graphs above via @id
+// instead of duplicating them.
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': 'https://emanuelezanardo.info#website',
+  url: 'https://emanuelezanardo.info',
+  name: 'Emanuele Zanardo Portfolio',
+  description: siteDescription,
+  inLanguage: 'en-US',
+  author: { '@id': 'https://emanuelezanardo.info#person' },
+  publisher: { '@id': 'https://emanuelezanardo.info#person' },
+};
+
+const webpageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://emanuelezanardo.info#webpage',
+  url: 'https://emanuelezanardo.info',
+  name: 'Emanuele Zanardo | Electronic Engineer',
+  description: siteDescription,
+  inLanguage: 'en-US',
+  isPartOf: { '@id': 'https://emanuelezanardo.info#website' },
+  about: { '@id': 'https://emanuelezanardo.info#engineering-services' },
+  mainEntity: { '@id': 'https://emanuelezanardo.info#person' },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -248,6 +288,16 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
+        />
+        {/* seo: WebSite + WebPage graphs — same graph, separate script blocks
+            so a parse failure in one block cannot poison the others. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webpageJsonLd) }}
         />
       </head>
       <body className={cn('font-body antialiased min-h-screen bg-background')}>

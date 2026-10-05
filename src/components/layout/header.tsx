@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -15,12 +16,24 @@ const NAV_LINKS = [
   { href: "#contact", label: "Contact" },
 ];
 
+// nav: top-level pages (blog, case studies, cv, uses) added alongside the
+// homepage anchors. Kept separate from NAV_LINKS because they have no
+// section-id-based active highlighting — active state comes from the path.
+const PAGE_LINKS = [
+  { href: "/blog", label: "Blog" },
+  { href: "/case-studies", label: "Case Studies" },
+  { href: "/uses", label: "Uses" },
+  { href: "/cv", label: "CV" },
+];
+
 const NAV_SECTION_IDS = NAV_LINKS.map((link) => link.href.slice(1));
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+  // nav: current top-level page path for aria-current on the page links.
+  const pathname = usePathname();
   // micro-ux + a11y: highlight the nav link of the section in view.
   const activeSection = useActiveSection(NAV_SECTION_IDS);
 
@@ -114,6 +127,19 @@ export function Header() {
               {link.label}
             </Link>
           ))}
+          {PAGE_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              aria-current={pathname === link.href ? "page" : undefined}
+              className={cn(
+                "transition-colors hover:text-primary",
+                pathname === link.href && "text-primary"
+              )}
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
 
         <div className="flex flex-1 items-center justify-end md:hidden">
@@ -163,6 +189,20 @@ export function Header() {
                           moveFocusToSection(link.href.slice(1));
                         }, 350);
                       }}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                  {PAGE_LINKS.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      aria-current={pathname === link.href ? "page" : undefined}
+                      className={cn(
+                        "text-lg font-medium py-2 transition-colors hover:text-primary",
+                        pathname === link.href && "text-primary"
+                      )}
+                      onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {link.label}
                     </Link>

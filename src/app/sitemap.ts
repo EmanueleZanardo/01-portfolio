@@ -1,5 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { execFileSync } from 'child_process';
+import { getAllPosts } from '@/lib/blog-posts';
+import { getCaseStudySlugs } from '@/lib/case-studies';
 
 // lastModified tracks the actual last content change (git commit date at build
 // time), not the build time: a bare "new Date()" churns the sitemap on every
@@ -30,6 +32,27 @@ function lastContentChange(path?: string): Date {
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = 'https://emanuelezanardo.info';
   const lastModified = lastContentChange();
+
+  // seo: /uses now exists (page added alongside this change) — it belongs
+  // in the sitemap. (A 404 in the sitemap is worse than a missing entry,
+  // so this was deliberately withheld until the page landed.)
+  const blogEntries: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
+    url: `${base}/blog/${post.slug}`,
+    // seo: post lastmod = the article's own publication date, not build time.
+    lastModified: new Date(`${post.date}T00:00:00Z`),
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }));
+
+  const caseStudyEntries: MetadataRoute.Sitemap = getCaseStudySlugs().map(
+    (slug) => ({
+      url: `${base}/case-studies/${slug}`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    }),
+  );
+
   return [
     {
       url: base,
@@ -38,11 +61,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: `${base}/blog`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${base}/case-studies`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${base}/cv`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${base}/uses`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${base}/singularity`,
       lastModified,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    ...blogEntries,
+    ...caseStudyEntries,
     // seo: the CV PDF is a public, crawlable asset linked from the About
     // section (download link) — Google indexes PDFs, so it belongs in the
     // sitemap with its own file-scoped lastmod.

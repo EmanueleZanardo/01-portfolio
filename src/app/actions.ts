@@ -62,6 +62,19 @@ type ContactFormValues = {
   extra_info?: string;
 };
 
+// Structured result consumed by the client form. On server-side
+// validation failure the first friendly error per field is returned so
+// the client can map it onto the matching input (inline field errors,
+// aria-invalid) instead of showing a generic message. Inputs are never
+// cleared — the user edits and resubmits.
+export type ContactFieldErrors = Partial<
+  Record<"name" | "email" | "message", string>
+>;
+
+export type ContactActionResult =
+  | { success: true }
+  | { success: false; error: string; fieldErrors?: ContactFieldErrors };
+
 // Escape user input before interpolating it into HTML email bodies,
 // otherwise a crafted message can inject arbitrary HTML into the emails.
 function escapeHtml(value: string): string {
@@ -74,18 +87,31 @@ function escapeHtml(value: string): string {
 }
 
 export async function sendContactMessage(
-  values: ContactFormValues
-) {
+  values: ContactFormValues,
+): Promise<ContactActionResult> {
   // Server-side validation: never trust client-only validation, since the
   // action can be invoked directly. Rejects invalid emails and oversized
   // fields before anything touches the mail service.
   const parsed = contactFormSchema.safeParse(values);
   if (!parsed.success) {
     console.warn("Contact form: server-side validation failed", parsed.error.issues.map((i) => i.path.join(".")));
+    // Map the first friendly zod message per field so the client can show
+    // inline field errors (and keep the user's input).
+    const fieldErrors: ContactFieldErrors = {};
+    for (const issue of parsed.error.issues) {
+      const field = issue.path[0];
+      if (
+        (field === "name" || field === "email" || field === "message") &&
+        !fieldErrors[field]
+      ) {
+        fieldErrors[field] = issue.message;
+      }
+    }
     return {
       success: false,
-      error: "Invalid form data. Please check the fields and try again.",
-    };
+      error: "Please review the highlighted fields and try again.",
+      fieldErrors,
+    } satisfies ContactActionResult;
   }
 
   const { name, email, message, extra_info } = parsed.data;

@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Cpu, Code2, CircuitBoard, MessageCircle } from "lucide-react";
+import { Cpu, Code2, CircuitBoard, MessageCircle, CheckCircle } from "lucide-react";
 import Link from "next/link";
 
 const SERVICES = [
@@ -8,19 +8,40 @@ const SERVICES = [
     icon: Cpu,
     title: "Hardware Design",
     description:
-      "Analog and digital circuit design, power supplies, component selection, schematic capture and design reviews — from prototype to production-ready hardware.",
+      "Analog and digital circuit design from requirements to production-ready documentation — power supplies, sensor interfaces and control electronics sized for real operating conditions.",
+    deliverables: [
+      "Schematic capture with full component selection and BOM",
+      "Design calculations and worst-case / derating analysis",
+      "Design review documentation and manufacturing notes",
+    ],
+    engagement:
+      "Typical engagement: fixed-scope design package — schematic, BOM and review notes in 2–6 weeks.",
   },
   {
     icon: Code2,
     title: "Firmware Development",
     description:
-      "Bare-metal C and RTOS-based firmware for STM32, ESP32 and other MCUs. Drivers, communication stacks (UART, SPI, I2C, CAN, Ethernet) and bootloader development.",
+      "Bare-metal C and RTOS-based firmware for STM32, ESP32 and other MCUs — written for reliability, validated against real hardware.",
+    deliverables: [
+      "Peripheral drivers and communication stacks (UART, SPI, I2C, CAN, Ethernet)",
+      "Bootloader and firmware update mechanism",
+      "Hardware-in-the-loop validation and test report",
+    ],
+    engagement:
+      "Typical engagement: milestone-based — board bring-up first, then feature delivery, hardening and documentation.",
   },
   {
     icon: CircuitBoard,
     title: "PCB Layout & Testing",
     description:
-      "PCB layout and routing, board bring-up, debugging and hardware validation. DRC-clean designs ready for manufacturing and EMC pre-compliance checks.",
+      "PCB layout, board bring-up and validation — DRC-clean designs ready for manufacturing, debugged on the bench, not just on screen.",
+    deliverables: [
+      "Multi-layer PCB layout, routing and Gerber + assembly files",
+      "Board bring-up, functional testing and debug",
+      "EMC pre-compliance checks and validation test report",
+    ],
+    engagement:
+      "Typical engagement: layout from your schematic, or the full loop from schematic to tested prototype.",
   },
 ];
 
@@ -54,8 +75,19 @@ export function Services() {
                 </div>
                 <CardTitle className="font-headline text-2xl">{service.title}</CardTitle>
               </CardHeader>
-              <CardContent className="flex-grow">
+              <CardContent className="flex-grow flex flex-col">
                 <p className="text-muted-foreground leading-relaxed">{service.description}</p>
+                <ul className="mt-5 space-y-2.5">
+                  {service.deliverables.map((item) => (
+                    <li key={item} className="flex items-start gap-2">
+                      <CheckCircle aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
+                      <span className="text-sm md:text-base">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-5 pt-4 border-t border-border text-sm text-muted-foreground">
+                  {service.engagement}
+                </p>
               </CardContent>
             </Card>
           ))}
