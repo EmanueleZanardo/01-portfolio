@@ -1,6 +1,12 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 05/10/2026 ~02:00 CEST**
+**Ultimo aggiornamento: 06/10/2026 ~02:05 CEST**
+
+## 06/10/2026 ~02:05 CEST — aggiornamento documentale giornaliero
+- **Commit `5ee7cfa` (05/10 11:58 UTC):** SEO, PWA and content improvements — JSON-LD graphs, sitemap per nuove route, web manifest.
+- **05/10 13:58 CEST — RE-HIT rate limit Vercel:** "Deployment rate limited — retry in 24 hours" (GitHub Commit Status API sullo SHA 5ee7cfa). Finestra fino a **~06/10 13:58 CEST**: nessun push per ritentare (un push brucia un tentativo); il primo push dopo il rientro deploya tutto. Live = deploy STALE `7336eea` 02:06 CEST; /blog /cv /uses /case-studies 404 live = atteso.
+- **Ciclo QA 05/10 23:40:** miglioria breadcrumb navigabile (Home / Blog|Case Studies / titolo, aria-current, BreadcrumbList JSON-LD) — commit locale `f8e9424` in ACCUMULO, nessun push per blocco Vercel.
+- Blocchi (serve lui): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
 
 ## 05/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
 - **04/10 02:40 — Emanuele ha pushato lui stesso commit `b5fb48e` (STATUS.md)** durante la sospensione; deploy Vercel riuscito → rate limit sembrava rientrato.
