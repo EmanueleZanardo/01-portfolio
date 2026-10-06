@@ -4,6 +4,7 @@ import { Download, Globe, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { FocusMainOnMount } from "@/components/focus-main-on-mount";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -37,12 +38,28 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "Emanuele Zanardo Portfolio",
       locale: "en_US",
       type: "website",
+      // seo: l'oggetto openGraph della pagina SOSTITUISCE quello del layout
+      // (Next non fa merge dei campi annidati) — senza images qui la pagina
+      // /cv perdeva og:image rispetto a tutte le altre pagine.
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: "CV — Emanuele Zanardo",
+          type: "image/png",
+          secureUrl: "https://emanuelezanardo.info/og-image.png",
+        },
+      ],
     },
     twitter: {
-      card: "summary",
+      // seo: coerenza con le altre pagine del sito (layout + blog +
+      // case-studies + uses usano summary_large_image per sfruttare og:image).
+      card: "summary_large_image",
       title: "CV | Emanuele Zanardo",
       description:
         "Curriculum vitae of Emanuele Zanardo — Electronic Engineer specializing in power electronics, firmware validation and product certification.",
+      images: [{ url: "/og-image.png", alt: "CV — Emanuele Zanardo" }],
     },
   };
 }
@@ -172,6 +189,8 @@ export default function CvPage() {
         <div className="container mx-auto px-4">
           {/* Page intro — screen only */}
           <div className="print:hidden max-w-3xl">
+            {/* seo + a11y: breadcrumb nav + BreadcrumbList JSON-LD (screen only, non stampato) */}
+            <Breadcrumbs items={[{ name: "CV" }]} />
             <h1 className="font-headline text-5xl md:text-6xl text-primary">
               Curriculum Vitae
             </h1>

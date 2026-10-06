@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { FocusMainOnMount } from "@/components/focus-main-on-mount";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { getAllPosts, getAllTags } from "@/lib/blog-posts";
 import { BlogList } from "./blog-list";
 
@@ -79,6 +80,8 @@ export default function BlogPage() {
       >
         <FocusMainOnMount />
         <div className="container mx-auto px-4 py-24 lg:py-32">
+          {/* seo + a11y: breadcrumb nav + BreadcrumbList JSON-LD */}
+          <Breadcrumbs items={[{ name: "Blog" }]} />
           <div className="mb-12 text-center">
             <h1 className="font-headline text-4xl text-primary md:text-5xl">
               Blog

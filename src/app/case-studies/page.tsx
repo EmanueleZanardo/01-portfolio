@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { caseStudies } from "@/lib/case-studies";
 import { FocusMainOnMount } from "@/components/focus-main-on-mount";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -76,6 +77,8 @@ export default function CaseStudiesPage() {
       {/* a11y: move focus to <main> after client-side navigation (WCAG 2.4.3) */}
       <FocusMainOnMount />
       <div className="container mx-auto px-4 py-20 lg:py-28">
+        {/* seo + a11y: breadcrumb nav + BreadcrumbList JSON-LD */}
+        <Breadcrumbs items={[{ name: "Case Studies" }]} />
         <div className="text-center mb-12">
           <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-2">
             Case Studies

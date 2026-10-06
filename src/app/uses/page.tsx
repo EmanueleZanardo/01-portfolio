@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { FocusMainOnMount } from "@/components/focus-main-on-mount";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 
 // cv-uses: "Uses" page — every tool listed here is evidenced by this site or
 // by the work documented on it (package.json, the blog and case studies).
@@ -115,6 +116,8 @@ export default function UsesPage() {
       >
         <FocusMainOnMount />
         <div className="container mx-auto max-w-3xl px-4 py-24 lg:py-32">
+          {/* seo + a11y: breadcrumb nav + BreadcrumbList JSON-LD */}
+          <Breadcrumbs items={[{ name: "Uses" }]} />
           <div className="mb-12 text-center">
             <h1 className="font-headline text-4xl text-primary md:text-5xl">
               Uses
