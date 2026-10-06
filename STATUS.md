@@ -1,3 +1,16 @@
+## QA 2026-10-06 ~23:40 CEST
+- Pull: origin/main = 5715704acef920b2096e245438ea000778ff25d6 (fetch OK, nessun nuovo commit remoto; tree locale pulito).
+- Build: OK pre-miglioria (exit 0, Next 15, 23/23 route, First Load shared 101 kB) e OK post-miglioria (exit 0, lint+typecheck puliti).
+- Vercel: deploy del tip precedente "success — Deployment has completed" (Commit Status API) — nessun rate limit, push consentiti.
+- Live 200: / /blog /cv /uses /case-studies /singularity /feed.xml /feed.json /humans.txt /robots.txt /sitemap.xml /manifest.webmanifest /og-image.png /cv-emanuele-zanardo.pdf /favicon.ico /apple-touch-icon.png; 404 propria su URL inesistente.
+- Link interni homepage: 17 href unici → tutti 200, 0 rotti; 2/2 img con alt; 0 placeholder (lorem/TODO/FIXME).
+- Meta homepage: title/description/canonical/OG(+type,secureUrl,width/height,alt)/Twitter large card/RSS+JSON autodiscovery/theme-color/JSON-LD presenti.
+- Security headers intatti: CSP, HSTS includeSubDomains, X-Frame-Options DENY, nosniff, Referrer-Policy, Permissions-Policy.
+- Bug trovati: NESSUNO.
+- Miglioria (1, piccola, SEO structured data): supporto date di revisione articoli — nuovo campo opzionale `updated` su `BlogPost` + helper `postModifiedDate` (fallback alla data di pubblicazione) in `src/lib/blog-posts.ts`; `dateModified` nel BlogPosting JSON-LD, `article:modified_time` nei meta OG e badge "Updated <data>" condizionale nell'header dell'articolo. Verificato nell'HTML buildato: 4/4 post con dateModified+modified_time.
+- Push: commit atomico via Git Data API (2 file codice + entry STATUS.md), base remota verificata invariata prima del push.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
 ## QA 2026-10-06 ~21:40 CEST (pushato)
 - Pull: origin/main = b55d1d2 (fetch OK, nessun nuovo commit remoto; tree locale pulito).
 - Vercel: deploy di b55d1d2 "success — Deployment has completed" (Commit Status API, 18:56 CEST) — nessun rate limit, push consentiti.

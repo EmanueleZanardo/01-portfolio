@@ -17,6 +17,12 @@ export interface BlogPost {
   excerpt: string;
   /** ISO date, yyyy-mm-dd */
   date: string;
+  /**
+   * ISO date, yyyy-mm-dd — set only when the article content is revised
+   * AFTER publication. Feeds dateModified (BlogPosting JSON-LD) and
+   * article:modified_time (OG). Omit for never-revised posts.
+   */
+  updated?: string;
   tags: string[];
   readingMinutes: number;
   content: BlogBlock[];
@@ -267,6 +273,16 @@ export function getAllTags(): string[] {
   const set = new Set<string>();
   for (const p of posts) for (const t of p.tags) set.add(t);
   return [...set].sort((a, b) => a.localeCompare(b));
+}
+
+/**
+ * Modification date of a post (ISO yyyy-mm-dd) — the optional `updated`
+ * field when the article was revised after publication, otherwise the
+ * publication date itself. Feeds schema.org `dateModified` on the
+ * BlogPosting JSON-LD and `article:modified_time` in the OG metadata.
+ */
+export function postModifiedDate(post: BlogPost): string {
+  return post.updated ?? post.date;
 }
 
 /**

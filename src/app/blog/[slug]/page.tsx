@@ -7,7 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { FocusMainOnMount } from "@/components/focus-main-on-mount";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { getAllPosts, getPostBySlug, postWordCount } from "@/lib/blog-posts";
+import { getAllPosts, getPostBySlug, postModifiedDate, postWordCount } from "@/lib/blog-posts";
 import { ArticleBody } from "../article-body";
 import { formatPostDate } from "../blog-utils";
 
@@ -41,6 +41,10 @@ export async function generateMetadata({
       locale: "en_US",
       type: "article",
       publishedTime: `${post.date}T00:00:00Z`,
+      // seo: article:modified_time — Google uses it to tell readers (and the
+      // crawler) how fresh the article is; equals the publication date until
+      // the post is actually revised (post.updated set).
+      modifiedTime: `${postModifiedDate(post)}T00:00:00Z`,
       // seo: article:author — completes the article OG graph (author was
       // previously only present in the BlogPosting JSON-LD).
       authors: ["Emanuele Zanardo"],
@@ -86,6 +90,10 @@ export default async function BlogPostPage({
     headline: post.title,
     description: post.excerpt,
     datePublished: `${post.date}T00:00:00Z`,
+    // seo: dateModified — recommended Article field (Google article rich
+    // results freshness signal); falls back to the publication date for
+    // never-revised posts (post.updated unset).
+    dateModified: `${postModifiedDate(post)}T00:00:00Z`,
     // seo: wordCount/image/inLanguage — recommended Article fields Google
     // uses for article rich results; wordCount is computed from the blocks.
     wordCount: postWordCount(post),
@@ -184,6 +192,20 @@ export default async function BlogPostPage({
                 <CalendarDays aria-hidden="true" className="h-4 w-4" />
                 <time dateTime={post.date}>{formatPostDate(post.date)}</time>
               </span>
+              {/* micro-ux: show the revision date only for actually revised
+                  posts (post.updated set) — machine-readable via dateTime,
+                  consistent with the dateModified in the JSON-LD above. */}
+              {post.updated && post.updated !== post.date && (
+                <span className="inline-flex items-center gap-1.5">
+                  <span aria-hidden="true">·</span>
+                  <span>
+                    Updated{" "}
+                    <time dateTime={post.updated}>
+                      {formatPostDate(post.updated)}
+                    </time>
+                  </span>
+                </span>
+              )}
               <span className="inline-flex items-center gap-1.5">
                 <Clock aria-hidden="true" className="h-4 w-4" />
                 {post.readingMinutes} min read
