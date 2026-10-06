@@ -82,6 +82,9 @@ ${categories}
     <description>Notes on embedded systems, PCB design, firmware and energy by Emanuele Zanardo.</description>
     <language>en</language>
     <lastBuildDate>${lastBuildDate}</lastBuildDate>
+    <ttl>60</ttl>
+    <docs>https://www.rssboard.org/rss-specification</docs>
+    <copyright>Copyright ${new Date().getFullYear()} Emanuele Zanardo</copyright>
     <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>${SITE}/rss-channel-icon.png</url>

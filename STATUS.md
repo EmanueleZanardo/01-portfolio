@@ -733,3 +733,15 @@
 - Miglioria (1, piccola, feed): full-text RSS — ogni item di /feed.xml include ora <content:encoded> (namespace xmlns:content) con l'articolo intero reso in HTML dai BlogBlock (paragrafi, h2/h3, liste, citazioni, code block con escape XML); verificato in locale con next start: XML valido, 4/4 item con contenuto completo (3,3-4,3 KB/item). I feed reader/newsletter possono mostrare gli articoli interi senza aprire il browser.
 - Push: commit via Git Data API (src/app/feed.xml/route.ts + entry STATUS.md), base remota verificata invariata prima del push.
 - Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
+## QA 2026-10-06 ~18:40 CEST
+- Pull: origin/main = 06c2c20 (fetch OK, nessun nuovo commit remoto). Locale avanti di un commit non pushato del ciclo 17:40 (17:40: worker morto prima del push — il suo commit `<ttl>60`+`<docs>` sul feed esisteva solo in locale; viene consolidato in questo push).
+- Build: OK post-miglioria (exit 0, Next.js 15, 22 pagine, First Load shared 101 kB).
+- Live 200: / /blog /case-studies /cv /singularity /uses /feed.xml /sitemap.xml /robots.txt. 404 propria verificata in passato (title "Page Not Found").
+- Homepage: title/description/canonical/OG (type+secureUrl+width/height/alt)/Twitter large card/RSS autodiscovery/theme-color presenti; 2/2 img con alt (hero decorativa, portrait descrittiva); 0 placeholder (lorem/TODO/FIXME).
+- Link interni: 23 href unici su homepage+/blog+/case-studies → tutti 200, 0 rotti (incl. 4 blog post, 3 case-study, cv-emanuele-zanardo.pdf).
+- Vercel: deploy del tip remoto "success — Deployment has completed" (Commit Status API) — finestra rate limit del 05/10 rientrata.
+- Bug trovati: NESSUNO.
+- Miglioria (1, piccola, feed): elemento <copyright> nel canale /feed.xml ("Copyright <anno build> Emanuele Zanardo", anno dinamico) — completa la serie di polish RSS (lastBuildDate/immagine canale/ttl/docs).
+- Push: commit atomico via Git Data API (src/app/feed.xml/route.ts + entry STATUS.md), incluse le 2 righe non pushate del ciclo 17:40; base remota verificata invariata prima del push.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
