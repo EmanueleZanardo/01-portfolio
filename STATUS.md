@@ -745,3 +745,14 @@
 - Miglioria (1, piccola, feed): elemento <copyright> nel canale /feed.xml ("Copyright <anno build> Emanuele Zanardo", anno dinamico) — completa la serie di polish RSS (lastBuildDate/immagine canale/ttl/docs).
 - Push: commit atomico via Git Data API (src/app/feed.xml/route.ts + entry STATUS.md), incluse le 2 righe non pushate del ciclo 17:40; base remota verificata invariata prima del push.
 - Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
+## QA 2026-10-06 ~19:40 CEST
+- Pull: origin/main = e9332b45ae028f36e27553922f358aefd10bc781 (fetch OK, nessun nuovo commit remoto; tree locale pulito).
+- Build: OK prima (exit 0, 22 pagine) e OK post-miglioria (exit 0, Next 15, First Load shared 101 kB).
+- Live 200: / /blog /case-studies /cv /singularity /uses /feed.xml /sitemap.xml /robots.txt /humans.txt (tutti 200).
+- Link interni: 28 href unici su homepage+/blog+/case-studies → tutti 200, 0 rotti. Tutte le img con alt. 0 placeholder (lorem/TODO/FIXME).
+- Meta homepage: title/description/canonical/OG(+type,secureUrl,width/height,alt)/Twitter large card/RSS autodiscovery/theme-color presenti.
+- Bug trovati: NESSUNO.
+- Miglioria (1, piccola, feed/SEO): calendario di aggiornamento nel canale /feed.xml — namespace xmlns:sy + <sy:updatePeriod>weekly</sy:updatePeriod> e <sy:updateFrequency>1</sy:updateFrequency>, così gli aggregatori RSS sanno quanto spesso ricontrollare (completa la serie di polish RSS: lastBuildDate/image/ttl/docs/copyright).
+- Push: commit atomico via Git Data API (src/app/feed.xml/route.ts + entry STATUS.md), base remota verificata invariata prima del push.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).

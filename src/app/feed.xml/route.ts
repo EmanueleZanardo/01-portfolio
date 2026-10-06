@@ -75,7 +75,7 @@ ${categories}
     .join('\n');
 
   const xml = `<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/">
   <channel>
     <title>Emanuele Zanardo — Blog</title>
     <link>${SITE}/blog</link>
@@ -83,6 +83,8 @@ ${categories}
     <language>en</language>
     <lastBuildDate>${lastBuildDate}</lastBuildDate>
     <ttl>60</ttl>
+    <sy:updatePeriod>weekly</sy:updatePeriod>
+    <sy:updateFrequency>1</sy:updateFrequency>
     <docs>https://www.rssboard.org/rss-specification</docs>
     <copyright>Copyright ${new Date().getFullYear()} Emanuele Zanardo</copyright>
     <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />
