@@ -1,4 +1,5 @@
 import { getAllPosts } from '@/lib/blog-posts';
+import type { BlogBlock } from '@/lib/blog-posts';
 
 const SITE = 'https://emanuelezanardo.info';
 
@@ -11,6 +12,33 @@ function escapeXml(value: string): string {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
+}
+
+/** Escape XML, then render inline `code` spans as <code> (mirrors the
+ *  renderInline() of the on-page article renderer). Backticks survive
+ *  escaping untouched, so the conversion is safe to apply after. */
+function renderInlineHtml(text: string): string {
+  const escaped = escapeXml(text);
+  return escaped.replace(/`([^`]+)`/g, '<code>$1</code>');
+}
+
+/** Plain-HTML rendering of a BlogBlock for <content:encoded>: mirrors
+ *  ArticleBody's block mapping so the feed text matches the on-page article. */
+function blockToHtml(block: BlogBlock): string {
+  switch (block.type) {
+    case 'paragraph':
+      return `<p>${renderInlineHtml(block.text)}</p>`;
+    case 'heading':
+      return block.level === 2
+        ? `<h2>${renderInlineHtml(block.text)}</h2>`
+        : `<h3>${renderInlineHtml(block.text)}</h3>`;
+    case 'code':
+      return `<pre><code>${escapeXml(block.code)}</code></pre>`;
+    case 'list':
+      return `<ul>${block.items.map((item) => `<li>${renderInlineHtml(item)}</li>`).join('')}</ul>`;
+    case 'quote':
+      return `<blockquote>${renderInlineHtml(block.text)}</blockquote>`;
+  }
 }
 
 /**
@@ -33,11 +61,13 @@ export async function GET(): Promise<Response> {
       const categories = post.tags
         .map((tag) => `      <category>${escapeXml(tag)}</category>`)
         .join('\n');
-      return `    <item>
+      const contentHtml = post.content.map(blockToHtml).join('\n');
+    return `    <item>
       <title>${escapeXml(post.title)}</title>
       <link>${url}</link>
       <guid isPermaLink="true">${url}</guid>
       <description>${escapeXml(post.excerpt)}</description>
+      <content:encoded>${escapeXml(contentHtml)}</content:encoded>
       <pubDate>${pubDate}</pubDate>
 ${categories}
     </item>`;
@@ -45,7 +75,7 @@ ${categories}
     .join('\n');
 
   const xml = `<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Emanuele Zanardo — Blog</title>
     <link>${SITE}/blog</link>

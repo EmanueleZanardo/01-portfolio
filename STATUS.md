@@ -710,3 +710,15 @@
 - Miglioria (1, piccola, feed/SEO): elemento <image> nel canale RSS (/feed.xml) — icona brand 144x144 (nuovo asset public/rss-channel-icon.png, resize da apple-touch-icon.png, entro il limite spec RSS di 144px) con url/title/link/width/height; i feed reader mostrano ora il logo del canale.
 - Push: commit singolo via Git Data API (src/app/feed.xml/route.ts + public/rss-channel-icon.png + entry STATUS.md).
 - Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
+## QA 2026-10-06 ~15:40 CEST
+- Pull: origin/main = 73e908f (fetch OK, nessun nuovo commit remoto). Clone locale sincronizzato, working tree pulito.
+- Build: OK pre-miglioria (exit 0, Next.js 15.3.8, 20/20 pagine statiche, lint+typecheck puliti, First Load shared 101 kB) e OK post-miglioria (exit 0, tsc --noEmit pulito). Log: goal hidden_files/sito-build-20261006-1540.log e -1540b.log
+- Live 200: / /blog /cv /uses /case-studies /singularity /feed.xml /robots.txt /sitemap.xml /manifest.webmanifest /og-image.png. 404 propria (HTTP 404, title "Page Not Found | Emanuele Zanardo").
+- Homepage: title/description/canonical/OG (type+secureUrl+width/height/alt)/Twitter large card/RSS autodiscovery/theme-color presenti; 2/2 img con alt; 0 placeholder (lorem/TODO/FIXME); lang="en"; skip-link; security headers intatti (CSP, HSTS includeSubDomains, X-Frame-Options DENY, nosniff, Referrer-Policy, Permissions-Policy).
+- Link interni: 22 href unici su homepage+blog/cv/uses/case-studies/singularity → tutti 200, 0 rotti.
+- Feed: /feed.xml XML valido, 4/4 item con pubDate RFC-822 corrette e <image> canale OK.
+- Bug trovati: NESSUNO.
+- Miglioria (1, piccola, feed): full-text RSS — ogni item di /feed.xml include ora <content:encoded> (namespace xmlns:content) con l'articolo intero reso in HTML dai BlogBlock (paragrafi, h2/h3, liste, citazioni, code block con escape XML); verificato in locale con next start: XML valido, 4/4 item con contenuto completo (3,3-4,3 KB/item). I feed reader/newsletter possono mostrare gli articoli interi senza aprire il browser.
+- Push: commit via Git Data API (src/app/feed.xml/route.ts + entry STATUS.md), base remota verificata invariata prima del push.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
