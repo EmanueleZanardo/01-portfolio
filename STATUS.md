@@ -1,3 +1,12 @@
+## QA 2026-10-06 ~12:40 CEST (pushato)
+- Pull: origin/main = e11df4a (fetch OK, nessun nuovo commit remoto). Locale sincronizzato.
+- Build: OK pre-miglioria (exit 0, Next 15, 20/20 pagine statiche, lint+typecheck puliti, First Load shared 101 kB) e OK post-miglioria (exit 0, lint+typecheck puliti). Log: hidden_files/sito-build-20261006-1240.log / -1240b.log. Vercel: deploy di e11df4a "success — Deployment has completed" (08:51:12Z), finestra rate limit rientrata.
+- Live 200: / /blog /cv /uses /case-studies /feed.xml /robots.txt /sitemap.xml; /singularity; cv-emanuele-zanardo.pdf / og-image.png / manifest.webmanifest. 404 propria (HTTP 404, title "Page Not Found | Emanuele Zanardo", OG proprie) su URL inesistente.
+- Homepage: title/description/canonical/OG(+type,secureUrl,width/height,alt)/Twitter large card/theme-color/viewport + RSS autodiscovery presenti; 15/15 link interni → 200; 0 img senza alt; 0 placeholder (lorem/TODO/FIXME). feed.xml valido (4/4 item, pubDate RFC-822 corrette). github.com/EmanueleZanardo 200.
+- Miglioria (1, piccola, micro-UX): icona RSS nel footer (`/feed.xml`, icona Rss di lucide-react, aria-label "Blog RSS feed") — completa l'autodiscovery del ciclo 10:40 con un link visibile per i lettori umani.
+- Bug trovati: NESSUNO.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
 ## QA 2026-10-06 ~10:40 CEST (pushato)
 - Pull: origin/main = 44a2416 (fetch OK, nessun nuovo commit remoto). Locale sincronizzato.
 - Build: OK pre-miglioria (exit 0, Next 15, 20/20 pagine statiche, lint+typecheck puliti, First Load 101 kB) e OK post-miglioria (exit 0; /feed.xml in route list). Log: hidden_files/sito-build-20261006-1040.log / -1040b.log.
@@ -676,3 +685,17 @@
 - Live: / → 200, /singularity → 200, /uses → 404 (deploy stale, atteso); /cv-emanuele-zanardo.pdf /manifest.webmanifest /apple-touch-icon.png /favicon.ico /robots.txt /sitemap.xml → 200; meta description/OG/Twitter completi; 0 placeholder; 0 img senza alt; security headers intatti (CSP, HSTS includeSubDomains, DENY, nosniff, Referrer-Policy, Permissions-Policy, COOP/CORP same-origin).
 - Push: NESSUNO (blocco rate-limit Vercel fino a ~06/10 13:58 CEST); primo push utile al ciclo ~14:40.
 - Aperti (invariati, azioni Emanuele): www HTTPS; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel.
+
+## QA 2026-10-06 ~11:40 CEST (NESSUN push — nessun bug, nessuna miglioria sensata; entry accumulata in locale per regola anti-rate-limit)
+- Pull: origin/main = e11df4a (fetch OK, nessun nuovo commit remoto). Clone locale sincronizzato, working tree pulito.
+- Build: OK (exit 0, Next.js 15.3.8, 48s compile, lint+typecheck puliti, 20/20 pagine statiche, 0 warning/errori, First Load 101 kB). Log: /tmp/sito-build-20261006-1139.log
+- Live 200: / /blog /case-studies /cv /uses /singularity; robots.txt / sitemap.xml / manifest.webmanifest / favicon.ico / og-image.png / apple-touch-icon.png / cv-emanuele-zanardo.pdf / feed.xml. 404 propria su URL inesistente (title "Page Not Found | Emanuele Zanardo").
+- Meta: title/description/canonical/OG completo/Twitter large card/theme-color/lang="en"/skip-link #main-content su homepage; og:type article + JSON-LD Article su /case-studies; JSON-LD BlogPosting su /blog/[slug] (6 blocchi). 2/2 img con alt (hero-bg decorative alt="" corretta). 0 placeholder.
+- Link interni: tutti i 17 href interni homepage → 200, nessun rotto. Immagini: nessuna mancante.
+- Security headers intatti: CSP, HSTS includeSubDomains, X-Frame-Options DENY, nosniff, Referrer-Policy, Permissions-Policy, COOP/CORP same-origin.
+- RSS: /feed.xml XML valido, 4 item (= 4 post blog), autodiscovery <link rel="alternate" type="application/rss+xml"> presente in homepage.
+- Sitemap: 14 URL, lastmod 2026-10-06T04:52:29Z. Deploy Vercel: success su e11df4a (Commit Status API).
+- Sweep differenziale: nessun gap sensato (hero con priority, BlogPosting/Article JSON-LD, 404 search+OG, RSS+autodiscovery, ProfilePage JSON-LD su /cv, Breadcrumbs+BreadcrumbList JSON-LD già coperti nei cicli precedenti).
+- Bug trovati: NESSUNO. Miglioria: nessuna forzata — diff finto su sito maturo = deploy Vercel sprecato (precedente ciclo 09:39).
+- Push: NESSUNO (anti-rate-limit: solo entry di routine).
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS ancora irraggiungibile (curl 000, ritestato); date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).

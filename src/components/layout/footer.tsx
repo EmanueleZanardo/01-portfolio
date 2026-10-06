@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, Rss } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollToTop } from '@/components/layout/scroll-to-top';
 import Link from 'next/link';
@@ -52,6 +52,11 @@ export function Footer() {
             <Link href="mailto:emanuele1998zanardo@gmail.com" aria-label="Email">
               <Mail aria-hidden="true" className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
             </Link>          
+          </Button>
+          <Button variant="ghost" size="icon" asChild>
+            <Link href="/feed.xml" aria-label="Blog RSS feed">
+              <Rss aria-hidden="true" className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
+            </Link>
           </Button>
         </div>
       </div>
