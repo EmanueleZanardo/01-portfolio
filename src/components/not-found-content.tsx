@@ -101,11 +101,25 @@ export function NotFoundContent() {
   const trimmed = query.trim().toLowerCase();
   const results = useMemo(() => {
     if (!trimmed) return [];
-    return SITE_ROUTES.filter((route) =>
-      `${route.label} ${route.description} ${route.keywords}`
-        .toLowerCase()
-        .includes(trimmed)
-    );
+    // ux: token matching con punteggio — ogni route viene punteggiata per
+    // numero di parole della query presenti nel suo testo ricercabile
+    // (label + description + keywords); si mostrano le route con almeno un
+    // match, le piu' pertinenti per prime. Cosi' "energy demo" trova
+    // Singularity, e il path precompilato "servcies demo" trova comunque
+    // "demo". Il match precedente richiedeva la frase esatta come
+    // sottostringa e non trovava quasi mai nulla su query multi-parola.
+    const tokens = trimmed.split(/\s+/);
+    return SITE_ROUTES.map((route) => {
+      const haystack =
+        `${route.label} ${route.description} ${route.keywords}`.toLowerCase();
+      const score = tokens.filter((token) =>
+        haystack.includes(token)
+      ).length;
+      return { route, score };
+    })
+      .filter((entry) => entry.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map((entry) => entry.route);
   }, [trimmed]);
 
   return (

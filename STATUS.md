@@ -1,6 +1,16 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 06/10/2026 ~05:05 CEST**
+**Ultimo aggiornamento: 06/10/2026 ~06:40 CEST**
+
+## QA 2026-10-06 ~06:40 CEST (pushato)
+- Pull: origin/main = 5184dc5 (fetch OK, nessun nuovo commit remoto). Locale pulito.
+- Build: OK (exit 0, Next 15, 20/20 pagine statiche). Typecheck: pulito (tsc --noEmit).
+- Live 200: / /blog /case-studies /cv /uses /singularity + 4 blog post + 3 case studies + /manifest.webmanifest + /cv-emanuele-zanardo.pdf (319 KB) + /og-image.png (200, 34 KB image/png) + /apple-touch-icon.png + /favicon.ico + /robots.txt + /sitemap.xml (14 URL). 404 corretta su URL inesistente (OG card propria "Page Not Found", role=search sull'input).
+- Meta: title/description/OG/Twitter su tutte le 6 pagine. 0 img senza alt, 0 placeholder di contenuto (solo attributo `placeholder` dell'input di ricerca 404 — legittimo), 0 link interni rotti. Skip-link #main-content: target presente su tutte le pagine.
+- Bug trovati: NESSUNO.
+- Miglioria (1, micro-UX pagina 404): il finder di ricerca ora fa token matching con punteggio — ogni parola della query viene cercata in label/description/keywords e le route con più match appaiono per prime (match >= 1). Prima richiedeva la frase esatta come sottostringa: "servcies demo" (prefill dal path) o "energy demo" non trovavano nulla. Ora "energy demo" → Singularity Quant ETRM; "cv resume" → CV per primo. Logica verificata con test Node.
+- Push: commit unico via Git Data API (miglioria + entry STATUS.md).
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
 
 ## QA 2026-10-06 ~04:40 CEST (pushato)
 - Rate limit Vercel rientrato (deploy 925ef69 attivo): live completo, nessun 404 stale.
