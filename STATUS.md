@@ -1,3 +1,14 @@
+## QA 2026-10-06 ~16:40 CEST (pushato)
+- Pull: origin/main = f323544 (fetch OK, nessun nuovo commit remoto). Locale sincronizzato, working tree con sole modifiche del ciclo.
+- Vercel: deploy di f323544 "success — Deployment has completed" (Commit Status API) — finestra rate limit 05/10 rientrata, push consentiti.
+- Build: OK pre-miglioria (exit 0, Next 15, compilazione ~40s, 21/21 pagine statiche) e OK post-miglioria (exit 0, 22/22 pagine — nuova route /humans.txt registrata).
+- Live 200: / /blog /case-studies /cv /singularity /uses; feed.xml / sitemap.xml; 4 blog post; 3 case-study; 10/10 asset (favicon, apple-touch-icon, manifest.webmanifest, og-image, hero-bg.webp, portrait.webp, cv-emanuele-zanardo.pdf, icon-192/512, rss-channel-icon) 200 con dimensioni plausibili. Tutti i link interni unici di homepage, /blog, /case-studies → 200; 0 rotti. 0 placeholder (lorem/TODO/FIXME). 2/2 img con alt corretto.
+- Meta: title/description/canonical/OG(+type,secureUrl,alt)/Twitter large card/theme-color/viewport/RSS autodiscovery presenti su homepage.
+- Feed: XML valido, 4/4 item, lastBuildDate, image 144x144, content:encoded su tutti gli item.
+- Bug trovati: NESSUNO.
+- Miglioria (1, piccola, discoverability): route `/humans.txt` (convenzione humanstxt.org — sezioni TEAM/THANKS/SITE, solo contatti già pubblici) + `<link rel="author" href="/humans.txt">` nell'head del layout.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
 ## QA 2026-10-06 ~12:40 CEST (pushato)
 - Pull: origin/main = e11df4a (fetch OK, nessun nuovo commit remoto). Locale sincronizzato.
 - Build: OK pre-miglioria (exit 0, Next 15, 20/20 pagine statiche, lint+typecheck puliti, First Load shared 101 kB) e OK post-miglioria (exit 0, lint+typecheck puliti). Log: hidden_files/sito-build-20261006-1240.log / -1240b.log. Vercel: deploy di e11df4a "success — Deployment has completed" (08:51:12Z), finestra rate limit rientrata.

@@ -288,6 +288,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn('dark', bebasNeue.variable, robotoMono.variable)}>
       <head>
+        {/* humans.txt discovery (humanstxt.org convention) — credits for the
+            humans behind the site. */}
+        <link rel="author" href="/humans.txt" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
