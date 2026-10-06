@@ -17,12 +17,12 @@ export const metadata: Metadata = {
   // Title suffix "| Emanuele Zanardo" comes from the layout's title template.
   title: "Case Studies",
   description:
-    "Case studies of real projects: an open-source energy analytics workspace, a Next.js jewellery storefront rebuild, and an in-progress 300 kW load-bank PCB.",
+    "Case studies of real projects: energy analytics, a Next.js jewellery storefront, a 24/7 live streaming pipeline, and an in-progress 300 kW PCB.",
   alternates: { canonical: "/case-studies" },
   openGraph: {
     title: "Case Studies | Emanuele Zanardo",
     description:
-      "Real projects, honestly described: energy analytics, a Next.js jewellery storefront, and a 300 kW load-bank PCB.",
+      "Real projects, honestly described: energy analytics, a Next.js storefront, a 24/7 live streaming pipeline, and a 300 kW load-bank PCB.",
     url: "/case-studies",
     siteName: "Emanuele Zanardo Portfolio",
     locale: "en_US",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Case Studies | Emanuele Zanardo",
     description:
-      "Real projects, honestly described: energy analytics, a Next.js jewellery storefront, and a 300 kW load-bank PCB.",
+      "Real projects, honestly described: energy analytics, a Next.js storefront, a 24/7 live streaming pipeline, and a 300 kW load-bank PCB.",
     images: [{ url: "/og-image.png", alt: "Emanuele Zanardo — Electronic Engineer" }],
   },
 };
