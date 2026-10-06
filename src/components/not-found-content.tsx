@@ -124,8 +124,11 @@ export function NotFoundContent() {
         below — it might live somewhere else on this site.
       </p>
 
-      {/* Site search — filters the real route list above */}
-      <div className="mt-8 w-full max-w-md">
+      {/* Site search — filters the real route list above.
+          a11y/micro-ux: role="search" exposes the finder as a search landmark;
+          enterKeyHint="search" shows the "search" action key on mobile
+          keyboards instead of the generic return key. */}
+      <div role="search" className="mt-8 w-full max-w-md">
         <label htmlFor="not-found-search" className="sr-only">
           Search this site
         </label>
@@ -141,6 +144,7 @@ export function NotFoundContent() {
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search this site… try “services”, “demo” or “contact”"
             autoComplete="off"
+            enterKeyHint="search"
             className="pl-9"
           />
         </div>

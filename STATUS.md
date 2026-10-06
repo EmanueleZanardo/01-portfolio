@@ -1,6 +1,26 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 06/10/2026 ~02:40 CEST**
+**Ultimo aggiornamento: 06/10/2026 ~05:05 CEST**
+
+## QA 2026-10-06 ~04:40 CEST (pushato)
+- Rate limit Vercel rientrato (deploy 925ef69 attivo): live completo, nessun 404 stale.
+- Pull: origin/main = 925ef69 (fetch OK, nessun nuovo commit remoto). Locale ahead 1 (entry STATUS.md 03:40).
+- Build: OK due volte (pre/post fix, exit 0, Next 15, 20/20 pagine statiche, lint+typecheck puliti, First Load 136 kB invariato).
+- Live 200: / /blog /blog/<post> /case-studies /case-studies/<slug> /uses /cv /singularity /sitemap.xml /robots.txt /manifest.webmanifest /cv-emanuele-zanardo.pdf /og-image.png /hero-bg.webp /portrait.webp /apple-touch-icon.png /.well-known/security.txt (valido, Expires 2027-04-04); /contatti → 404 custom corretto (nessuna route contatti, il form è in /#contact). Sitemap: 14 URL. Meta completi (description, canonical, OG/Twitter con image 1200x630, theme-color). 0 placeholder, 0 img senza alt, 0 link interni rotti. security.txt valido.
+- Bug trovati: NESSUNO.
+- Miglioria (1, micro-UX/a11y pagina 404): finder di ricerca ora esposto come landmark `role="search"` + `enterKeyHint="search"` sull'input (tastiera mobile mostra il tasto "cerca"). Verificato nel prerender HTML di /_not-found.
+- Push: commit unico via Git Data API (miglioria + entry STATUS.md 03:40/04:40).
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
+## QA 2026-10-06 ~03:40 CEST (pushato)
+- Rate limit Vercel RIENTRATO: GitHub Commit Status API su `67fb3f2` → `Vercel | success | Deployment has completed`. Live = deploy completo: /uses 200 (al ciclo 01:40 era 404 per deploy stale).
+- Pull: origin/main = 67fb3f2 (fetch OK, nessun nuovo commit remoto; base 67fb3f24 verificata prima del push).
+- Build: OK due volte (pre-fix: exit 0; post-fix: exit 0, Next 15, 20/20 statiche). Log: /tmp/sito-build-0339.log, /tmp/sito-build-0339b.log
+- Live: 12 URL → 200 (/, /singularity, /uses, /blog, /case-studies, /cv, /cv-emanuele-zanardo.pdf, /manifest.webmanifest, /apple-touch-icon.png, /favicon.ico, /robots.txt, /sitemap.xml); 7/7 articoli+case studies della sitemap → 200. Meta completi (lang, h1 singolo, canonical, OG/Twitter su tutte le pagine). 0 img senza alt, 0 placeholder, security headers intatti (CSP, HSTS, X-Frame, nosniff, Referrer/Permissions/COOP/CORP).
+- Bug fixati (2): (a) /cv non aveva og:image — generateMetadata di pagina sostituisce (non fa merge di) openGraph del layout; aggiunte images + secureUrl come nelle altre pagine. (b) twitter card su /cv era "summary" → "summary_large_image" (coerenza col resto del sito).
+- Miglioria (1, SEO+a11y): nuovo componente condiviso `src/components/breadcrumbs.tsx` (nav aria-label="Breadcrumb" con aria-current="page" + BreadcrumbList JSON-LD, stesso schema delle pagine articolo) montato sulle 4 pagine indice che ne erano prive: /blog, /case-studies, /uses, /cv (su /cv dentro il blocco print:hidden, non stampato). Verificato nel prerender: nav + BreadcrumbList presenti su tutte e 4.
+- Push: `925ef69` via Git Data API (commit atomico, 5 file, base 67fb3f2 verificata). Locale risincronizzato con git reset --hard origin/main.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
 
 ## 06/10/2026 ~02:05 CEST — aggiornamento documentale giornaliero
 - **Commit `5ee7cfa` (05/10 11:58 UTC):** SEO, PWA and content improvements — JSON-LD graphs, sitemap per nuove route, web manifest.
