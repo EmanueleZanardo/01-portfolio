@@ -257,6 +257,159 @@ const posts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "linux-watchdog-patterns-supervising-processes",
+    title:
+      "Watchdogs That Actually Restart Things: Supervising Long-Running Processes on Linux",
+    excerpt:
+      "flock, pidfiles with /proc verification, and pgrep patterns that don't match your own shell — patterns that keep 24/7 data pipelines alive on a Linux VM.",
+    date: "2026-10-06",
+    tags: ["Linux", "Bash", "DevOps", "Reliability"],
+    readingMinutes: 8,
+    content: [
+      {
+        type: "paragraph",
+        text: "A watchdog that crashes, starts duplicates, or kills the wrong process is worse than no watchdog at all. I keep a few 24/7 data pipelines running on a small Linux virtual machine — chart renderers and FFmpeg encoders feeding live streams — and the supervision around them has taught me more than the pipelines themselves. These are the patterns that survived contact with reality.",
+      },
+      { type: "heading", level: 2, text: "1. One instance at a time: flock" },
+      {
+        type: "paragraph",
+        text: "A watchdog that runs every few minutes must never overlap with itself: a run that overruns its interval would otherwise start a second copy, then a third. The fix is `flock -n` on a lockfile — the second instance exits silently if the lock is held. One line, and an entire class of duplicate-start bugs disappears.",
+      },
+      {
+        type: "code",
+        language: "bash",
+        code: "# one instance at a time — a late second run exits silently\nflock -n /var/lock/stream-watchdog.lock -c /opt/pipeline/watchdog.sh",
+      },
+      {
+        type: "heading",
+        level: 2,
+        text: "2. Restart only what is missing — never kill first",
+      },
+      {
+        type: "paragraph",
+        text: "The watchdog's job is to check each component (tunnel, supervisors, renderers) and start the ones that are absent. It must never kill anything as part of a restart: when two streams share one tunnel process, a supervisor that kills \"its\" tunnel on restart takes down the other stream too — which then restarts, kills the first, and the two supervisors spend the night assassinating each other. Start what's missing, leave the rest alone.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        text: "3. Verify the PID is yours before touching it",
+      },
+      {
+        type: "paragraph",
+        text: "PID files lie: PIDs get recycled, and a stale pidfile can point at an unrelated process that happened to inherit the number. Before acting on a pidfile, read `/proc/<pid>/cmdline` and confirm it is actually your process. A recycled PID never gets hit this way — the difference between \"the renderer was restarted\" and \"I killed someone's database\".",
+      },
+      {
+        type: "code",
+        language: "bash",
+        code: "pid=$(cat /run/renderer.pid)\nif tr '\\0' ' ' < \"/proc/$pid/cmdline\" | grep -q \"render_charts\"; then\n  echo \"renderer alive (pid $pid)\"\nelse\n  echo \"stale pidfile — starting a fresh renderer\"\nfi",
+      },
+      {
+        type: "heading",
+        level: 2,
+        text: "4. pgrep patterns that don't match your own shell",
+      },
+      {
+        type: "paragraph",
+        text: "When a supervisor checks whether a process is running via `pgrep -f`, the pattern is matched against every command line — including the supervisor's own. Searching for `supervisor.sh` matches the `pgrep -f supervisor.sh` command itself, so the check always succeeds and the dead process is never restarted. The classic fix is the character-class trick: `pgrep -f \"supervisor[.]sh\"` matches the script but not the literal pattern string. And never run `pkill -f` with a broad pattern: I once killed my own shell with `pkill -f \"sleep 60\"` because the pattern appeared in my own command line. Monitoring reads (pgrep, /proc, log tails); killing happens only by verified PID.",
+      },
+      {
+        type: "quote",
+        text: "Monitoring may read — pgrep, /proc, log tails. It must never reach for kill on a guess.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        text: "5. Rotate the logs — /tmp is smaller and more shared than you think",
+      },
+      {
+        type: "paragraph",
+        text: "On many small VMs /tmp is a tmpfs: a few hundred megabytes, shared with every other process on the box. An unbounded log there eventually hits ENOSPC, and then the interesting failures start — renderers crash on write, PNG frames freeze, and your live stream shows a still image to the world. Rotate aggressively (a small `rot_log` helper beats logrotate for ad-hoc scripts) and never write large files to /tmp.",
+      },
+      { type: "heading", level: 2, text: "6. Know whose timezone your logs are in" },
+      {
+        type: "paragraph",
+        text: "VM system clocks are usually UTC while you live somewhere else. A watchdog log whose last line says 17:45, read at 19:45 local time, is not stuck — 17:45 UTC is 19:45 in Zurich. I have filed a false \"watchdog is dead\" alarm on exactly this confusion. Before paging anyone, convert.",
+      },
+      {
+        type: "paragraph",
+        text: "None of this is glamorous. Together it is the difference between a pipeline that survives the night and one that pages you at 3 AM — usually because of something the watchdog itself did.",
+      },
+    ],
+  },
+  {
+    slug: "diy-lifepo4-battery-bank-build",
+    title:
+      "Building a DIY LiFePO4 Battery Bank: What Comes After the Sizing Math",
+    excerpt:
+      "Cells, a BMS, busbars, fuses and torque: the practical build checklist for a 24 V LiFePO4 bank — and why the BMS is the one part you never skip.",
+    date: "2026-10-07",
+    tags: ["LiFePO4", "Energy Storage", "Photovoltaics", "DIY"],
+    readingMinutes: 8,
+    content: [
+      {
+        type: "paragraph",
+        text: "The sizing math tells you how big the bank must be; this is the companion piece about putting it together. A DIY LiFePO4 bank is genuinely within reach of a careful hobbyist — but lithium chemistry forgives nothing, so the build order matters. What follows is the checklist I use, in the order I do things.",
+      },
+      { type: "heading", level: 2, text: "1. The BMS is not optional equipment" },
+      {
+        type: "paragraph",
+        text: "The battery management system protects against overcharge, deep discharge, overcurrent and temperature extremes, and it keeps the series cells balanced. Size its continuous current rating for your peak load: `peak watts / pack voltage ≤ BMS continuous current`. A 100 Ah cell pack with a 50 A BMS is a 50 A pack, no matter what the cells could deliver — the BMS is the bottleneck, and deliberately so. A lithium bank without a BMS is a chemistry experiment, not a power system.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        text: "2. Series inside the pack, parallel between packs",
+      },
+      {
+        type: "paragraph",
+        text: "A nominal 24 V LiFePO4 pack is 8 cells in series (8S) internally — the series connection lives inside each pack, supervised by its own BMS. When you need more capacity, add whole identical packs in parallel, never by building longer series strings across packs. Parallel packs scale both capacity and current; mismatched packs in parallel will fight each other through their BMSs.",
+      },
+      { type: "heading", level: 2, text: "3. Cells: grade and source matter" },
+      {
+        type: "paragraph",
+        text: "Prismatic LiFePO4 cells (the EVE LF105 / LF280K class) are the standard building block. Buy grade-A cells from a reputable source and inspect on arrival: no bloating, no damaged terminals, and voltages within a few tens of millivolts of each other — they typically ship at storage charge, around 3.2–3.3 V per cell. A cell that arrives at 2.5 V while its siblings sit at 3.3 V is a return, not a project.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        text: "4. Top-balance before the first assembly",
+      },
+      {
+        type: "paragraph",
+        text: "Before wiring cells in series, connect them all in parallel and charge the group slowly to 3.65 V per cell, then let them rest. This top-balancing aligns every cell to the same full state of charge, so the BMS starts from a level field instead of fighting an imbalance from day one. Skip it and the weakest cell hits the top first on every charge, throttling the whole pack.",
+      },
+      { type: "heading", level: 2, text: "5. Busbars, torque, fuses" },
+      {
+        type: "list",
+        items: [
+          "Clean every contact surface (terminals and busbars) before assembly — a thin oxide layer becomes a hot spot at tens of amps.",
+          "Torque the terminal bolts to the cell manufacturer's spec; too loose arcs, too tight strips the threads.",
+          "Fuse every parallel string individually, as close to the pack as possible.",
+          "Size cables for both current and voltage drop — at 24 V, a 3% drop is only 0.77 V, and long thin runs eat it fast.",
+          "Keep the bank ventilated and the cells mechanically restrained; prismatic cells swell slightly with cycling.",
+        ],
+      },
+      { type: "heading", level: 2, text: "6. Commissioning: prove the capacity" },
+      {
+        type: "paragraph",
+        text: "Before trusting the bank, run one full cycle: charge to the BMS cutoff, then discharge through a known, measured load while logging voltage and current. Integrate to watt-hours and compare against the nameplate. If a \"2,560 Wh\" 24 V 100 Ah pack delivers far less usable energy, you want to know that on the bench — not during the first cloudy week.",
+      },
+      {
+        type: "code",
+        language: "python",
+        code: "# rough capacity check: discharge through a known load,\n# logging current (A) once per minute at 25.6 V nominal\ndischarged_ah = sum(current_samples_a) / 60\ndischarged_wh = discharged_ah * 25.6\nprint(f\"Usable: {discharged_wh:.0f} Wh\")",
+      },
+      {
+        type: "quote",
+        text: "Build it like the datasheet is watching: torque specs, fuses, and one honest capacity test beat three forum threads of opinions.",
+      },
+      {
+        type: "paragraph",
+        text: "These are planning-level practices, not a substitute for the cell and BMS datasheets or local electrical regulations. Anything grid-tied — and anything above extra-low voltage in some jurisdictions — deserves a qualified electrician's sign-off. Walk in with the sizing math done and a torqued, fused, tested bank, and that conversation goes much faster.",
+      },
+    ],
+  },
 ];
 
 /** All posts, newest first. */
