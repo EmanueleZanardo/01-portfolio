@@ -7,7 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { FocusMainOnMount } from "@/components/focus-main-on-mount";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { getAllPosts, getPostBySlug } from "@/lib/blog-posts";
+import { getAllPosts, getPostBySlug, postWordCount } from "@/lib/blog-posts";
 import { ArticleBody } from "../article-body";
 import { formatPostDate } from "../blog-utils";
 
@@ -86,6 +86,11 @@ export default async function BlogPostPage({
     headline: post.title,
     description: post.excerpt,
     datePublished: `${post.date}T00:00:00Z`,
+    // seo: wordCount/image/inLanguage — recommended Article fields Google
+    // uses for article rich results; wordCount is computed from the blocks.
+    wordCount: postWordCount(post),
+    image: "https://emanuelezanardo.info/og-image.png",
+    inLanguage: "en-US",
     author: {
       "@type": "Person",
       name: "Emanuele Zanardo",

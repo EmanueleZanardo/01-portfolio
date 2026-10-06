@@ -1,3 +1,16 @@
+## QA 2026-10-06 ~21:40 CEST (pushato)
+- Pull: origin/main = b55d1d2 (fetch OK, nessun nuovo commit remoto; tree locale pulito).
+- Vercel: deploy di b55d1d2 "success — Deployment has completed" (Commit Status API, 18:56 CEST) — nessun rate limit, push consentiti.
+- Build: OK pre-miglioria (exit 0, 21/21 route, First Load shared 101 kB) e OK post-miglioria (exit 0, lint+typecheck puliti).
+- Live 200: / /blog /cv /uses /case-studies /singularity /feed.xml /feed.json /humans.txt /robots.txt /sitemap.xml /manifest.webmanifest /og-image.png /cv-emanuele-zanardo.pdf /favicon.ico /apple-touch-icon.png; 404 propria su URL inesistente.
+- Homepage: title/description/canonical/OG(+type,secureUrl,width/height,alt)/Twitter large card/RSS+JSON-feed autodiscovery/rel="author"/theme-color/lang="en"/skip-link OK; 0 img senza alt; 0 placeholder.
+- Security headers intatti: CSP, HSTS includeSubDomains, X-Frame-Options DENY, nosniff, Referrer-Policy, Permissions-Policy.
+- Feed: /feed.xml XML valido (language, atom:link self, copyright, ttl, sy, content:encoded); /feed.json valido JSON Feed 1.1 (4/4 item con content_html completo, icon/favicon/language/home_page_url/feed_url).
+- Sitemap: 14 URL, lastmod per-post corrette per i blog post; robots.txt con Sitemap; security.txt con Expires 2027-04-04.
+- Bug trovati: NESSUNO.
+- Miglioria (1, piccola, SEO structured data): BlogPosting JSON-LD arricchito con `wordCount` (calcolato dai blocchi via nuovo helper `postWordCount` in `src/lib/blog-posts.ts`), `image` (og-image 1200x630) e `inLanguage` (en-US) — campi Article raccomandati da Google per i rich result. Verificato in locale con next start: 4/4 post con wordCount 480–735.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
 ## QA 2026-10-06 ~20:40 CEST (pushato)
 - Pull: origin/main = 4bc88a2 (fetch OK, nessun nuovo commit remoto; tree locale pulito).
 - Vercel: deploy di 4bc88a2 "success — Deployment has completed" (Commit Status API, 19:50 CEST) — nessun rate limit, push consentiti.

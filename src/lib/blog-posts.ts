@@ -268,3 +268,30 @@ export function getAllTags(): string[] {
   for (const p of posts) for (const t of p.tags) set.add(t);
   return [...set].sort((a, b) => a.localeCompare(b));
 }
+
+/**
+ * Total word count of a post's body (all block texts, code included) —
+ * feeds schema.org `wordCount` on the BlogPosting JSON-LD.
+ */
+export function postWordCount(post: BlogPost): number {
+  const chunks: string[] = [];
+  for (const block of post.content) {
+    switch (block.type) {
+      case "paragraph":
+      case "heading":
+      case "quote":
+        chunks.push(block.text);
+        break;
+      case "list":
+        chunks.push(block.items.join(" "));
+        break;
+      case "code":
+        chunks.push(block.code);
+        break;
+    }
+  }
+  return chunks
+    .join(" ")
+    .split(/\s+/)
+    .filter((w) => w.length > 0).length;
+}
