@@ -699,3 +699,14 @@
 - Bug trovati: NESSUNO. Miglioria: nessuna forzata — diff finto su sito maturo = deploy Vercel sprecato (precedente ciclo 09:39).
 - Push: NESSUNO (anti-rate-limit: solo entry di routine).
 - Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS ancora irraggiungibile (curl 000, ritestato); date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
+## QA 2026-10-06 ~13:40 CEST
+- Pull: origin/main = 83194bb (fetch OK, nessun nuovo commit remoto). Clone locale sincronizzato, working tree pulito.
+- Build: OK (exit 0, Next.js 15.3.8, lint+typecheck puliti, 20/20 pagine statiche, First Load shared 101 kB). Log: goal hidden_files/sito-build-20261006-1340.log
+- Live 200: / /blog /cv /uses /case-studies /singularity /feed.xml /robots.txt /sitemap.xml /manifest.webmanifest /og-image.png. 404 propria (HTTP 404, title "Page Not Found | Emanuele Zanardo").
+- Homepage: title/description/canonical/OG (type+secureUrl+width/height/alt)/Twitter large card/RSS autodiscovery presenti; 2/2 img con alt; 0 placeholder (lorem/TODO/FIXME); lang="en"; skip-link; security headers intatti.
+- Feed: /feed.xml XML valido, 4/4 item con pubDate RFC-822 corrette.
+- Bug trovati: NESSUNO.
+- Miglioria (1, piccola, feed/SEO): elemento <image> nel canale RSS (/feed.xml) — icona brand 144x144 (nuovo asset public/rss-channel-icon.png, resize da apple-touch-icon.png, entro il limite spec RSS di 144px) con url/title/link/width/height; i feed reader mostrano ora il logo del canale.
+- Push: commit singolo via Git Data API (src/app/feed.xml/route.ts + public/rss-channel-icon.png + entry STATUS.md).
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).

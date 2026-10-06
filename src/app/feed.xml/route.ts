@@ -45,6 +45,13 @@ ${categories}
     <description>Notes on embedded systems, PCB design, firmware and energy by Emanuele Zanardo.</description>
     <language>en</language>
     <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />
+    <image>
+      <url>${SITE}/rss-channel-icon.png</url>
+      <title>Emanuele Zanardo — Blog</title>
+      <link>${SITE}/blog</link>
+      <width>144</width>
+      <height>144</height>
+    </image>
 ${items}
   </channel>
 </rss>
