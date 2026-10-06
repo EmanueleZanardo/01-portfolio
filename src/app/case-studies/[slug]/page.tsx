@@ -80,7 +80,22 @@ export default async function CaseStudyPage({ params }: PageProps) {
     headline: cs.title,
     description: cs.summary,
     url: `https://emanuelezanardo.info/case-studies/${cs.slug}`,
-    inLanguage: "en",
+    // seo: inLanguage/author/publisher/keywords/image — recommended Article
+    // fields Google uses for article rich results, mirroring the BlogPosting
+    // schema on blog pages so case studies get the same completeness.
+    inLanguage: "en-US",
+    image: "https://emanuelezanardo.info/og-image.png",
+    author: {
+      "@type": "Person",
+      name: "Emanuele Zanardo",
+      url: "https://emanuelezanardo.info",
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Emanuele Zanardo",
+      url: "https://emanuelezanardo.info",
+    },
+    keywords: cs.tech.join(", "),
   };
 
   const breadcrumbJsonLd = {
