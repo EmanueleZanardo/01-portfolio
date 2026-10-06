@@ -1,6 +1,45 @@
+## QA 2026-10-06 ~10:40 CEST (pushato)
+- Pull: origin/main = 44a2416 (fetch OK, nessun nuovo commit remoto). Locale sincronizzato.
+- Build: OK pre-miglioria (exit 0, Next 15, 20/20 pagine statiche, lint+typecheck puliti, First Load 101 kB) e OK post-miglioria (exit 0; /feed.xml in route list). Log: hidden_files/sito-build-20261006-1040.log / -1040b.log.
+- Live 200: / /blog /cv /uses /case-studies /singularity; robots.txt / sitemap.xml / manifest.webmanifest / favicon.ico / apple-touch-icon.png / og-image.png / cv-emanuele-zanardo.pdf / .well-known/security.txt. 404 propria su URL inesistente.
+- Homepage: title/description/canonical/OG(+type,secureUrl,width/height,alt)/Twitter large card/theme-color/viewport presenti; 9/9 link interni → 200; 0 img senza alt; 0 placeholder (lorem/TODO/FIXME). GitHub/LinkedIn 200, wa.me 302 (redirect atteso).
+- Miglioria (1, piccola, SEO/discoverability): feed RSS 2.0 del blog — nuova route `src/app/feed.xml/route.ts` (titolo, excerpt, pubDate, categorie dai tag, XML escapato, Cache-Control public s-maxage=86400) + autodiscovery `<link rel="alternate" type="application/rss+xml" href="/feed.xml">` nel metadata del layout. Verificato in locale con next start: /feed.xml 200, XML valido, 4/4 item, autodiscovery presente in homepage.
+- Bug trovati: NESSUNO.
+
+## QA 2026-10-06 ~09:40 CEST (NESSUN push — solo entry di routine, accumulata in locale per regola anti-rate-limit)
+- Pull: origin/main = 44a2416 (fetch OK, nessun nuovo commit remoto). Locale sincronizzato.
+- Build: OK (exit 0, Next 15, 20/20 pagine statiche, lint+typecheck puliti, First Load 101 kB shared + First Load pagine invariato).
+- Live 200: / /blog /case-studies /cv /uses /singularity; robots.txt / sitemap.xml / manifest.webmanifest / favicon.ico / og-image.png / apple-touch-icon.png / cv-emanuele-zanardo.pdf / .well-known/security.txt (valido). /blog/nextjs-15-static-rendering-lessons /case-studies/load-bank-300kw-pcb 200 con title proprio. 404 propria su URL inesistente.
+- Meta: title/description/canonical/OG/Twitter/theme-color/lang/skip-link su homepage; OG completo con locale, image 1200x630 e og:type website su /blog. 2/2 img con alt. 0 placeholder di contenuto. 15/15 link interni homepage → 200, 0 rotti.
+- Security headers intatti: CSP, HSTS includeSubDomains, X-Frame-Options DENY, X-Content-Type-Options nosniff, Referrer-Policy, Permissions-Policy, COOP/CORP same-origin. Vercel cache HIT.
+- Sitemap: 14 URL, lastmod 2026-10-06T04:52:29Z, Sitemap dichiarato in robots.txt.
+- Sweep differenziale: target=_blank esterni tutti con rel=noopener (0 senza), manifest con icone 192/512/maskable + screenshots + shortcuts presenti, article meta coperti nei cicli precedenti — nessun gap sensato.
+- Bug trovati: NESSUNO. Miglioria: nessuna forzata — diff finto su sito maturo = deploy Vercel sprecato.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 06/10/2026 ~06:40 CEST**
+**Ultimo aggiornamento: 06/10/2026 ~10:40 CEST**
+
+## QA 2026-10-06 ~08:40 CEST (NESSUN push — solo entry di routine, accumulata in locale per regola anti-rate-limit)
+- Pull: origin/main = 44a2416 (fetch OK, nessun nuovo commit remoto). Locale sincronizzato.
+- Build: OK (exit 0, Next 15, 20/20 pagine statiche, lint+typecheck puliti, compilato in ~50s). Log: hidden_files/sito-build-20261006-0840.log.
+- Live 200: / /blog /case-studies /cv /uses /singularity; robots.txt / sitemap.xml / manifest.webmanifest / favicon.ico / og-image.png / apple-touch-icon.png; /cv-emanuele-zanardo.pdf; .well-known/security.txt. 404 propria su URL inesistente. (Un primo batch curl ha dato 000 sugli asset per un hiccup di rete transitorio; retry → tutti 200.)
+- Meta: title/description/canonical/OG/Twitter/theme-color completi su homepage. 9/9 link interni homepage validi. 0 placeholder di contenuto (lorem/TODO/FIXME). 0 img senza alt.
+- Sitemap fresca: lastmod 2026-10-06T04:52:29Z su tutte le sezioni, robots.txt con Sitemap: dichiarato.
+- Sweep differenziale: aria-current, OG/Twitter con type+secureUrl, form contatti (autocomplete/enterKeyHint/honeypot/rate-limit), hero priority, prefers-reduced-motion, print CSS /cv, noscript form, 404 token-search, breadcrumbs+JSON-LD, article:author — tutto già coperto, nessun gap sensato.
+- Bug trovati: NESSUNO. Miglioria: nessuna forzata — diff finto su sito maturo = deploy Vercel sprecato.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
+## QA 2026-10-06 ~07:40 CEST (NESSUN push — solo entry di routine, accumulata in locale per regola anti-rate-limit)
+- Pull: origin/main = 44a2416 (fetch OK, nessun nuovo commit remoto). Locale pulito.
+- Build: OK (exit 0, Next 15, 20/20 pagine statiche, lint+typecheck puliti, First Load JS 136 kB invariato). Log: /tmp/sito-build-20261006-0739.log.
+- Live 200: / /blog /case-studies /cv /uses /singularity + /robots.txt /sitemap.xml (14 URL, PDF CV incluso) /manifest.webmanifest /favicon.ico /og-image.png; embed Streamlit /singularity → 200 in 0,9s (niente sleep). 404 propria "Page Not Found | Emanuele Zanardo".
+- Meta: title/description/OG/Twitter completi su homepage, /blog, /cv, /uses (campionati). 15/15 link interni homepage → 200. 2 img, entrambe con alt. 0 placeholder di contenuto (solo attributo placeholder dell'input ricerca 404 — legittimo).
+- Security headers intatti: CSP (frame-src limitato allo Streamlit), HSTS includeSubDomains, X-Frame-Options DENY, nosniff, Referrer-Policy, Permissions-Policy, COOP/CORP same-origin.
+- Sweep differenziale: aria-current nav, theme-color, OG/Twitter con type+secureUrl su tutte le pagine, autocomplete/enterKeyHint/honeypot/rate-limit form contatti, hero priority, prefers-reduced-motion, print CSS /cv, noscript form, 404 token-search — tutto già coperto, nessun gap sensato.
+- Bug trovati: NESSUNO. Miglioria: nessuna — nessun diff forzato su sito maturo (precedente: ciclo 06:40 già spinto con deploy Vercel success).
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
 
 ## QA 2026-10-06 ~06:40 CEST (pushato)
 - Pull: origin/main = 5184dc5 (fetch OK, nessun nuovo commit remoto). Locale pulito.

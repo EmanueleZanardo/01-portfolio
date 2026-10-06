@@ -44,7 +44,14 @@ export const metadata: Metadata = {
   // seo: keywords metadata — search engines can use them as an extra relevance
   // signal; kept focused on his actual services and service areas.
   keywords: ['Electronic Engineer', 'embedded systems', 'firmware development', 'firmware validation', 'PCB design', 'PCB layout', 'KiCad', 'ESP32', 'STM32', 'freelance electronics engineer', 'industrial automation', 'Ticino', 'Varese', 'Switzerland', 'Italy'],
-  alternates: { canonical: '/' },
+  alternates: {
+    canonical: '/',
+    // seo: RSS autodiscovery — lets feed readers and search engines find
+    // the blog feed (src/app/feed.xml/route.ts) from every page.
+    types: {
+      'application/rss+xml': [{ url: '/feed.xml', title: 'Emanuele Zanardo — Blog' }],
+    },
+  },
   authors: [{ name: 'Emanuele Zanardo', url: 'https://emanuelezanardo.info' }],
   creator: 'Emanuele Zanardo',
   // micro-ux: iOS Safari auto-detects phone-like text and wraps it in its own
