@@ -781,3 +781,16 @@
 - Miglioria (1, piccola, feed/SEO): calendario di aggiornamento nel canale /feed.xml — namespace xmlns:sy + <sy:updatePeriod>weekly</sy:updatePeriod> e <sy:updateFrequency>1</sy:updateFrequency>, così gli aggregatori RSS sanno quanto spesso ricontrollare (completa la serie di polish RSS: lastBuildDate/image/ttl/docs/copyright).
 - Push: commit atomico via Git Data API (src/app/feed.xml/route.ts + entry STATUS.md), base remota verificata invariata prima del push.
 - Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
+## QA 2026-10-06 ~22:45 CEST
+- Pull: origin/main = ba9e85fa2194a4bd449fb8fed1976569a7817faf (fetch OK, nessun nuovo commit remoto; tree locale pulito).
+- Build: OK prima (exit 0, Next 15, First Load shared 101 kB).
+- Vercel: deploy del tip "success — Deployment has completed" 22:00 CEST (Commit Status API) — nessun rate limit.
+- Live 200: / /blog /case-studies /cv /singularity /uses /feed.xml /feed.json /sitemap.xml /robots.txt /humans.txt (tutti 200).
+- Link interni homepage: 17 href unici → tutti 200, 0 rotti; 2/2 img con alt (hero-bg.webp e portrait.webp verificati 200 anche via ottimizzatore _next/image); 0 placeholder (lorem/TODO/FIXME).
+- Meta homepage: title/description/canonical/OG(+type,secureUrl,width/height,alt)/Twitter large card/RSS+JSON autodiscovery/theme-color/JSON-LD presenti.
+- security.txt: Expires dinamico OK (2027-04-04).
+- Bug trovati: NESSUNO.
+- Miglioria (1, piccola, PWA/manutenibilità): eliminato il duplicato legacy public/manifest.webmanifest — il manifest è ora generato solo da src/app/manifest.ts (single source of truth, rischio drift tra le due copie eliminato). Build OK post-rimozione (exit 0) e /manifest.webmanifest verificato 200 sul server di produzione locale.
+- Push: commit atomico via Git Data API (delete public/manifest.webmanifest + commento src/app/manifest.ts + entry STATUS.md), base remota verificata invariata prima del push.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).

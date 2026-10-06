@@ -1,10 +1,11 @@
 import type { MetadataRoute } from 'next';
 
-// pwa: web app manifest — Next.js serves this at /manifest.webmanifest,
-// taking precedence over the legacy static public/manifest.webmanifest
-// (content below is identical to it). All icon/screenshot assets exist in
-// public/; nothing here references invented files. Palette matches the
-// dark theme: viewport themeColor '#333333' and background '#171717'.
+// pwa: web app manifest — Next.js serves this at /manifest.webmanifest.
+// Single source of truth: the legacy static public/manifest.webmanifest
+// (identical content) was removed on 2026-10-06 to eliminate the drift
+// risk between two copies. All icon/screenshot assets exist in public/;
+// nothing here references invented files. Palette matches the dark theme:
+// viewport themeColor '#333333' and background '#171717'.
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: '/',
