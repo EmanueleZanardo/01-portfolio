@@ -43,8 +43,34 @@ export default function BlogPage() {
   const posts = getAllPosts();
   const tags = getAllTags();
 
+  // seo: ItemList dei post — le pagine articolo espongono già BlogPosting +
+  // BreadcrumbList; la pagina lista completa la collezione con l'ItemList,
+  // così Google associa l'elenco agli articoli indicizzati.
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: posts.map((post, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "BlogPosting",
+        "@id": `https://emanuelezanardo.info/blog/${post.slug}`,
+        url: `https://emanuelezanardo.info/blog/${post.slug}`,
+        headline: post.title,
+        description: post.excerpt,
+        datePublished: post.date,
+        author: { "@id": "https://emanuelezanardo.info#person" },
+        keywords: post.tags.join(", "),
+      },
+    })),
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
       <Header />
       <main
         id="main-content"

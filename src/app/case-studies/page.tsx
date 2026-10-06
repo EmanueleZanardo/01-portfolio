@@ -47,8 +47,32 @@ export const metadata: Metadata = {
 };
 
 export default function CaseStudiesPage() {
+  // seo: ItemList dei case study — le pagine articolo espongono già il loro
+  // schema; la pagina lista aggiunge la collezione, come già fatto per /blog.
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: caseStudies.map((cs, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "CreativeWork",
+        "@id": `https://emanuelezanardo.info/case-studies/${cs.slug}`,
+        url: `https://emanuelezanardo.info/case-studies/${cs.slug}`,
+        name: cs.title,
+        description: cs.summary,
+        author: { "@id": "https://emanuelezanardo.info#person" },
+        keywords: cs.tech.join(", "),
+      },
+    })),
+  };
+
   return (
     <main id="main-content" tabIndex={-1} className="focus:outline-none">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
       {/* a11y: move focus to <main> after client-side navigation (WCAG 2.4.3) */}
       <FocusMainOnMount />
       <div className="container mx-auto px-4 py-20 lg:py-28">

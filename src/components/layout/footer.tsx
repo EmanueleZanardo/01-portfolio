@@ -4,13 +4,15 @@ import { ScrollToTop } from '@/components/layout/scroll-to-top';
 import Link from 'next/link';
 
 // Text links to site sections — only routes that exist locally are listed
-// (checked 05/10/2026): /, /blog, /case-studies, /cv, /singularity.
-// There is no /uses route — do not add a link for it until it ships.
+// (checked 05/10/2026): /, /blog, /case-studies, /cv, /uses, /singularity.
+// /uses shipped on 05/10/2026 (40d7987), so it now joins the footer nav
+// alongside the header (header.tsx already links it).
 const SITE_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/blog', label: 'Blog' },
   { href: '/case-studies', label: 'Case Studies' },
   { href: '/cv', label: 'CV' },
+  { href: '/uses', label: 'Uses' },
   { href: '/singularity', label: 'Live Demo' },
 ];
 

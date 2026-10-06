@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 
 // Route finder for the 404 page — only real, verified site routes and
 // homepage anchors (checked 05/10/2026 against src/app/). Never link to
-// routes that do not exist yet (there is no /uses route).
+// routes that do not exist yet.
 const SITE_ROUTES = [
   {
     href: '/',
@@ -53,6 +53,12 @@ const SITE_ROUTES = [
     keywords: 'cv resume experience education',
   },
   {
+    href: '/uses',
+    label: 'Uses',
+    description: 'Tools I actually use — web stack, embedded tooling and data analysis.',
+    keywords: 'uses tools setup gear stack kicad',
+  },
+  {
     href: '/#contact',
     label: 'Contact',
     description: 'Get in touch for a project or a quote.',
@@ -75,6 +81,21 @@ export function NotFoundContent() {
   // error content — otherwise SR users stay silent on stale content.
   useEffect(() => {
     mainRef.current?.focus({ preventScroll: true });
+  }, []);
+
+  // ux: prefill the search with the failed path's segments (e.g. a visit to
+  // /servcies-demo pre-fills "servcies demo") so the finder is useful
+  // immediately instead of starting blank. useEffect rather than initial
+  // state keeps server and first client render identical (no hydration
+  // mismatch); it never overwrites something the user already typed.
+  useEffect(() => {
+    const segments = window.location.pathname
+      .split('/')
+      .flatMap((seg) => seg.split(/[-_]+/))
+      .filter((token) => token.length > 1);
+    if (segments.length > 0) {
+      setQuery((current) => (current === '' ? segments.join(' ') : current));
+    }
   }, []);
 
   const trimmed = query.trim().toLowerCase();

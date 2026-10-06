@@ -90,10 +90,68 @@ const EXPERIENCE = [
   },
 ];
 
+// seo: ProfilePage JSON-LD — marks /cv as a resume page. mainEntity links to
+// the canonical #person graph in layout instead of duplicating it; the
+// "about" node re-uses the same @id with CV-only enrichment (education +
+// occupation history) so the graph merges. Dates mirror the on-page periods.
+const cvJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": "https://emanuelezanardo.info/cv#profilepage",
+  url: "https://emanuelezanardo.info/cv",
+  name: "CV | Emanuele Zanardo",
+  inLanguage: "en",
+  mainEntity: { "@id": "https://emanuelezanardo.info#person" },
+  about: {
+    "@type": "Person",
+    "@id": "https://emanuelezanardo.info#person",
+    alumniOf: {
+      "@type": "EducationalOrganization",
+      name: "SUPSI",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Lugano",
+        addressCountry: "CH",
+      },
+    },
+    hasOccupation: [
+      {
+        "@type": "Occupation",
+        name: "After-Sales Engineer",
+        occupationLocation: {
+          "@type": "City",
+          name: "Cadro, Switzerland",
+        },
+        hiringOrganization: { "@type": "Organization", name: "CENTIEL" },
+        startDate: "2026-01",
+      },
+      {
+        "@type": "Occupation",
+        name: "Test & Certification Engineer",
+        occupationLocation: {
+          "@type": "City",
+          name: "Stabio, Switzerland",
+        },
+        hiringOrganization: {
+          "@type": "Organization",
+          name: "HORIEN Salt Battery Solution (Horien group)",
+        },
+        startDate: "2021-10",
+        endDate: "2026-01",
+      },
+    ],
+    knowsAbout: SKILLS,
+  },
+};
+
 export default function CvPage() {
   const cvMeta = cvDownloadMeta();
   return (
     <div className="flex flex-col min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(cvJsonLd) }}
+      />
       <div className="print:hidden">
         <Header />
       </div>

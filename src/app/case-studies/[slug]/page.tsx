@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { caseStudies, getCaseStudy, getCaseStudySlugs } from "@/lib/case-studies";
+import { ChevronRight } from "lucide-react";
 import { FocusMainOnMount } from "@/components/focus-main-on-mount";
 import { Badge } from "@/components/ui/badge";
 
@@ -32,6 +33,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: "Emanuele Zanardo Portfolio",
       locale: "en_US",
       type: "article",
+      // seo: article:author — completes the article OG graph (author was
+      // previously only present in the page JSON-LD).
+      authors: ["Emanuele Zanardo"],
       images: [
         {
           url: "/og-image.png",
@@ -79,6 +83,30 @@ export default async function CaseStudyPage({ params }: PageProps) {
     inLanguage: "en",
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://emanuelezanardo.info",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Case Studies",
+        item: "https://emanuelezanardo.info/case-studies",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: cs.title,
+      },
+    ],
+  };
+
   return (
     <main id="main-content" tabIndex={-1} className="focus:outline-none">
       {/* a11y: move focus to <main> after client-side navigation (WCAG 2.4.3) */}
@@ -87,14 +115,43 @@ export default async function CaseStudyPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div className="container mx-auto px-4 py-20 lg:py-28 max-w-3xl">
-        <Link
-          href="/case-studies"
-          // a11y (WCAG 2.5.8): min 44px touch target on mobile
-          className="inline-flex items-center min-h-[44px] text-sm font-semibold text-muted-foreground hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
-        >
-          ← Back to Case Studies
-        </Link>
+        {/* micro-ux + a11y: breadcrumb invece del semplice "back" — mostra la
+            gerarchia del sito (Home / Case Studies / titolo) e aiuta screen
+            reader e SEO (BreadcrumbList JSON-LD sopra). */}
+        <nav aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
+            <li>
+              <Link href="/" className="transition-colors hover:text-primary">
+                Home
+              </Link>
+            </li>
+            <li aria-hidden="true">
+              <ChevronRight className="h-4 w-4" />
+            </li>
+            <li>
+              <Link
+                href="/case-studies"
+                className="transition-colors hover:text-primary"
+              >
+                Case Studies
+              </Link>
+            </li>
+            <li aria-hidden="true">
+              <ChevronRight className="h-4 w-4" />
+            </li>
+            <li
+              aria-current="page"
+              className="max-w-[180px] truncate text-foreground sm:max-w-xs"
+            >
+              {cs.title}
+            </li>
+          </ol>
+        </nav>
 
         <article className="mt-6">
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">

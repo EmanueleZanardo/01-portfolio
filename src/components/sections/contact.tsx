@@ -21,7 +21,20 @@ export function Contact() {
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-12">
-          <ContactFormLazy />
+          {/* a11y/no-js: il form e' ssr:false (ContactFormLazy) — con JS
+              disabilitato lo slot lazy resterebbe vuoto. Il fallback
+              <noscript> (server-rendered) spiega come contattarlo in
+              alternativa: le opzioni telefono/email/LinkedIn qui a fianco
+              sono sempre visibili. */}
+          <div>
+            <noscript>
+              <p className="rounded-md border border-border bg-muted p-4 text-muted-foreground">
+                The contact form needs JavaScript enabled. Please use the phone,
+                email or LinkedIn options on this page to reach me.
+              </p>
+            </noscript>
+            <ContactFormLazy />
+          </div>
           {/* a11y: contact methods as a real list — screen readers announce
               "list, 3 items" and offer list navigation (WCAG 1.3.1). */}
           <ul className="flex flex-col justify-center space-y-6">

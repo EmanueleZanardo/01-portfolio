@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, CalendarDays, Clock } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, ChevronRight, Clock } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { FocusMainOnMount } from "@/components/focus-main-on-mount";
@@ -41,6 +41,9 @@ export async function generateMetadata({
       locale: "en_US",
       type: "article",
       publishedTime: `${post.date}T00:00:00Z`,
+      // seo: article:author — completes the article OG graph (author was
+      // previously only present in the BlogPosting JSON-LD).
+      authors: ["Emanuele Zanardo"],
       tags: post.tags,
       images: [
         {
@@ -95,11 +98,39 @@ export default async function BlogPostPage({
     keywords: post.tags.join(", "),
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://emanuelezanardo.info",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: "https://emanuelezanardo.info/blog",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+      },
+    ],
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <Header />
       <main
@@ -109,13 +140,38 @@ export default async function BlogPostPage({
       >
         <FocusMainOnMount />
         <article className="container mx-auto max-w-3xl px-4 py-24 lg:py-32">
-          <Link
-            href="/blog"
-            className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
-          >
-            <ArrowLeft aria-hidden="true" className="h-4 w-4" />
-            Back to blog
-          </Link>
+          {/* micro-ux + a11y: breadcrumb invece del semplice "back" — mostra la
+              gerarchia del sito (Home / Blog / articolo) e aiuta screen reader
+              e SEO (BreadcrumbList JSON-LD sopra). */}
+          <nav aria-label="Breadcrumb" className="mb-8">
+            <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
+              <li>
+                <Link href="/" className="transition-colors hover:text-primary">
+                  Home
+                </Link>
+              </li>
+              <li aria-hidden="true">
+                <ChevronRight className="h-4 w-4" />
+              </li>
+              <li>
+                <Link
+                  href="/blog"
+                  className="transition-colors hover:text-primary"
+                >
+                  Blog
+                </Link>
+              </li>
+              <li aria-hidden="true">
+                <ChevronRight className="h-4 w-4" />
+              </li>
+              <li
+                aria-current="page"
+                className="max-w-[180px] truncate text-foreground sm:max-w-xs"
+              >
+                {post.title}
+              </li>
+            </ol>
+          </nav>
 
           <header className="mb-10">
             <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">

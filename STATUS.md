@@ -1,12 +1,139 @@
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 06/10/2026 ~02:05 CEST**
+**Ultimo aggiornamento: 06/10/2026 ~02:40 CEST**
 
 ## 06/10/2026 ~02:05 CEST — aggiornamento documentale giornaliero
 - **Commit `5ee7cfa` (05/10 11:58 UTC):** SEO, PWA and content improvements — JSON-LD graphs, sitemap per nuove route, web manifest.
 - **05/10 13:58 CEST — RE-HIT rate limit Vercel:** "Deployment rate limited — retry in 24 hours" (GitHub Commit Status API sullo SHA 5ee7cfa). Finestra fino a **~06/10 13:58 CEST**: nessun push per ritentare (un push brucia un tentativo); il primo push dopo il rientro deploya tutto. Live = deploy STALE `7336eea` 02:06 CEST; /blog /cv /uses /case-studies 404 live = atteso.
 - **Ciclo QA 05/10 23:40:** miglioria breadcrumb navigabile (Home / Blog|Case Studies / titolo, aria-current, BreadcrumbList JSON-LD) — commit locale `f8e9424` in ACCUMULO, nessun push per blocco Vercel.
 - Blocchi (serve lui): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
+
+## QA 2026-10-06 ~02:40 CEST (PUSH RIPRESO: rate limit Vercel RIENTRATO)
+- RATE LIMIT FINITO: Emanuele ha pushato lui stesso `d8e9fd1` (STATUS.md) alle 02:08 CEST — GitHub Commit Status API: `Vercel | success | Deployment has completed`. Live = deploy completo: /blog /cv /uses /case-studies ora 200 (prima 404 per deploy stale).
+- Pull: origin/main avanzato a d8e9fd1 (solo docs, di Emanuele). 19 commit locali accumulati durante il blocco (5ee7cfa→df857d3) riapplicati sopra d8e9fd1: patch codice applicata pulita (nessun conflitto, lui non toccava src/), STATUS.md unito a mano (suo header + sua sezione 02:05, poi le mie 16 entry QA).
+- Build: OK due volte (pre/post fix, exit 0, Next.js 15.3.8, 20/20 statiche, lint+typecheck puliti). article:author verificato nel prerender HTML di /blog e /case-studies.
+- Live 200: / /blog /cv /uses /case-studies /singularity robots sitemap manifest favicon apple-touch-icon cv-pdf og-image hero-bg portrait security.txt; /blog/ 308 (redirect trailing slash, normale); 404 corretta su URL inesistente. Sitemap live include tutte le nuove route. Meta completi su / (title/description/canonical/OG/Twitter/theme-color). 0 placeholder, 0 img senza alt, 0 link rotti.
+- Bug trovati: NESSUNO (i 404 di ieri erano deploy-side, ora risolti dal deploy di Emanuele).
+- Miglioria (1, piccola, SEO): pagine articolo blog/case-studies dichiarano `type: "article"` ma senza autore OG — aggiunto `authors: ["Emanuele Zanardo"]` → `<meta property="article:author">` (prima l'autore era solo nel JSON-LD). File: src/app/blog/[slug]/page.tsx, src/app/case-studies/[slug]/page.tsx.
+- Push: TUTTO in UN commit via Git Data API (un solo deploy Vercel): migliorie accumulate del blocco (breadcrumb nav + BreadcrumbList JSON-LD, ItemList JSON-LD su /blog e /case-studies, ProfilePage JSON-LD su /cv, 404 con ricerca precompilata, footer /uses, fallback noscript form contatti) + article:author + STATUS.md.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel.
+
+## QA 2026-10-06 ~00:40 CEST (NESSUN push — blocco Vercel rate-limit attivo fino a ~06/10 13:58 CEST)
+- Pull: origin/main = 5ee7cfa (fetch OK, nessun nuovo commit remoto). Clone locale ahead 17 → 18 con questo ciclo (miglioria codice + entry STATUS.md in accumulo locale).
+- Build: OK due volte (pre-fix: exit 0; post-fix: exit 0, lint+typecheck puliti, 20/20 pagine statiche, 0 warning/errori). ItemList JSON-LD verificato nel prerender HTML di /blog (4 voci BlogPosting) e /case-studies (3 voci CreativeWork). Log: hidden_files/sito-build-0039*.log
+- Live: / → 200, /singularity → 200; og-image.png → 200; meta completi (title/description/viewport/canonical/OG/Twitter); tutte le img homepage con alt; 0 placeholder; unico link interno (/singularity) → 200.
+- Deploy STALE (invariato): 5ee7cfa rate-limitato ("Deployment rate limited — retry in 24 hours", riverificato via GitHub Commit Status API); live = deploy 7336eea del 05/10 02:06 CEST. /blog /cv /uses /case-studies → 404 live = atteso, non bug. Rientro finestra ~06/10 13:58 CEST → primo push utile al ciclo 14:40; NON pushare prima.
+- Bug trovati: NESSUNO.
+- Miglioria (1, piccola, SEO): pagine lista /blog e /case-studies senza structured data — ora espongono ItemList JSON-LD con voce per ogni post (BlogPosting: @id+url+headline+description+datePublished+author@id+keywords) e ogni case study (CreativeWork: @id+url+name+description+author@id+keywords), a complemento di BlogPosting+BreadcrumbList già presenti sulle pagine articolo. File: src/app/blog/page.tsx, src/app/case-studies/page.tsx.
+- Push: NESSUNO (blocco rate-limit Vercel); commit in accumulo locale, push al primo ciclo utile dopo il rientro.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel.
+
+## QA 2026-10-05 ~23:40 CEST (NESSUN push — blocco Vercel rate-limit attivo fino a ~06/10 13:58 CEST)
+- Pull: origin/main = 5ee7cfa (fetch OK, nessun nuovo commit remoto). Clone locale ahead 17 (miglioria codice + entry STATUS.md in accumulo locale).
+- Build: OK due volte (pre-fix: exit 0, 20/20 pagine, 0 warning; post-fix: exit 0, 20/20 pagine, typecheck pulito, breadcrumb + BreadcrumbList JSON-LD verificati nel prerender HTML di entrambe le pagine articolo). Log: hidden_files/build_20261005_2340*.log
+- Live 200: / /singularity /sitemap.xml /robots.txt /manifest.webmanifest /favicon.ico /apple-touch-icon.png /og-image.png /cv-emanuele-zanardo.pdf /hero-bg.webp /portrait.webp; meta completi (title/description/canonical/OG/Twitter); 0 placeholder; 0 TODO; security headers intatti.
+- Deploy STALE (invariato): 5ee7cfa/40d7987/a4c8b18 rate-limitati ("Deployment rate limited — retry in 24 hours", riverificato via GitHub Commit Status API); live = deploy 7336eea del 05/10 02:06 CEST. /blog /cv /uses /case-studies → 404 live = atteso, non bug. Rientro finestra ~06/10 13:58 CEST → primo push utile al ciclo 14:40; NON pushare prima.
+- Bug trovati: NESSUNO.
+- Miglioria (1, piccola, micro-UX/a11y/SEO): le pagine articolo (blog e case-studies) avevano solo un link "back" — ora mostrano un breadcrumb navigabile Home / Blog|Case Studies / titolo con <nav aria-label="Breadcrumb">, aria-current="page" sull'item corrente (titolo troncato via CSS) e BreadcrumbList JSON-LD affiancato allo schema esistente (BlogPosting/Article). File: src/app/blog/[slug]/page.tsx, src/app/case-studies/[slug]/page.tsx.
+- Push: NESSUNO (blocco rate-limit Vercel); commit in accumulo locale, push al primo ciclo utile dopo il rientro.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel.
+
+## QA 2026-10-05 ~22:40 CEST (NESSUN push — blocco Vercel rate-limit attivo fino a ~06/10 13:58 CEST)
+- Pull: origin/main = 5ee7cfa (fetch OK, nessun nuovo commit remoto). Clone locale ahead 16 (solo entry STATUS.md + 3 migliorie codice accumulate, nessuna modifica in questo ciclo).
+- Build: OK (exit 0, Next.js 15.3.8, lint+typecheck puliti, 20/20 pagine statiche, 0 warning, First Load shared 101 kB). Log: hidden_files/sito-build-20261005-2240.log
+- Live 200: / /singularity /sitemap.xml /robots.txt /manifest.webmanifest /cv-emanuele-zanardo.pdf /og-image.png /favicon.ico /apple-touch-icon.png; /404-probe-xyz -> 404 corretta; meta completi (title/description/OG/Twitter/canonical/lang=en); 0 placeholder; 0 TODO; security headers intatti (CSP, HSTS includeSubDomains, X-Frame-Options DENY, Permissions-Policy, Referrer-Policy, nosniff, COOP/CORP same-origin); 2 img homepage entrambe con alt; unico link interno (/singularity) -> 200.
+- Deploy STALE (invariato): 5ee7cfa/40d7987/a4c8b18 rate-limitati ("Deployment rate limited — retry in 24 hours"); live = deploy 7336eea del 05/10 02:06 CEST. /blog /cv /uses /case-studies danno 404 live = atteso, non bug. Rientro finestra ~06/10 13:58 CEST → primo push utile al ciclo 14:40; NON pushare prima.
+- Sweep differenziale: robots.txt ok (sitemap dichiarata), security.txt ok (Expires 2027-04-03), /cv e /uses buildati con canonical+OG+description+JSON-LD, blog post con schema BlogPosting, /uses con skip-link/main landmark/aria-label completi. NESSUN gap sensato rimasto.
+- Bug trovati: NESSUNO. Miglioria: nessuna — nessun diff forzato (convenzione cicli 18:40/19:40; migliorie recenti noscript-form, 404-route-finder, 404-prefill verificate intatte nel tree).
+- Push: NESSUNO (blocco rate-limit Vercel + anti-rate-limit: solo entry STATUS.md); entry accumulata in locale.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS ancora irraggiungibile (curl 000, ritestato); date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel.
+
+## 05/10/2026 ~21:40 CEST — ciclo QA orario (nessun push: blocco rate-limit Vercel ancora attivo)
+- Pull: origin/main fermo a 5ee7cfa (fetch OK, nessun nuovo commit remoto). Clone locale ahead 14 → 15 con questo ciclo (miglioria codice + entry STATUS.md in accumulo locale, in attesa del rientro finestra).
+- Blocco Vercel ancora attivo (rientro ~06/10 13:58 CEST; NON pushare prima): live serve deploy stale → /cv /uses /blog /case-studies danno 404 live (deploy-side, ATTESO — non bug).
+- Build: OK due volte (pre-fix: exit 0, 20/20 pagine; post-fix: exit 0, 20/20 pagine, 0 warning/errori, First Load JS shared 101 kB; log goal hidden_files/sito-build-20261005-2139*.log).
+- Live: / → 200, /singularity → 200, 404 corretta; sitemap.xml/robots.txt/manifest.webmanifest/favicon.ico/apple-touch-icon.png/og-image.png/cv-emanuele-zanardo.pdf/_next/image (hero-bg.webp, portrait.webp) → 200; meta completi (title/description/OG/Twitter/canonical/lang), 0 placeholder, 0 img senza alt; security headers intatti.
+- Bug trovati: nessuno.
+- Miglioria (1, piccola, micro-UX): la ricerca della pagina 404 partiva vuota — ora pre-compila la query con i segmenti del path fallito (es. /servcies-demo → "servcies demo"), via useEffect su window.location.pathname con split su / - _ (niente hydration mismatch, non sovrascrive input utente). File: src/components/not-found-content.tsx.
+- Push: NESSUNO (blocco rate-limit Vercel); commit in accumulo locale, push al primo ciclo utile dopo il rientro (~06/10 14:40 CEST).
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (curl 000); date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel.
+
+## 05/10/2026 ~20:40 CEST — ciclo QA orario (nessun push: blocco rate-limit Vercel ancora attivo)
+- Pull: origin/main fermo a 5ee7cfa (fetch OK, nessun nuovo commit remoto). Clone locale ahead 13 → 14 con questo ciclo (entry STATUS.md + 3 migliorie codice accumulate, in attesa del rientro finestra).
+- Blocco Vercel ancora attivo (rientro ~06/10 13:58 CEST; NON pushare prima): live serve il deploy 7336eea → /cv /uses /blog /case-studies danno 404 live (deploy-side, ATTESO — non bug).
+- Build: OK (exit 0, Next.js 15.3.8, 20/20 pagine statiche, First Load 136 kB invariato; rebuild post-fix in corso per verifica, log sito-build-20261005-2040.log).
+- Live: / → 200, /singularity → 200; sitemap.xml/robots.txt/manifest.webmanifest/favicon.ico/apple-touch-icon.png/og-image.png/cv-emanuele-zanardo.pdf/security.txt → 200; title corretto, 1 h1, 0 placeholder; headers sicurezza intatti (CSP, HSTS includeSubDomains, X-Frame-Options DENY, Permissions-Policy, Referrer-Policy, nosniff).
+- Bug/gap trovato: il route-finder della pagina 404 non conosceva /uses (pagina aggiunta il 05/10) — cercandola, nessun risultato; il commento diceva ancora "(there is no /uses route)". FIX: aggiunta entry /uses a SITE_ROUTES + commento aggiornato in src/components/not-found-content.tsx (tsc + eslint puliti).
+- www.emanuelezanardo.info HTTPS ancora irraggiungibile (curl 000) — azione Emanuele, invariato.
+- Push: NESSUNO (blocco rate-limit Vercel); miglioria + entry accumulate in locale, push al primo ciclo utile dopo il rientro (~06/10 14:40 CEST).
+- Aperti (invariati, azioni Emanuele): www HTTPS; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel.
+
+## 05/10/2026 ~16:40 CEST — ciclo QA orario (nessun push: blocco rate-limit Vercel ancora attivo)
+- Pull: origin/main fermo a 5ee7cfa (nessun nuovo commit remoto). Clone canonico ~/workspace/portfolio in sync; ahead 10 (sole entry STATUS.md + fix footer /uses in accumulo locale).
+- Blocco Vercel CONFERMATO ancora attivo: GitHub Commit Status API su 5ee7cfa → "Vercel | failure | Deployment rate limited — retry in 24 hours". Live serve ancora il deploy pre-13:58: /blog /cv /uses /case-studies → 404 (deploy-side, ATTESO — non bug del codice; le route esistono e buildano tutte). Primo push utile dopo ~13:58 CEST del 06/10.
+- Build: OK (exit 0, Next.js 15.3.8, tutte le route statiche generate — /blog x4 post, /case-studies x3, /cv, /uses, /singularity; log goal hidden_files/sito-build-20261005-1640.log).
+- Live: 200 su /, /singularity, robots.txt, sitemap.xml, manifest.webmanifest, favicon.ico, apple-touch-icon.png, cv-emanuele-zanardo.pdf, og-image.png, hero-bg.webp, .well-known/security.txt; tutti i link interni dell'homepage + asset _next (js/css/woff2) 200; 1 h1; 0 img senza alt; title/description/canonical/OG/Twitter completi; security headers intatti (CSP, HSTS 63072000+includeSubDomains, X-Frame-Options DENY, nosniff, Permissions-Policy, Referrer-Policy, no X-Powered-By).
+- Nessun bug trovato. Sweep miglioria: skip-to-content, lang="en", aria-current su nav già presenti — nessun gap sensato (10° ciclo consecutivo senza gap; nessun diff forzato).
+- PUSH: nessuno (rate limit attivo; accumulo locale: 10 ahead).
+- Blocchi aperti (serve Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV (verificato: cv/page.tsx e about.tsx dicono Oct 2021–Jan 2026, projects.tsx homepage dice Feb 2022–Dec 2025 — tocco io solo su sua conferma quale sia corretto); GMAIL_APP_PASSWORD su Vercel (form contatti); rientro rate-limit Vercel ~06/10 dopo le 13:58 CEST.
+
+## 05/10/2026 ~15:40 CEST — ciclo QA orario (nessun push: miglioria codice in accumulo locale per blocco rate-limit Vercel)
+- Pull: origin/main a 5ee7cfa (SEO/PWA + /blog /case-studies /cv /uses) — primo QA completo sul nuovo codice (i cicli 06:40–14:40 giravano su base più vecchia). Clone canonico ~/workspace/portfolio in sync; ahead 8 (sole entry STATUS.md accumulate, non pushate). Repo verificato: 01-portfolio via GitHub API.
+- Blocco Vercel: 5ee7cfa (13:58 CEST) → "Vercel | failure | Deployment rate limited — retry in 24 hours" (Commit Status API); rate-limitati anche 40d7987 (13:57) e 2da4b42 (04/10 16:46). Ultimo deploy live riuscito: 8c6ff02 (04/10 15:45 CEST). Live serve build precedente: /blog /case-studies /cv /uses → 404 (deploy-side, ATTESO — non bug). Primo push utile dopo ~13:58 CEST del 06/10 (il primo push deploya tutto).
+- Build: OK (exit 0, Next.js 15.3.8, 20/20 pagine statiche, First Load 136 kB invariato; log goal hidden_files/sito-run-20261005-1539.log).
+- QA nuove pagine (server locale da build 5ee7cfa): 200 su /blog, /blog/kicad-freerouting-6-layer-power-board, /case-studies, /case-studies/load-bank-300kw-pcb, /cv, /uses, /sitemap.xml, /robots.txt, /.well-known/security.txt; 404 corretta su /blog/nonexistent-slug; sitemap 14 URL con tutte le nuove route; BlogPosting JSON-LD + title template OK.
+- Sweep: 1 h1/pagina; 0 img senza alt; 0 placeholder/TODO/FIXME; slugs/date/readingMinutes consistenti (4 post, 3 case studies); live / e /singularity 200 con meta/headers intatti.
+- Miglioria (1, piccola): footer.tsx — commento stale ("There is no /uses route — do not add a link for it until it ships") e footer SENZA link /uses mentre l'header lo aveva → aggiunta entry { href: '/uses', label: 'Uses' } in SITE_LINKS + commento aggiornato. Build re-verificato OK. Commit in accumulo locale (no push per rate limit).
+- PUSH: nessuno (blocco rate limit fino a ~06/10 13:58 CEST).
+- Blocchi aperti (azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti); rientro rate-limit Vercel ~06/10 dopo le 13:58 CEST.
+
+## 05/10/2026 ~10:40 CEST — ciclo QA orario (nessun push: solo entry STATUS.md, accumulata in locale per anti-rate-limit)
+- Pull: origin/main fermo a 7336eea (nessun nuovo commit di Emanuele); clone attivo ~/workspace/portfolio in sync, nessun conflitto. NOTA: hidden_files/portfolio è un clone duplicato obsoleto (storico divergente: mancano entry 02:40/04:40/06:40/09:40) — ignorarlo, il clone canonico è ~/workspace/portfolio.
+- Build: OK (exit 0, Next.js 15.3.8, 8/8 pagine statiche, First Load 135 kB invariato; log goal hidden_files/sito-build-20261005-1039.log).
+- Live 200: /, /singularity, robots.txt, sitemap.xml, manifest.webmanifest, favicon.ico, cv-emanuele-zanardo.pdf, og-image.png, apple-touch-icon.png, hero-bg.webp, .well-known/security.txt; 404 corretta con noindex; security headers intatti (CSP, HSTS 63072000+includeSubDomains, nosniff, DENY, Referrer-Policy, Permissions-Policy, COOP/CORP same-origin, no X-Powered-By).
+- Nessun bug: 1 h1 su / e /singularity; 0 img senza alt; 0 target=_blank senza noopener (verificato: il rel è sulla riga successiva del sorgente); 0 placeholder/TODO; title/description/canonical/OG(12)/Twitter(5)/theme-color/JSON-LD(4/6) OK; tutti i link interni 200; ancore #main-content/#about/#projects/#services/#contact risolte; _next/image 200; footer con anni storici + 2026 dinamico.
+- Sweep migliorie: hero Image (priority+sizes=100vw) e portrait (lazy+async+sizes) già ottimizzati; singularity rel="noopener noreferrer" OK — nessun gap sensato rimasto (8° ciclo consecutivo senza gap; nessun diff forzato, diff finto = deploy Vercel sprecato).
+- PUSH: nessuno (anti-rate-limit: nessuna modifica sostanziale a codice/test/asset; commit locale in accumulo per il prossimo push sostanziale — ora 6 ahead di origin/main).
+- Blocchi aperti (serve Emanuele): www.emanuelezanardo.info HTTPS ancora irraggiungibile (azione IONOS/Vercel); discrepanza date Horien sito vs CV; GMAIL_APP_PASSWORD da impostare su Vercel (form contatti).
+
+## 05/10/2026 ~09:40 CEST — ciclo QA orario (nessun push: solo entry STATUS.md, accumulata in locale per anti-rate-limit)
+- Pull: origin/main fermo a 7336eea (nessun nuovo commit); clone attivo ~/workspace/portfolio in sync, nessun conflitto.
+- Build: OK (exit 0, Next.js 15.3.8, 8/8 pagine statiche, First Load 135 kB invariato; log goal hidden_files/sito-build-20261005-0939.log).
+- Live 200: /, /singularity, robots.txt, sitemap.xml, cv-emanuele-zanardo.pdf, og-image.png, favicon.ico, manifest.webmanifest, .well-known/security.txt (Expires 2027-04-03), apple-touch-icon.png, hero-bg.webp, icon-192/512/512-maskable.png, _next chunk+CSS+woff2; 404 corretta con noindex; security headers intatti (CSP, HSTS 63072000+includeSubDomains, nosniff, DENY, Referrer-Policy, Permissions-Policy, COOP/CORP same-origin, no X-Powered-By).
+- Nessun bug: 1 h1/pagina, 0 img senza alt, 0 target=_blank senza noopener, 0 placeholder, title/description/canonical/OG(7)/Twitter(4)/theme-color/JSON-LD OK, tutti i link interni 200, ancore #about/#services/#projects/#contact/#main-content risolte, footer 2026 dinamico, social link con aria-label e rel me.
+- Nessuna miglioria forzata: sweep a11y/SEO/perf/micro-UX senza gap sensato (6° ciclo consecutivo; diff finto sprecherebbe un deploy Vercel).
+- PUSH: nessuno (anti-rate-limit: l'unica modifica è questa entry STATUS.md, commit locale in accumulo per il prossimo push sostanziale).
+- Blocchi aperti (serve Emanuele): www.emanuelezanardo.info HTTPS ancora irraggiungibile (azione IONOS/Vercel); discrepanza date Horien sito vs CV; GMAIL_APP_PASSWORD da impostare su Vercel (form contatti).
+
+## 05/10/2026 ~08:40 CEST — ciclo QA orario (entry ricostruita nel ciclo 09:40 dal run log: la entry non era stata committata)
+- Pull: origin/main fermo a 7336eea (nessun nuovo commit di Emanuele); nessun conflitto.
+- Build: OK (exit 0, Next.js 15.3.8, 8/8 pagine statiche, First Load 135 kB invariato; log goal hidden_files/sito-build-20261005-0839.log).
+- Live 200: /, /singularity, robots.txt, sitemap.xml, manifest.webmanifest, favicon.ico, cv-emanuele-zanardo.pdf, og-image.png, apple-touch-icon.png, hero-bg.webp, icon-192/512/512-maskable.png, _next webpack chunk + CSS + woff2; 404 corretta con noindex; ancore #main-content/#about/#projects/#services/#contact tutte risolte.
+- Meta: 1 h1 su / e /singularity; 0 img senza alt; 0 placeholder/TODO; title/description/canonical/OG(12)/Twitter/theme-color/JSON-LD Person+ProfessionalService OK; security headers completi (HSTS 63072000+includeSubDomains, CSP, nosniff, DENY, Referrer-Policy, Permissions-Policy, COOP/CORP same-origin, no X-Powered-By).
+- Sweep migliorie: hero (priority LCP), portrait (lazy+async+sizes), scroll-to-top (inert/focus/reduced-motion), header (aria-current), footer (anno dinamico), 404, manifest, sitemap — nessun gap sensato rimasto dopo i deep sweep del 04/10.
+- Bug trovati: NESSUNO. Miglioria: NESSUNA forzata (nessun gap sensato; diff finto = deploy Vercel sprecato).
+- PUSH: nessuno (anti-rate-limit: solo entry STATUS.md; commit locale in accumulo).
+- Blocchi aperti (serve Emanuele): www.emanuelezanardo.info HTTPS ancora irraggiungibile (azione IONOS/Vercel); discrepanza date Horien sito vs CV; GMAIL_APP_PASSWORD da impostare su Vercel (form contatti).
+
+## 05/10/2026 ~06:40 CEST — ciclo QA orario (entry spostata in cima nel ciclo 09:40: era stata appesa in fondo al file)
+- Pull: origin/main fermo a 7336eea (nessun nuovo commit remoto).
+- Build: OK (exit 0, Next.js 15.3.8, 53s compile, 8/8 pagine statiche, 0 errori, First Load 135 kB invariato). Log: sito-build-20261005-0639.log
+- Live 200: /, /singularity, robots.txt, sitemap.xml, cv-emanuele-zanardo.pdf, og-image.png, hero-bg.webp, portrait.webp, favicon.ico, apple-touch-icon.png, manifest.webmanifest, .well-known/security.txt; 404 corretta.
+- Meta/headers: title, description, OG, canonical, lang OK; 0 placeholder; security headers intatti (CSP, HSTS includeSubDomains, DENY, Permissions-Policy, Referrer-Policy, nosniff); tutte le img con alt; asset _next/image 200.
+- Sweep src: 0 TODO; link interni tutti validi; scroll-to-top già curato (focus WCAG 2.4.3, reduced-motion, safe-area).
+- Bug trovati: NESSUNO. Miglioria: nessuna — sweep completo senza gap sensato (nessun diff forzato).
+- PUSH: nessuno (anti-rate-limit: nessuna modifica sostanziale a codice/test/asset); entry STATUS.md accumulata in locale.
+- Blocchi aperti (serve Emanuele): www.emanuelezanardo.info HTTPS ancora irraggiungibile; discrepanza date Horien sito vs CV; GMAIL_APP_PASSWORD da impostare su Vercel (form contatti).
+
+## 05/10/2026 ~04:40 CEST — ciclo QA orario (nessun push: solo entry STATUS.md, accumulata in locale per anti-rate-limit)
+- Pull: origin/main fermo a 7336eea (nessun nuovo commit); clone attivo ~/workspace/portfolio in sync, nessun conflitto.
+- Build: OK (exit 0, Next.js 15.3.8, compile 52s, lint+typecheck puliti, 8/8 pagine statiche, First Load 135 kB invariato; log goal hidden_files/sito-build-20261005-0439.log).
+- Live 200: /, /singularity, robots.txt, sitemap.xml, cv-emanuele-zanardo.pdf, og-image.png, favicon.ico, manifest.webmanifest, .well-known/security.txt, hero-bg.webp, portrait.webp (via _next/image); 404 corretta; security headers intatti (CSP, HSTS 63072000+includeSubDomains, X-Frame-Options DENY, Permissions-Policy, Referrer-Policy, nosniff).
+- Nessun bug: title/OG/Twitter/canonical/lang OK, 0 placeholder, link interni tutti validi (ancore #about/#services/#projects/#contact/#main-content, PDF, manifest, /singularity), 0 TODO/FIXME nel sorgente, alt/skip-link/aria-current già curati.
+- Nessuna miglioria forzata: sweep a11y/SEO/perf/micro-UX senza gap sensato (5° ciclo consecutivo; diff finto sprecherebbe un deploy Vercel).
+- PUSH: nessuno (anti-rate-limit: l'unica modifica è questa entry STATUS.md, commit locale in accumulo per il prossimo push sostanziale).
+- Blocchi aperti (serve Emanuele): www HTTPS ancora irraggiungibile (azione IONOS/Vercel); date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
 
 ## 05/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
 - **04/10 02:40 — Emanuele ha pushato lui stesso commit `b5fb48e` (STATUS.md)** durante la sospensione; deploy Vercel riuscito → rate limit sembrava rientrato.
@@ -405,3 +532,78 @@
 - Miglioria del ciclo (micro-UX + a11y): pulsante "back to top" (src/components/layout/scroll-to-top.tsx) — prima appariva/spariva di colpo per mount/unmount; ora resta montato e sfuma con transizione di opacità (opacity/invisible + pointer-events-none), visibility:hidden lo esclude da tab order e albero a11y quando nascosto, motion-reduce:transition-none rispetta il reduced-motion. Logica focus WCAG 2.4.3 invariata.
 - Push: SÌ (modifica sostanziale a codice + 4 entry STATUS.md accumulate).
 - Aperti: www.emanuelezanardo.info HTTPS (azione Emanuele), date Horien sito vs CV, GMAIL_APP_PASSWORD su Vercel.
+
+## QA 2026-10-05 ~02:40 CEST (NESSUN push — nessuna modifica a codice)
+- Pull: origin/main fermo a 7336eea ("docs: aggiorna STATUS.md — stato 05/10/2026"); clone pulito, nessun nuovo commit.
+- PIPELINE VERCEL RIPRESA: live deploy 2026-10-05T00:05:36Z (02:05 CEST) — sitemap lastmod live aggiornata; homepage live senza più "After-Sales Engineer" (content fix del deep sweep 16:46 ora online). Main e live sono di nuovo allineati.
+- Build: OK (exit 0, Next.js 15.3.8, 45s compile, 8/8 pagine statiche, 0 errori/warning). Log: sito-build-20261005-0239.log
+- Live 200: / /singularity /robots.txt /sitemap.xml /cv-emanuele-zanardo.pdf /og-image.png /hero-bg.webp /portrait.webp /favicon.ico /manifest.webmanifest /.well-known/security.txt; 404 corretta su URL inesistente.
+- Sicurezza headers live: CSP (frame-src/connect-src solo Streamlit singularity), HSTS includeSubDomains, X-Frame-Options DENY, Permissions-Policy, Referrer-Policy, nosniff.
+- Sweep src: 0 TODO; alt su tutte le img (hero-bg decorativa alt=""); autoComplete/name/email sugli input; skip-link + main-content su tutte le pagine; rel="me" sui social; security.txt route; sitemap con lastmod da git log (no churn).
+- Bug trovati: NESSUNO. Miglioria: nessuna — codebase già coperta (deep sweep 04/10 16:46).
+- Push: NESSUNO (anti rate-limit: nessuna modifica sostanziale a codice/test/asset); entry STATUS.md accumulata in locale.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel.
+
+## QA 2026-10-05 ~03:40 CEST (NESSUN push — nessuna modifica a codice)
+- Pull: origin/main fermo a 7336eea ("docs: aggiorna STATUS.md — stato 05/10/2026"); nessun nuovo commit remoto.
+- Build: OK (exit 0, Next.js 15.3.8, 50s compile, 8/8 pagine statiche, 0 errori/warning, First Load 135 kB invariato). Log: sito-build-20261005-0339.log
+- Live 200: / /singularity /robots.txt /sitemap.xml /cv-emanuele-zanardo.pdf /og-image.png /hero-bg.webp /portrait.webp /favicon.ico /manifest.webmanifest /.well-known/security.txt /apple-touch-icon.png; 404 corretta su URL inesistente; deploy live 2026-10-05T00:05:36Z allineato con main.
+- Meta/headers: title, description, OG, twitter card, canonical, lang OK; nessun placeholder; headers live intatti (CSP, HSTS, X-Frame-Options DENY, Permissions-Policy, Referrer-Policy, nosniff).
+- Sweep src: 0 TODO; nessun link interno rotto; nessuna immagine mancante; nessuna immagine senza alt/width.
+- Bug trovati: NESSUNO. Miglioria: nessuna — sweep completo senza gap sensato (4° ciclo consecutivo).
+- Push: NESSUNO (anti rate-limit: nessuna modifica sostanziale a codice/test/asset); entry STATUS.md accumulata in locale (clone ora ahead 2).
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS (ancora irraggiungibile, ritestato); date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel.
+
+## QA 2026-10-05 ~14:40 CEST (NESSUN push — blocco Vercel rate-limit attivo)
+- Pull: origin/main = 5ee7cfa ("SEO, PWA and content improvements", pushato oggi 13:58 CEST); nessun nuovo commit remoto dopo il fetch. Clone locale ahead 8 (7 entry STATUS.md + questa, solo docs, in accumulo per anti-rate-limit).
+- Build: OK (exit 0, Next.js 15.3.8, lint+typecheck puliti, 20/20 pagine statiche, First Load 136 kB invariato). Log: sito-build-20261005-1439.log
+- Live 200: / /singularity /robots.txt /sitemap.xml /cv-emanuele-zanardo.pdf /og-image.png /hero-bg.webp /favicon.ico /manifest.webmanifest /.well-known/security.txt /apple-touch-icon.png; tutti i link interni/asset 200; 1 h1; 0 img senza alt; title/description/canonical/OG(12)/Twitter completi; headers live intatti (CSP, HSTS includeSubDomains, X-Frame-Options DENY, Permissions-Policy, Referrer-Policy, nosniff).
+- Deploy STALE: il push 5ee7cfa (13:58 CEST, include /blog /cv /uses /case-studies) è stato rate-limitato da Vercel — GitHub Commit Status: "Vercel | failure | Deployment rate limited — retry in 24 hours". Il sito live serve ancora il deploy precedente: /blog /cv /uses /case-studies rispondono 404 (atteso fino al redeploy). NON pushare nulla fino a domani ~14:00 CEST: un push ora brucerebbe un tentativo e rischierebbe di resettare la finestra. Il primo push dopo il rientro deployerà tutto (nuove pagine incluse).
+- Bug trovati: NESSUNO (i 404 sulle nuove pagine sono deploy-side, non codice). Miglioria: nessuna — sweep senza gap sensato (9° ciclo consecutivo senza modifiche a codice).
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel; NUOVO: rientro rate-limit Vercel ~06/10 dopo le 13:58 CEST → primo push utile al ciclo 14:40.
+
+## QA 2026-10-05 ~11:40 CEST (NESSUN push — nessuna modifica a codice)
+- Pull: origin/main fermo a 7336eea ("docs: aggiorna STATUS.md — stato 05/10/2026"); nessun nuovo commit remoto. Clone locale ahead 4 (solo entry STATUS.md accumulate, per anti-rate-limit).
+- Build: OK (exit 0, Next.js 15.3.8, 32s compile, lint+typecheck puliti, 8/8 pagine statiche, First Load 135 kB invariato). Log: sito-build-20261005-1139.log
+- Live 200: / /singularity /robots.txt /sitemap.xml /cv-emanuele-zanardo.pdf /og-image.png /hero-bg.webp /portrait.webp /favicon.ico /manifest.webmanifest /.well-known/security.txt /apple-touch-icon.png; 404 corretta su URL inesistente; deploy live 2026-10-05T00:05:36Z allineato con main (X-Vercel-Cache: HIT).
+- Meta/headers: title, description, canonical, OG (+og:image:alt/type/width/height), twitter card su homepage e /singularity; headers live intatti (CSP con frame/connect-src Streamlit, HSTS includeSubDomains, X-Frame-Options DENY, Permissions-Policy, Referrer-Policy, nosniff).
+- Sweep src: 0 TODO/FIXME; nessun link interno rotto; nessuna immagine mancante (hero-bg e portrait con alt/size corretti); iframe /singularity con title + referrerPolicy; form con autoComplete/aria-invalid; form azione con rate limit; 404 con focus management; reduced-motion coperto in globals.css; manifest completo (icons maskable, shortcuts, screenshots).
+- Bug trovati: NESSUNO. Miglioria: nessuna — sweep completo senza gap sensato (5° ciclo consecutivo senza modifiche a codice).
+- Push: NESSUNO (anti rate-limit: nessuna modifica sostanziale a codice/test/asset); entry STATUS.md accumulata in locale.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel.
+
+## QA 2026-10-05 ~17:40 CEST (NESSUN push — blocco Vercel rate-limit attivo)
+- Pull: origin/main = 5ee7cfa; nessun nuovo commit remoto dopo il fetch. Clone locale ahead 10 (9 entry STATUS.md + questa, +1 modifica codice, in accumulo).
+- Build: OK (exit 0, Next.js 15, lint+typecheck puliti, 20/20 pagine statiche, First Load 136 kB invariato). Log: sito-build-20261005-1740.log / -1740b.log
+- Live 200: / /singularity /cv-emanuele-zanardo.pdf /manifest.webmanifest /sitemap.xml /robots.txt /og-image.png (1200x630 RGB); meta (title/description/canonical/OG/Twitter), 0 placeholder, headers sicurezza intatti (CSP, HSTS, X-Frame-Options DENY, Permissions-Policy, Referrer-Policy, nosniff); 0 TODO; nessun link interno rotto; nessun asset mancante (public/ completo).
+- Deploy STALE (invariato): 5ee7cfa/40d7987/a4c8b18 rate-limitati ("Deployment rate limited — retry in 24 hours", primo fail 11:53 UTC); live = deploy 7336eea del 05/10 02:06 CEST. /blog /cv /uses /case-studies danno 404 live = atteso, non bug. Rientro finestra ~06/10 13:58 CEST → primo push utile al ciclo 14:40; NON pushare prima (un push ora rischierebbe di resettare le 24h).
+- Bug trovati: NESSUNO. Miglioria: fallback <noscript> nella sezione contatti (contact.tsx) — il form è ssr:false, senza JS lo slot lazy restava vuoto; ora compare un messaggio server-rendered che rimanda a telefono/email/LinkedIn (verificato nel prerender HTML, <noscript> presente in .next/server/app/index.html).
+- Push: NESSUNO (blocco rate-limit Vercel); modifica codice + entry accumulate in locale (clone ora ahead 11), push al primo ciclo utile dopo il rientro.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel.
+
+## QA 2026-10-05 ~18:40 CEST (NESSUN push — blocco Vercel rate-limit attivo)
+- Pull: origin/main = 5ee7cfa; nessun nuovo commit remoto dopo il fetch. Clone locale ahead 11 (solo entry STATUS.md + 2 migliorie codice accumulate, nessuna modifica in questo ciclo).
+- Build: OK (exit 0, Next.js 15.3.8, 61s compile, lint+typecheck puliti, 20/20 pagine statiche, 0 warning, First Load 136 kB invariato). Log: sito-build-20261005-1840.log
+- Live 200: / /singularity /sitemap.xml /robots.txt /manifest.webmanifest /cv-emanuele-zanardo.pdf /og-image.png; headers sicurezza intatti (CSP, HSTS includeSubDomains, X-Frame-Options DENY, Permissions-Policy, Referrer-Policy, nosniff); 0 placeholder.
+- Deploy STALE (invariato): 5ee7cfa rate-limitato ("Deployment rate limited — retry in 24 hours"); live = deploy 7336eea del 05/10 02:06 CEST. /blog /cv /uses /case-studies danno 404 live = atteso, non bug. Rientro finestra ~06/10 13:58 CEST → primo push utile al ciclo 14:40; NON pushare prima.
+- Bug trovati: NESSUNO. Miglioria: nessuna — sweep differenziale senza gap (skip-link, aria-current, OG/Twitter su tutte le pagine, 0 TODO già coperti nei cicli precedenti; 12° ciclo, 3° consecutivo senza modifica codice).
+- Push: NESSUNO (blocco rate-limit Vercel); entry accumulata in locale.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS ancora irraggiungibile (curl 000, ritestato); date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel.
+
+## QA 2026-10-05 ~19:40 CEST (NESSUN push — blocco Vercel rate-limit attivo)
+- Pull: origin/main = 5ee7cfa (fetch OK, nessun nuovo commit remoto). Clone locale ahead 12 (solo entry STATUS.md + 2 migliorie codice accumulate).
+- Build: OK (exit 0, Next.js, 20/20 pagine statiche, 0 warning, First Load 136 kB invariato).
+- Live: / → 200, /singularity → 200; /cv /uses /blog /case-studies → 404 (deploy stale, ATTESO — non bug); /manifest.webmanifest /favicon.ico /apple-touch-icon.png /og-image.png → 200; title/description/OG/Twitter completi; 404 page con titolo corretto; 0 placeholder in homepage; security headers intatti (CSP, HSTS includeSubDomains, DENY, nosniff, Referrer-Policy, Permissions-Policy, COOP/CORP same-origin).
+- www.emanuelezanardo.info HTTPS ancora irraggiungibile (curl 000) — blocco noto, azione Emanuele.
+- Bug trovati: NESSUNO. Miglioria: nessuna — nessun gap sensato, nessun diff forzato; migliorie recenti (noscript form contatti, footer /uses) verificate intatte nel tree.
+- Push: NESSUNO (blocco rate-limit Vercel fino a ~06/10 13:58 CEST; anti-rate-limit comunque); entry accumulata in locale.
+- Aperti (invariati, azioni Emanuele): www HTTPS; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel.
+
+## QA 2026-10-06 ~01:40 CEST (NESSUN push — blocco Vercel rate-limit attivo)
+- Pull: origin/main = 5ee7cfa (fetch OK, nessun nuovo commit remoto). Clone locale ahead 18 (migliorie codice + entry STATUS.md accumulate).
+- Build: OK due volte, pre-fix e post-fix (exit 0, lint+typecheck puliti, 20/20 pagine statiche, 0 warning/errori). Log: sito-build-0139.log, sito-build-0139b.log
+- Miglioria: JSON-LD ProfilePage su /cv — mainEntity/about puntano al #person canonico di layout (nessuna duplicazione), arricchimento CV-only: alumniOf SUPSI Lugano, hasOccupation (After-Sales Engineer CENTIEL dal 2026-01; Test & Certification Engineer HORIEN Salt Battery Solution 2021-10→2026-01), knowsAbout = 10 skill on-page. 5/5 blocchi ld+json validi nel prerender HTML.
+- Bug trovati: NESSUNO.
+- Live: / → 200, /singularity → 200, /uses → 404 (deploy stale, atteso); /cv-emanuele-zanardo.pdf /manifest.webmanifest /apple-touch-icon.png /favicon.ico /robots.txt /sitemap.xml → 200; meta description/OG/Twitter completi; 0 placeholder; 0 img senza alt; security headers intatti (CSP, HSTS includeSubDomains, DENY, nosniff, Referrer-Policy, Permissions-Policy, COOP/CORP same-origin).
+- Push: NESSUNO (blocco rate-limit Vercel fino a ~06/10 13:58 CEST); primo push utile al ciclo ~14:40.
+- Aperti (invariati, azioni Emanuele): www HTTPS; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel.
