@@ -19,7 +19,14 @@ function escapeXml(value: string): string {
  * aggressively; the content changes only when a post is added or edited.
  */
 export async function GET(): Promise<Response> {
-  const items = getAllPosts()
+  const posts = getAllPosts();
+  // Newest post drives the channel's lastBuildDate (deterministic: keeps the
+  // route fully static so Vercel can prerender it and CDNs can cache it).
+  const lastBuildDate =
+    posts.length > 0
+      ? new Date(`${posts[0].date}T00:00:00Z`).toUTCString()
+      : new Date().toUTCString();
+  const items = posts
     .map((post) => {
       const url = `${SITE}/blog/${post.slug}`;
       const pubDate = new Date(`${post.date}T00:00:00Z`).toUTCString();
@@ -44,6 +51,7 @@ ${categories}
     <link>${SITE}/blog</link>
     <description>Notes on embedded systems, PCB design, firmware and energy by Emanuele Zanardo.</description>
     <language>en</language>
+    <lastBuildDate>${lastBuildDate}</lastBuildDate>
     <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>${SITE}/rss-channel-icon.png</url>
