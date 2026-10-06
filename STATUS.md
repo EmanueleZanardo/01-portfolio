@@ -1,3 +1,15 @@
+## QA 2026-10-07 ~00:40 CEST
+- Pull: origin/main = d5d82d2 (fetch OK, nessun nuovo commit remoto; tree locale pulito).
+- Build: OK pre-miglioria (exit 0, Next 15, 23/23 route) e OK post-miglioria (exit 0).
+- Live 200: / /blog /case-studies /cv /singularity /uses /feed.xml /feed.json /sitemap.xml /robots.txt /humans.txt /manifest.webmanifest /og-image.png (1200x630) /apple-touch-icon.png (180x180) /favicon.ico /cv-emanuele-zanardo.pdf; 404 propria su URL inesistente. security.txt 200.
+- Link interni: tutti 200, 0 rotti; img con alt (hero-bg/portrait via _next/image 200 e validi); 0 placeholder (lorem/TODO/FIXME) su 7 pagine.
+- Meta: homepage completa (title/description/canonical/OG/Twitter/RSS+JSON autodiscovery/theme-color/JSON-LD); blog post singolo OK (canonical, og:image, article:published_time, BlogPosting JSON-LD con dateModified, breadcrumb, h1 unico); case-study singolo OK.
+- Accessibilità: skip link "Skip to main content" presente nel layout; nav aria-label Primary/Mobile + aria-current; breadcrumb nav con aria-current; img decorative alt="".
+- Bug trovati: NESSUNO.
+- Miglioria (1, piccola, SEO): sitemap.ts — i lastmod dei blog post ora usano `postModifiedDate()` (data di revisione `updated` quando presente, non solo la data di pubblicazione). Prima: un articolo aggiornato restava segnalato con la data originale → i motori non lo ri-crawlano; ora la data di revisione finisce nel sitemap come lastmod.
+- Push: commit atomico via Git Data API (src/app/sitemap.ts + entry STATUS.md), base remota verificata invariata prima del push.
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti, degrada onestamente con messaggio dedicato).
+
 ## QA 2026-10-06 ~23:40 CEST
 - Pull: origin/main = 5715704acef920b2096e245438ea000778ff25d6 (fetch OK, nessun nuovo commit remoto; tree locale pulito).
 - Build: OK pre-miglioria (exit 0, Next 15, 23/23 route, First Load shared 101 kB) e OK post-miglioria (exit 0, lint+typecheck puliti).

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { execFileSync } from 'child_process';
-import { getAllPosts } from '@/lib/blog-posts';
+import { getAllPosts, postModifiedDate } from '@/lib/blog-posts';
 import { getCaseStudySlugs } from '@/lib/case-studies';
 
 // lastModified tracks the actual last content change (git commit date at build
@@ -38,8 +38,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // so this was deliberately withheld until the page landed.)
   const blogEntries: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
     url: `${base}/blog/${post.slug}`,
-    // seo: post lastmod = the article's own publication date, not build time.
-    lastModified: new Date(`${post.date}T00:00:00Z`),
+    // seo: post lastmod = the article's actual last content revision
+    // (publication date, or the optional `updated` revision date), not
+    // build time — so search engines re-crawl revised articles instead of
+    // assuming they are unchanged since first publication.
+    lastModified: new Date(`${postModifiedDate(post)}T00:00:00Z`),
     changeFrequency: 'monthly',
     priority: 0.6,
   }));
