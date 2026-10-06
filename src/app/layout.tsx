@@ -50,6 +50,9 @@ export const metadata: Metadata = {
     // the blog feed (src/app/feed.xml/route.ts) from every page.
     types: {
       'application/rss+xml': [{ url: '/feed.xml', title: 'Emanuele Zanardo — Blog' }],
+      // seo: JSON Feed autodiscovery (https://www.jsonfeed.org/version/1.1/)
+      // — same blog content as /feed.xml for readers that prefer JSON.
+      'application/feed+json': [{ url: '/feed.json', title: 'Emanuele Zanardo — Blog' }],
     },
   },
   authors: [{ name: 'Emanuele Zanardo', url: 'https://emanuelezanardo.info' }],

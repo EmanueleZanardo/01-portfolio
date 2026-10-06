@@ -1,45 +1,7 @@
 import { getAllPosts } from '@/lib/blog-posts';
-import type { BlogBlock } from '@/lib/blog-posts';
+import { escapeXml, blockToHtml } from '@/lib/feed-html';
 
 const SITE = 'https://emanuelezanardo.info';
-
-/** Escape the five XML special characters so post titles/excerpts can't
- *  break the feed document. */
-function escapeXml(value: string): string {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
-}
-
-/** Escape XML, then render inline `code` spans as <code> (mirrors the
- *  renderInline() of the on-page article renderer). Backticks survive
- *  escaping untouched, so the conversion is safe to apply after. */
-function renderInlineHtml(text: string): string {
-  const escaped = escapeXml(text);
-  return escaped.replace(/`([^`]+)`/g, '<code>$1</code>');
-}
-
-/** Plain-HTML rendering of a BlogBlock for <content:encoded>: mirrors
- *  ArticleBody's block mapping so the feed text matches the on-page article. */
-function blockToHtml(block: BlogBlock): string {
-  switch (block.type) {
-    case 'paragraph':
-      return `<p>${renderInlineHtml(block.text)}</p>`;
-    case 'heading':
-      return block.level === 2
-        ? `<h2>${renderInlineHtml(block.text)}</h2>`
-        : `<h3>${renderInlineHtml(block.text)}</h3>`;
-    case 'code':
-      return `<pre><code>${escapeXml(block.code)}</code></pre>`;
-    case 'list':
-      return `<ul>${block.items.map((item) => `<li>${renderInlineHtml(item)}</li>`).join('')}</ul>`;
-    case 'quote':
-      return `<blockquote>${renderInlineHtml(block.text)}</blockquote>`;
-  }
-}
 
 /**
  * GET /feed.xml — RSS 2.0 feed of the blog.

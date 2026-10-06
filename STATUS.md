@@ -1,3 +1,15 @@
+## QA 2026-10-06 ~20:40 CEST (pushato)
+- Pull: origin/main = 4bc88a2 (fetch OK, nessun nuovo commit remoto; tree locale pulito).
+- Vercel: deploy di 4bc88a2 "success — Deployment has completed" (Commit Status API, 19:50 CEST) — nessun rate limit, push consentiti.
+- Build: OK pre-miglioria (exit 0) e OK post-miglioria (exit 0, nuova route /feed.json registrata).
+- Live 200: / /blog /case-studies /cv /singularity /uses /feed.xml /sitemap.xml /robots.txt /humans.txt.
+- Link interni: tutti gli href unici di homepage + /blog + /case-studies + /cv + /uses → 200; 0 rotti. Tutte le img con alt (l'unica segnalazione era l'hero-bg decorativo con alt="" corretto). 0 placeholder (lorem/TODO/FIXME).
+- Meta homepage: title/description/canonical/OG(+type,secureUrl,alt)/Twitter large card/RSS autodiscovery/theme-color presenti.
+- Feed: XML valido, 4/4 item, lastBuildDate, ttl 60, sy:updatePeriod weekly, copyright, image 144x144, content:encoded.
+- Bug trovati: NESSUNO.
+- Miglioria (1, piccola, feed): route `/feed.json` (JSON Feed 1.1 — compagno moderno dell'RSS per lettori come NetNewsWire/Feedbin/Reeder) + autodiscovery `application/feed+json` nel layout. Il rendering HTML degli item vive ora nel modulo condiviso `src/lib/feed-html.ts` (usato da entrambi i feed — byte-identico all'RSS).
+- Aperti (invariati, azioni Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile; date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
 ## QA 2026-10-06 ~16:40 CEST (pushato)
 - Pull: origin/main = f323544 (fetch OK, nessun nuovo commit remoto). Locale sincronizzato, working tree con sole modifiche del ciclo.
 - Vercel: deploy di f323544 "success — Deployment has completed" (Commit Status API) — finestra rate limit 05/10 rientrata, push consentiti.
