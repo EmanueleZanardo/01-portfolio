@@ -110,6 +110,30 @@ export const caseStudies: CaseStudy[] = [
       "What it has already produced is a repeatable hardware workflow: bounded FreeRouting runs with deterministic exit, a disciplined layer stack-up decision, and review gates that catch regressions. When the DRC goes green, the design files will be ready for manufacturing review.",
     ],
   },
+  {
+    slug: "live-data-streaming-pipeline",
+    title: "24/7 Live Data Streaming Pipeline — YouTube Charts",
+    summary:
+      "A self-hosted pipeline that renders live data charts with Python and streams them to YouTube around the clock from a small Linux VM — with watchdog supervision, rotated logs, and recovery after reboots.",
+    timeline: "September 2026 – in progress",
+    role: "Designer & sole operator",
+    projectType: "Personal project",
+    tech: ["Python", "matplotlib", "FFmpeg", "Bash", "YouTube Live"],
+    links: [],
+    challenge: [
+      "Keeping a live stream up 24/7 on a budget virtual machine is a reliability problem, not a video problem. The VM reboots itself without warning (runtime redeploys), which kills every encoder, supervisor and tunnel process at once — and an unmanned stream stays dark until something notices.",
+      "The second trap is subtler: two streams can share one outbound tunnel, so a supervisor that restarts \"its\" half by killing shared infrastructure takes down the other stream too. And locally \"everything is running\" is not the same as \"the stream is live\": encoder processes, tunnel and fresh PNG frames only prove the encoder is pushing — the live badge has to be verified on the YouTube side.",
+    ],
+    approach: [
+      "The pipeline is simple by design: Python renderers redraw data charts (market and sentiment indicators) on a fixed loop, and FFmpeg streams them with infinite inputs (`-loop 1` for the image sequence plus a silent audio source). One hard-won lesson: never use `-shortest` with infinite inputs — FFmpeg closes the stream by itself after ~30 seconds; without it the same command runs indefinitely.",
+      "Supervision is a small Bash watchdog that runs every few minutes and starts only what is missing — tunnel first, then supervisors. It never kills anything on restart (no death spirals on the shared tunnel), runs single-instance via `flock`, checks liveness with `pgrep` patterns that can't match the watchdog itself, and rotates logs aggressively because /tmp on a small VM is a shared tmpfs that fills up fast.",
+      "After a reboot the watchdog brings everything back on its own — but the \"live\" state is always confirmed on the YouTube channel page, never assumed from local processes.",
+    ],
+    outcome: [
+      "The streams run continuously from the VM, surviving repeated unattended reboots — the supervision patterns proved themselves the hard way, including a reboot one minute after a premature \"all online\" claim that taught me to verify on the YouTube side before declaring anything.",
+      "What it produced, beyond the streams themselves, is a reusable supervision template — start-missing-only watchdogs, PID verification via /proc, self-safe pgrep patterns — that now backs my other always-on tooling.",
+    ],
+  },
 ];
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {
