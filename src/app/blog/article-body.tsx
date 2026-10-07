@@ -29,7 +29,8 @@ function slugifyHeading(text: string, used: Set<string>): string {
  * Renders inline `code` spans inside paragraph/list/quote text.
  * Plain React, no markdown dependency.
  */
-function renderInline(text: string, keyPrefix: string): React.ReactNode[] {  const parts = text.split(/(`[^`]+`)/g);
+function renderInline(text: string, keyPrefix: string): React.ReactNode[] {
+  const parts = text.split(/(`[^`]+`)/g);
   return parts.map((part, i) => {
     if (part.startsWith("`") && part.endsWith("`") && part.length > 2) {
       return (
