@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   // Title suffix "| Emanuele Zanardo" comes from the layout's title template.
   title: "Blog",
   description:
-    "Technical notes by Emanuele Zanardo: energy storage sizing, Next.js, KiCad PCB design and Streamlit data tooling — from real engineering practice.",
+    "Technical notes by Emanuele Zanardo: energy storage, Linux reliability, Next.js, KiCad PCB design and Streamlit data tooling — from real engineering practice.",
   alternates: { canonical: "/blog" },
   openGraph: {
     title: "Blog | Emanuele Zanardo",
