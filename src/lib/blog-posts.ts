@@ -410,6 +410,68 @@ const posts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "embedding-streamlit-in-nextjs",
+    title: "Embedding a Streamlit App in a Next.js Site: What Actually Works",
+    excerpt:
+      "iframe with ?embed=true, preconnect, no lazy-load above the fold, and a fallback link — how I embedded a live Streamlit terminal in a Next.js page reliably.",
+    date: "2026-10-07",
+    tags: ["Streamlit", "Next.js", "Web", "Integration"],
+    readingMinutes: 6,
+    content: [
+      {
+        type: "paragraph",
+        text: "My portfolio embeds a live Streamlit energy terminal as a full page (`/singularity`). The integration itself is one iframe — Streamlit is its own server with its own runtime, and trying to merge the two frameworks is a losing game. What separates a good embed from a janky one is everything around the iframe: connection setup, loading behavior, fallbacks and privacy. These are the details that worked.",
+      },
+      { type: "heading", level: 2, text: "1. Use Streamlit's embed mode" },
+      {
+        type: "paragraph",
+        text: "Append `?embed=true` to the app URL. Streamlit then renders in embed mode: the hamburger menu, the \"made with Streamlit\" footer and most chrome disappear, and the app looks like a component of your page instead of a separate site squeezed into a box. It is the single biggest visual win and it costs one query parameter.",
+      },
+      {
+        type: "code",
+        language: "tsx",
+        code: "<iframe\n  src=\"https://your-app.streamlit.app/?embed=true\"\n  width=\"100%\"\n  height=\"100%\"\n  style={{ border: \"none\" }}\n  title=\"Energy analytics terminal\"\n  allowFullScreen\n/>",
+      },
+      { type: "heading", level: 2, text: "2. Preconnect to the embed origin" },
+      {
+        type: "paragraph",
+        text: "The iframe's content comes from a different origin, so the browser pays DNS + TCP + TLS setup before the first byte. A `<link rel=\"preconnect\">` to the Streamlit origin in the page head starts that handshake while your own page is still rendering. It is a one-line, zero-risk speedup — and `dns-prefetch` alone is redundant once you preconnect.",
+      },
+      {
+        type: "heading",
+        level: 2,
+        text: "3. Don't lazy-load the thing people came for",
+      },
+      {
+        type: "paragraph",
+        text: "`loading=\"lazy\"` on an iframe waits for an IntersectionObserver round-trip before starting the load. That is correct for below-the-fold embeds and exactly wrong when the embed IS the page: the Streamlit app should start booting the moment the page loads, not after the browser finishes deciding it is visible. Reserve lazy loading for embeds the visitor has to scroll to.",
+      },
+      { type: "heading", level: 2, text: "4. Always ship a fallback link" },
+      {
+        type: "paragraph",
+        text: "Iframes get blocked — corporate networks, strict content policies — and Streamlit Community Cloud puts idle apps to sleep, so the first visitor can stare at a loading screen for a minute. A plain \"Open in new tab\" link to the same `?embed=true` URL keeps the page useful in every failure mode. It is also the escape hatch for users who want the app fullscreen without your site's frame around it.",
+      },
+      { type: "heading", level: 2, text: "5. Lock down the referrer" },
+      {
+        type: "paragraph",
+        text: "By default the embedded app sees your full page URL as the referrer — including any query parameters. `referrerPolicy=\"strict-origin-when-cross-origin\"` sends only the origin to the third party. Your page URL structure is none of their business.",
+      },
+      { type: "heading", level: 2, text: "6. Full-viewport layout and an accessible name" },
+      {
+        type: "paragraph",
+        text: "Give the iframe a real layout to live in — a full-viewport flex column with a slim header bar for the title and the fallback link — instead of a fixed pixel height that fights every screen size. And set the `title` attribute: without it, screen readers announce the iframe as an unlabeled frame, which is a WCAG failure for the main content of the page.",
+      },
+      {
+        type: "quote",
+        text: "The iframe is the integration. Everything else is making the seam invisible.",
+      },
+      {
+        type: "paragraph",
+        text: "Two runtimes, one page, a clean boundary: Next.js owns the chrome, the metadata and the structured data; Streamlit owns the interactivity inside the frame. Respect that split and the embed stops feeling like an embed.",
+      },
+    ],
+  },
 ];
 
 /** All posts, newest first. */
