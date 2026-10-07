@@ -47,6 +47,49 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      // perf: long-lived Cache-Control per gli asset stabili di public/.
+      // Verificato il 07/10/2026 con curl -I sul live: Vercel serve i file
+      // di public/ con `public, max-age=0, must-revalidate`, quindi ogni
+      // visita ripetuta rivalida hero-bg, portrait, icone, CV PDF e font.
+      // Questi asset cambiano di rado e hanno URL stabili, quindi:
+      // - font (woff2 subset, generati una volta sola): 1 anno, immutable;
+      // - immagini di brand (hero/portrait/icone/og-image): 7gg browser,
+      //   30gg edge — non immutable: l'URL resta uguale se vengono
+      //   rigenerate, quindi devono scadere entro giorni, non mesi;
+      // - CV PDF (aggiornato di rado): 1gg browser, 7gg edge.
+      {
+        source: '/fonts/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      ...[
+        'og-image.png',
+        'hero-bg.webp',
+        'portrait.webp',
+        'icon-192.png',
+        'icon-512.png',
+        'icon-512-maskable.png',
+        'apple-touch-icon.png',
+        'rss-channel-icon.png',
+      ].map((file) => ({
+        source: `/${file}`,
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=604800, s-maxage=2592000' },
+        ],
+      })),
+      {
+        source: '/favicon.ico',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=604800, s-maxage=2592000' },
+        ],
+      },
+      {
+        source: '/cv-emanuele-zanardo.pdf',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=86400, s-maxage=604800' },
+        ],
+      },
       {
         source: '/:path*',
         headers: [
