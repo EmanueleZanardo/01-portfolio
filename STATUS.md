@@ -89,7 +89,13 @@
 
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 06/10/2026 ~10:40 CEST**
+**Ultimo aggiornamento: 07/10/2026 ~02:10 CEST**
+
+## 07/10/2026 ~02:10 CEST — aggiornamento documentale giornaliero
+- **Commit `ddc3ec4f` (06/10 23:59 UTC = 07/10 01:59 CEST):** growth — case-studies listing meta/OG/twitter descriptions include streaming pipeline (4 projects).
+- **07/10 ~02:08 CEST — RE-HIT rate limit Vercel (verificato via GitHub Commit Status API sullo SHA `ddc3ec4f`):** "Deployment rate limited — retry in 24 hours". Rientro ~08/10 01:59 CEST: nessun push per ritentare finché il limite non scade. Il commit precede il blitz; deploy live = STALE.
+- Blitz notturno attivo sui repo — le push dei worker nella notte hanno bruciato un nuovo tentativo su questo repo.
+- Blocchi (serve lui): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
 
 ## QA 2026-10-06 ~08:40 CEST (NESSUN push — solo entry di routine, accumulata in locale per regola anti-rate-limit)
 - Pull: origin/main = 44a2416 (fetch OK, nessun nuovo commit remoto). Locale sincronizzato.
