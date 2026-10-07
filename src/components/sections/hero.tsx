@@ -41,28 +41,27 @@ export function Hero() {
           Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">
-          <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+          <Button asChild size="lg">
             <Link href="#projects" onClick={() => moveFocusToSection("projects")}>
               Experiences
             </Link>
           </Button>
-          <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+          <Button asChild size="lg">
             <Link href="#about" onClick={() => moveFocusToSection("about")}>
               About Me
             </Link>
           </Button>
-          <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+          <Button asChild size="lg">
             <Link href="#contact" onClick={() => moveFocusToSection("contact")}>
               Contact
             </Link>
           </Button>
           
-          <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+          <Button asChild size="lg">
             <Link href="/singularity">
               Singularity ETRM
             </Link>
           </Button>
-
         </div>
       </div>
     </section>
