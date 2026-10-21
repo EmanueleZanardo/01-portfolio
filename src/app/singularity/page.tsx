@@ -136,9 +136,11 @@ export default function SingularityPage() {
           title="Singularity ETRM Dashboard"
           allowFullScreen
           // perf: l'iframe e' il contenuto principale della pagina (riempie il
-          // viewport) — niente loading="lazy": il terminale Streamlit deve
-          // iniziare a caricarsi subito, non dopo il round-trip
-          // dell'IntersectionObserver del lazy-load
+          // viewport) — loading="eager" esplicito: la strategia di caricamento
+          // deve essere una scelta consapevole, non un default accidentale
+          // (QA 281: ogni iframe deve dichiarare loading; "lazy" qui ritarderebbe
+          // il terminale Streamlit del round-trip dell'IntersectionObserver)
+          loading="eager"
           // privacy: l'embed di terze parti riceve solo l'origine come referrer, mai l'URL completo della pagina
           referrerPolicy="strict-origin-when-cross-origin"
         />
