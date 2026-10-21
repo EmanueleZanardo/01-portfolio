@@ -1,7 +1,13 @@
-import { getAllPosts } from '@/lib/blog-posts';
+import { getAllPosts, postModifiedDate } from '@/lib/blog-posts';
 import { blockToHtml } from '@/lib/feed-html';
 
 const SITE = 'https://emanuelezanardo.info';
+
+// perf/seo: feed 100% determinato dai dati a compile time — Next lo
+// prerenderizza una volta a build time e lo serve dalla CDN (match con
+// Cache-Control aggressivo sotto). Senza questo, il route veniva segnato
+// come Dynamic (ƒ) nel report di build nonostante il contenuto fosse statico.
+export const dynamic = 'force-static';
 
 /**
  * GET /feed.json — JSON Feed 1.1 of the blog (https://www.jsonfeed.org/version/1.1/).
@@ -25,7 +31,21 @@ export async function GET(): Promise<Response> {
       content_html: post.content.map(blockToHtml).join('\n'),
       // RFC 3339: post.date is a calendar day ("2026-10-06").
       date_published: `${post.date}T00:00:00Z`,
+      // jsonfeed: date_modified — JSON Feed 1.1 recommended field; readers use
+      // it to spot edited posts. Same `${...}T00:00:00Z` RFC 3339 convention
+      // as datePublished, BlogPosting dateModified and OG article:modified_time
+      // on the article pages; falls back to date when never revised.
+      date_modified: `${postModifiedDate(post)}T00:00:00Z`,
+      // jsonfeed: image — JSON Feed 1.1 recommended field ("the URL of the
+      // main image for the item"); feed readers use it for thumbnails.
+      // Parity with the article pages' OG/Twitter card image and BlogPosting
+      // JSON-LD image (all posts share the site-wide /og-image.png).
+      image: `${SITE}/og-image.png`,
       tags: post.tags,
+      // jsonfeed: authors (per item) — JSON Feed 1.1 says each item "should
+      // have an authors field", and not all readers inherit the top-level
+      // author. Parity with the per-item <author> already in feed.xml.
+      authors: [{ name: 'Emanuele Zanardo', url: SITE }],
     };
   });
 
@@ -38,7 +58,18 @@ export async function GET(): Promise<Response> {
       'Notes on embedded systems, PCB design, firmware and energy by Emanuele Zanardo.',
     icon: `${SITE}/rss-channel-icon.png`,
     favicon: `${SITE}/favicon.ico`,
-    language: 'en',
+    // jsonfeed: language "en-US" — BCP 47, parita' con <language>en-US</language>
+    // di feed.xml e con la convenzione inLanguage "en-US" uniforme su tutti
+    // i grafi JSON-LD del sito (cicli 19:40, 20:40, 21:40).
+    language: 'en-US',
+    // jsonfeed: top-level author — recommended field; readers use it to
+    // attribute the whole feed (all posts are Emanuele's; each item also
+    // carries its own authors field for readers that don't inherit this).
+    author: {
+      name: 'Emanuele Zanardo',
+      url: SITE,
+      avatar: `${SITE}/portrait.webp`,
+    },
     items,
   };
 

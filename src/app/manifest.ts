@@ -13,7 +13,11 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: 'E. Zanardo',
     description:
       'Professional portfolio of Emanuele Zanardo, Electronic Engineer specializing in embedded systems, firmware validation, and industrial automation.',
-    lang: 'en',
+    // a11y/i18n: manifest lang in BCP 47 "en-US" — era l'ultimo segnale
+    // lingua bare "en" rimasto nel codebase dopo l'uniformita' en-US dei
+    // cicli 09/10 19:40-23:40 (inLanguage JSON-LD, <html> lang, feed) e
+    // 10/10 00:40 (hreflang en-US + x-default). Coerente con <html lang>.
+    lang: 'en-US',
     start_url: '/',
     scope: '/',
     display: 'standalone',

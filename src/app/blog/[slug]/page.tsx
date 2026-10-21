@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { getAllPosts, getPostBySlug, postModifiedDate, postWordCount } from "@/lib/blog-posts";
 import { ArticleBody } from "../article-body";
 import { formatPostDate } from "../blog-utils";
+import { feedAlternatesTypes, hreflangLanguages, truncateDescription } from "@/lib/metadata";
 
 export const dynamicParams = false;
 
@@ -26,16 +27,20 @@ export async function generateMetadata({
   const post = getPostBySlug(slug);
   if (!post) return {};
 
+  // seo: single source of truth for the article description — meta,
+  // openGraph and twitter share the truncated text (≤160 chars).
+  const description = truncateDescription(post.excerpt);
+
   return {
     // Title suffix "| Emanuele Zanardo" comes from the layout's title template.
     title: post.title,
     // seo: meta description kept ≤160 chars so Google shows it whole in SERPs.
-    description: post.excerpt.slice(0, 157),
+    description,
     keywords: post.tags,
-    alternates: { canonical: `/blog/${post.slug}` },
+    alternates: { canonical: `/blog/${post.slug}`, languages: hreflangLanguages(`/blog/${post.slug}`), types: feedAlternatesTypes },
     openGraph: {
       title: `${post.title} | Emanuele Zanardo`,
-      description: post.excerpt,
+      description,
       url: `/blog/${post.slug}`,
       siteName: "Emanuele Zanardo Portfolio",
       locale: "en_US",
@@ -48,6 +53,9 @@ export async function generateMetadata({
       // seo: article:author — completes the article OG graph (author was
       // previously only present in the BlogPosting JSON-LD).
       authors: ["Emanuele Zanardo"],
+      // seo: article:section — completes the article OG graph (high-level
+      // section the article belongs to).
+      section: "Blog",
       tags: post.tags,
       images: [
         {
@@ -63,8 +71,18 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: `${post.title} | Emanuele Zanardo`,
-      description: post.excerpt,
+      description,
       images: [{ url: "/og-image.png", alt: post.title }],
+    },
+    // seo: twitter:label1/data1 + label2/data2 — Twitter/X card labels
+    // ("Reading time", "Section") rendered under the card summary. Next's
+    // `twitter` Metadata type has no fields for them, so they go through
+    // `other`; values mirror the byline "X min read" and the article:section.
+    other: {
+      "twitter:label1": "Reading time",
+      "twitter:data1": `${post.readingMinutes} min`,
+      "twitter:label2": "Section",
+      "twitter:data2": "Blog",
     },
   };
 }
@@ -87,6 +105,11 @@ export default async function BlogPostPage({
   const blogPostingJsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    // seo: @id — stable canonical identity of the article entity itself.
+    // Byte-identical to the page canonical (sezione 69 qa-check): the nested
+    // author/publisher/mainEntityOfPage already had @ids, but the main graph
+    // had none — entity linking / disambiguazione nei knowledge graph.
+    "@id": `https://emanuelezanardo.info/blog/${post.slug}`,
     headline: post.title,
     description: post.excerpt,
     datePublished: `${post.date}T00:00:00Z`,
@@ -97,12 +120,40 @@ export default async function BlogPostPage({
     // seo: wordCount/image/inLanguage — recommended Article fields Google
     // uses for article rich results; wordCount is computed from the blocks.
     wordCount: postWordCount(post),
+    // seo: timeRequired — schema.org/Duration (ISO 8601) reading-time estimate;
+    // mirrors the visible byline "{n} min read" and the twitter:data1 "Reading
+    // time" label (same post.readingMinutes), so crawlers see what the reader
+    // sees. timeRequired is a valid property of Article on schema.org.
+    timeRequired: `PT${post.readingMinutes}M`,
     image: "https://emanuelezanardo.info/og-image.png",
     inLanguage: "en-US",
     author: {
       "@type": "Person",
+      // seo: @id links this author to the canonical Person entity in the
+      // layout JSON-LD (https://emanuelezanardo.info#person) instead of
+      // duplicating it; sameAs mirrors the canonical Person's profiles so
+      // the authorship graph stays connected even when parsed standalone.
+      "@id": "https://emanuelezanardo.info#person",
       name: "Emanuele Zanardo",
       url: "https://emanuelezanardo.info",
+      sameAs: [
+        "https://github.com/EmanueleZanardo",
+        "https://www.linkedin.com/in/emanuele-zanardo-1954aa193",
+      ],
+    },
+    // seo: publisher — recommended Article field for Google article rich
+    // results; mirrors the Article JSON-LD on case study pages (publisher
+    // is a Person here since the site is self-published by Emanuele).
+    publisher: {
+      "@type": "Person",
+      // seo: @id + sameAs — same canonical-Person linkage as author above.
+      "@id": "https://emanuelezanardo.info#person",
+      name: "Emanuele Zanardo",
+      url: "https://emanuelezanardo.info",
+      sameAs: [
+        "https://github.com/EmanueleZanardo",
+        "https://www.linkedin.com/in/emanuele-zanardo-1954aa193",
+      ],
     },
     mainEntityOfPage: {
       "@type": "WebPage",
@@ -145,18 +196,20 @@ export default async function BlogPostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <Header />
+      {/* print: header/footer sono chrome di navigazione — non stampati
+          (stesso pattern della pagina CV: div print:hidden). */}
+      <div className="print:hidden">
+        <Header />
+      </div>
       <main
         id="main-content"
         tabIndex={-1}
         className="flex-grow focus:outline-none"
       >
         <FocusMainOnMount />
-        <article className="container mx-auto max-w-3xl px-4 py-24 lg:py-32">
-          {/* micro-ux + a11y: breadcrumb invece del semplice "back" — mostra la
-              gerarchia del sito (Home / Blog / articolo) e aiuta screen reader
-              e SEO (BreadcrumbList JSON-LD sopra). */}
-          <nav aria-label="Breadcrumb" className="mb-8">
+        <article className="print-article container mx-auto max-w-3xl px-4 py-24 print:py-0 lg:py-32">
+          {/* print: breadcrumb di navigazione — non stampato. */}
+          <nav aria-label="Breadcrumb" className="mb-8 print:hidden">
             <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
               <li>
                 <Link href="/" className="transition-colors hover:text-primary">
@@ -230,9 +283,10 @@ export default async function BlogPostPage({
 
           <Separator className="my-10" />
 
+          {/* print: nav tra articoli — non stampata. */}
           <nav
             aria-label="More posts"
-            className="flex flex-col gap-4 sm:flex-row sm:justify-between"
+            className="flex flex-col gap-4 print:hidden sm:flex-row sm:justify-between"
           >
             {olderPost ? (
               <Link
@@ -269,7 +323,9 @@ export default async function BlogPostPage({
           </nav>
         </article>
       </main>
-      <Footer />
+      <div className="print:hidden">
+        <Footer />
+      </div>
     </div>
   );
 }

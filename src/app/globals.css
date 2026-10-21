@@ -4,6 +4,11 @@
 
 html {
   scroll-behavior: smooth;
+  /* Il sito e' permanentemente dark (className="dark" su <html> in
+     layout.tsx): senza questa dichiarazione il browser disegna gli UI
+     nativi (scrollbar, controlli form, autofill, date picker) nello schema
+     chiaro, incoerente col resto della pagina. */
+  color-scheme: dark;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -29,6 +34,33 @@ section[id],
 h2[id],
 h3[id] {
   scroll-margin-top: 4.5rem;
+}
+
+/* Micro-UX per i deep link: quando si atterra su un anchor (#sezione o un
+   heading di un articolo con permalink), evidenzia brevemente il target
+   così l'occhio trova subito dove è saltato. */
+@keyframes target-flash {
+  from {
+    background-color: hsl(var(--primary) / 0.08);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+section[id]:target,
+h2[id]:target,
+h3[id]:target {
+  border-radius: 0.375rem;
+  animation: target-flash 1.6s ease-out 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  section[id]:target,
+  h2[id]:target,
+  h3[id]:target {
+    animation: none;
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
 }
 
 @layer base {
@@ -122,4 +154,50 @@ h3[id] {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+/* print (micro-ux/a11y): il sito e' permanentemente dark — senza override,
+   su carta il testo quasi-bianco e gli accenti gialli sarebbero illeggibili.
+   Le pagine articolo (blog/[slug], case-studies/[slug]) marcano il contenuto
+   stampabile con .print-article e nascondono chrome e widget (header, footer,
+   breadcrumb, nav "more", permalink "#", copy button) via classi Tailwind
+   print:hidden; qui si forzano solo contrasto, wrapping e margini pagina. */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  html,
+  body {
+    background: #ffffff !important;
+  }
+  .print-article,
+  .print-article :is(p, li, span, div, time, dt, dd, h1, h2, h3, a, blockquote, figcaption) {
+    color: #1c1c1c !important;
+  }
+  .print-article a {
+    text-decoration: underline;
+  }
+  .print-article h1,
+  .print-article h2,
+  .print-article h3 {
+    break-after: avoid;
+  }
+  .print-article pre,
+  .print-article code {
+    background: #f4f4f4 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .print-article pre {
+    white-space: pre-wrap !important;
+    overflow: visible !important;
+    word-break: break-word;
+  }
+  .print-article figure {
+    break-inside: avoid;
+    border-color: #d4d4d4 !important;
+  }
+  .print-article blockquote {
+    border-color: #a3a3a3 !important;
+  }
 }

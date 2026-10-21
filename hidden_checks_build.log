@@ -1,0 +1,54 @@
+
+> nextn@0.1.0 build
+> NODE_ENV=production next build
+
+   ▲ Next.js 15.3.8
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 7.0s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/28) ...
+   Generating static pages (7/28) 
+   Generating static pages (14/28) 
+   Generating static pages (21/28) 
+ ✓ Generating static pages (28/28)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                                   Size  First Load JS
+┌ ○ /                                                         8 kB         136 kB
+├ ○ /_not-found                                              157 B         101 kB
+├ ƒ /.well-known/security.txt                                157 B         101 kB
+├ ○ /blog                                                  1.88 kB         130 kB
+├ ● /blog/[slug]                                           1.36 kB         130 kB
+├   ├ /blog/embedding-streamlit-in-nextjs
+├   ├ /blog/diy-lifepo4-battery-bank-build
+├   ├ /blog/linux-watchdog-patterns-supervising-processes
+├   └ [+4 more paths]
+├ ○ /case-studies                                            217 B         129 kB
+├ ● /case-studies/[slug]                                     217 B         129 kB
+├   ├ /case-studies/energy-analytics-workspace
+├   ├ /case-studies/jewellery-ecommerce-nextjs
+├   ├ /case-studies/load-bank-300kw-pcb
+├   └ /case-studies/live-data-streaming-pipeline
+├ ○ /cv                                                      849 B         129 kB
+├ ○ /feed.json                                               157 B         101 kB
+├ ○ /feed.xml                                                157 B         101 kB
+├ ○ /humans.txt                                              157 B         101 kB
+├ ○ /llms.txt                                                157 B         101 kB
+├ ○ /manifest.webmanifest                                    157 B         101 kB
+├ ○ /robots.txt                                              157 B         101 kB
+├ ○ /singularity                                             324 B         105 kB
+├ ○ /sitemap.xml                                             157 B         101 kB
+└ ○ /uses                                                    217 B         129 kB
++ First Load JS shared by all                               101 kB
+  ├ chunks/4bd1b696-4419cc93057fcf32.js                    53.2 kB
+  ├ chunks/684-89aee8f93b42f898.js                         46.1 kB
+  └ other shared chunks (total)                            1.99 kB
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

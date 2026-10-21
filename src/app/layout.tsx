@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import { cn } from '@/lib/utils';
+import { feedAlternatesTypes, hreflangLanguages } from '@/lib/metadata';
 import { Toaster } from '@/components/ui/toaster';
 
 // Self-hosted fonts (public/fonts/*.woff2) — no IP is sent to Google Fonts.
@@ -46,14 +47,12 @@ export const metadata: Metadata = {
   keywords: ['Electronic Engineer', 'embedded systems', 'firmware development', 'firmware validation', 'PCB design', 'PCB layout', 'KiCad', 'ESP32', 'STM32', 'freelance electronics engineer', 'industrial automation', 'Ticino', 'Varese', 'Switzerland', 'Italy'],
   alternates: {
     canonical: '/',
-    // seo: RSS autodiscovery — lets feed readers and search engines find
-    // the blog feed (src/app/feed.xml/route.ts) from every page.
-    types: {
-      'application/rss+xml': [{ url: '/feed.xml', title: 'Emanuele Zanardo — Blog' }],
-      // seo: JSON Feed autodiscovery (https://www.jsonfeed.org/version/1.1/)
-      // — same blog content as /feed.xml for readers that prefer JSON.
-      'application/feed+json': [{ url: '/feed.json', title: 'Emanuele Zanardo — Blog' }],
-    },
+    // seo: hreflang self-referencing — every page that overrides `alternates`
+    // must pass its own path to hreflangLanguages (see src/lib/metadata.ts).
+    languages: hreflangLanguages('/'),
+    // seo: feed autodiscovery shared with every page that overrides
+    // `alternates` — see src/lib/metadata.ts for why the constant exists.
+    types: feedAlternatesTypes,
   },
   authors: [{ name: 'Emanuele Zanardo', url: 'https://emanuelezanardo.info' }],
   creator: 'Emanuele Zanardo',
@@ -289,11 +288,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn('dark', bebasNeue.variable, robotoMono.variable)}>
+    // seo/a11y: lang="en-US" (BCP 47) — parita' con i segnali lingua del
+    // sito: inLanguage "en-US" su tutti i grafi JSON-LD (cicli 19:40,
+    // 20:40, 21:40) e language "en-US" sui feed (ciclo 22:40). L'attributo
+    // lang guida anche gli screen reader nella pronuncia.
+    <html lang="en-US" className={cn('dark', bebasNeue.variable, robotoMono.variable)}>
       <head>
         {/* humans.txt discovery (humanstxt.org convention) — credits for the
             humans behind the site. */}
         <link rel="author" href="/humans.txt" />
+        {/* identity: head-level rel="me" discovery for the two verified
+            profile URLs (IndieAuth-style verification; parity with the
+            rel="me" body links in the footer and /cv, same URLs). */}
+        <link rel="me" href="https://github.com/EmanueleZanardo" />
+        <link rel="me" href="https://www.linkedin.com/in/emanuele-zanardo-1954aa193" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
@@ -314,12 +322,20 @@ export default function RootLayout({
         />
       </head>
       <body className={cn('font-body antialiased min-h-screen bg-background')}>
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-2 focus:left-2 focus:px-4 focus:py-2 focus:rounded-md focus:bg-primary focus:text-primary-foreground focus:outline-none"
-        >
-          Skip to main content
-        </a>
+        {/* a11y (ciclo 20:40): la sezione 132 (axe rule "region") segnalava
+            questo skip link come contenuto fuori dai landmark su tutte le
+            pagine — era figlio diretto di <body>. Avvolto in un <nav>
+            dedicato (label distinta da "Primary", regola landmark-unique
+            invariata): resta il primo elemento nel tab order e il rendering
+            focus-visible e' identico a prima (il <nav> non e' posizionato). */}
+        <nav aria-label="Skip links">
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-2 focus:left-2 focus:px-4 focus:py-2 focus:rounded-md focus:bg-primary focus:text-primary-foreground focus:outline-none"
+          >
+            Skip to main content
+          </a>
+        </nav>
         {children}
         <Toaster />
       </body>

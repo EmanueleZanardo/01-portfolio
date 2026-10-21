@@ -34,6 +34,21 @@ export function Header() {
   const headerRef = useRef<HTMLElement>(null);
   // nav: current top-level page path for aria-current on the page links.
   const pathname = usePathname();
+  // micro-ux + a11y (ciclo 07:40): la pagina corrente era marcata solo con
+  // match esatto (pathname === href) — sulle pagine di dettaglio
+  // (/blog/<slug>, /case-studies/<slug>) NESSUN link di sezione risultava
+  // "current" e lo screen reader non annunciava la sezione. Il prefix-match
+  // evidenzia la sezione genitore; "/" resta exact-only (sotto-path non
+  // devono mai marcare Home, stesso criterio di footer-nav.tsx).
+  const isPageLinkCurrent = (href: string) =>
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
+  // micro-ux + a11y (ciclo 13:40): gli id di sezione (#projects, #about,
+  // #services, #contact) esistono SOLO sulla homepage — dalle altre pagine un
+  // href="#..." puro non risolve: click morto, URL sporcato, nessuno scroll
+  // (verificato su /blog, /case-studies, /cv). Fuori dalla home i link di
+  // sezione diventano "/#..." cosi' Next naviga alla sezione giusta; sulla
+  // home resta l'ancora pura (nessun cambio route, scroll custom invariato).
+  const sectionHref = (href: string) => (pathname === "/" ? href : `/${href}`);
   // micro-ux + a11y: highlight the nav link of the section in view.
   const activeSection = useActiveSection(NAV_SECTION_IDS);
 
@@ -113,14 +128,16 @@ export function Header() {
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              href={sectionHref(link.href)}
               // a11y: "page" e' il token WAI-ARIA raccomandato per la voce di
               // navigazione corrispondente alla pagina corrente (gli screen
               // reader annunciano "current page"; "true" e' generico).
               aria-current={activeSection === link.href.slice(1) ? "page" : undefined}
               onClick={() => moveFocusToSection(link.href.slice(1))}
               className={cn(
-                "transition-colors hover:text-primary",
+                // a11y (WCAG 2.5.8, ciclo 13:39): py-1 porta l'altezza a 28px
+                // (>=24px minimi per i target; prima text-sm senza padding = 20px).
+                "transition-colors hover:text-primary py-1",
                 activeSection === link.href.slice(1) && "text-primary"
               )}
             >
@@ -131,10 +148,12 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              aria-current={pathname === link.href ? "page" : undefined}
+              aria-current={isPageLinkCurrent(link.href) ? "page" : undefined}
               className={cn(
-                "transition-colors hover:text-primary",
-                pathname === link.href && "text-primary"
+                // a11y (WCAG 2.5.8, ciclo 13:39): py-1 -> 28px di altezza
+                // (prima text-sm senza padding = 20px, sotto i 24px minimi).
+                "transition-colors hover:text-primary py-1",
+                isPageLinkCurrent(link.href) && "text-primary"
               )}
             >
               {link.label}
@@ -144,7 +163,17 @@ export function Header() {
 
         <div className="flex flex-1 items-center justify-end md:hidden">
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-            <SheetTrigger asChild>
+            <SheetTrigger asChild
+              // a11y (WCAG 4.1.2, ciclo 11:40): Radix DialogTrigger emette
+              // aria-controls="<id contenuto>" ma lo SheetContent e' smontato
+              // quando il menu e' chiuso, quindi l'id NON esiste nel DOM
+              // (dangling IDREF — flaggato dalla sezione 101 di qa-check.sh).
+              // DialogTrigger fa spread delle props utente DOPO i default,
+              // quindi aria-controls={undefined} lo sopprime e React non
+              // rende l'attributo; restano aria-expanded + aria-haspopup
+              // "dialog" di Radix, la semantica e' intatta.
+              aria-controls={undefined}
+            >
               {/* a11y: Radix SheetTrigger gestisce da solo aria-expanded/aria-controls sul
                   trigger. Quelli manuali sono stati rimossi: aria-controls="mobile-nav"
                   puntava a un elemento smontato quando il menu e' chiuso (dangling id). */}
@@ -167,7 +196,7 @@ export function Header() {
                   {NAV_LINKS.map((link) => (
                     <Link
                       key={link.href}
-                      href={link.href}
+                      href={sectionHref(link.href)}
                       // a11y: "page" = token WAI-ARIA raccomandato per la pagina
                       // corrente nella nav (vedi commento sopra, nav desktop).
                       aria-current={activeSection === link.href.slice(1) ? "page" : undefined}
@@ -178,16 +207,28 @@ export function Header() {
                         activeSection === link.href.slice(1) && "text-primary"
                       )}
                       onClick={(e) => {
-                        e.preventDefault(); // niente jump nativo: scroll solo a menu chiuso (vedi scrollToSection)
-                        setIsMobileMenuOpen(false);
-                        // bugfix: il focus va spostato DOPO la chiusura dello Sheet.
-                        // A menu ancora aperto il focus trap di Radix riporta il focus
-                        // dentro il dialog e alla chiusura lo restituisce al bottone
-                        // del menu — la sezione restava senza focus (WCAG 2.4.3).
-                        window.setTimeout(() => {
-                          scrollToSection(link.href.slice(1));
-                          moveFocusToSection(link.href.slice(1));
-                        }, 350);
+                        if (pathname === "/") {
+                          e.preventDefault(); // niente jump nativo: scroll solo a menu chiuso (vedi scrollToSection)
+                          setIsMobileMenuOpen(false);
+                          // bugfix: il focus va spostato DOPO la chiusura dello Sheet.
+                          // A menu ancora aperto il focus trap di Radix riporta il focus
+                          // dentro il dialog e alla chiusura lo restituisce al bottone
+                          // del menu — la sezione restava senza focus (WCAG 2.4.3).
+                          window.setTimeout(() => {
+                            scrollToSection(link.href.slice(1));
+                            moveFocusToSection(link.href.slice(1));
+                          }, 350);
+                        } else {
+                          // fuori dalla home: niente preventDefault — Next naviga
+                          // in client-side a /#sezione (prima il tap era un no-op:
+                          // preventDefault + getElementById nullo). Il focus segue
+                          // DOPO chiusura Sheet (350ms) e cambio route, per lo
+                          // stesso motivo del ramo home.
+                          setIsMobileMenuOpen(false);
+                          window.setTimeout(() => {
+                            moveFocusToSection(link.href.slice(1));
+                          }, 400);
+                        }
                       }}
                     >
                       {link.label}
@@ -197,10 +238,10 @@ export function Header() {
                     <Link
                       key={link.href}
                       href={link.href}
-                      aria-current={pathname === link.href ? "page" : undefined}
+                      aria-current={isPageLinkCurrent(link.href) ? "page" : undefined}
                       className={cn(
                         "text-lg font-medium py-2 transition-colors hover:text-primary",
-                        pathname === link.href && "text-primary"
+                        isPageLinkCurrent(link.href) && "text-primary"
                       )}
                       onClick={() => setIsMobileMenuOpen(false)}
                     >

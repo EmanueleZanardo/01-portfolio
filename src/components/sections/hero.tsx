@@ -30,7 +30,12 @@ export function Hero() {
         fill
         className="object-cover"
         priority
-        sizes="100vw"
+        // perf: il sorgente e' 1920x1080 — con sizes="100vw" i viewport oltre
+        // ~2000px (o DPR alto) facevano scegliere al browser il candidato
+        // 3840w, che l'optimizer genera UPSCALANDO il sorgente (byte in piu',
+        // zero dettaglio in piu'). Il cap a 1920px evita il download upscalato;
+        // questa e' l'immagine LCP (priority), quindi il risparmio conta.
+        sizes="(max-width: 1920px) 100vw, 1920px"
       />
       <div className="absolute inset-0 bg-black/60" />
       <div className="relative z-10 max-w-4xl mx-auto px-4">

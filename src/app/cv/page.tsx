@@ -10,7 +10,41 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { PrintButton } from "./print-button";
 import { statSync } from "node:fs";
+import { feedAlternatesTypes, hreflangLanguages } from "@/lib/metadata";
 import { join } from "node:path";
+import { execFileSync } from "node:child_process";
+
+// cv-uses: "Last updated" byline — git commit date of the last change to THIS
+// file (same pattern as the uses page and sitemap.ts lastContentChange), so
+// the date reflects actual CV content edits rather than deploy time. Falls
+// back to today if git is unavailable.
+function cvLastUpdatedDate(): Date {
+  try {
+    const iso = execFileSync(
+      "git",
+      ["log", "-1", "--format=%cI", "--", "src/app/cv/page.tsx"],
+      { timeout: 5000, stdio: ["ignore", "pipe", "ignore"] }
+    )
+      .toString()
+      .trim();
+    const d = new Date(iso);
+    if (!Number.isNaN(d.getTime())) return d;
+  } catch {
+    // fall through to the fallback below
+  }
+  return new Date();
+}
+
+const cvUpdated = cvLastUpdatedDate();
+const cvUpdatedISO = cvUpdated.toISOString().slice(0, 10);
+// en-GB: "8 October 2026" — matches the site language; explicit UTC so the
+// rendered date never shifts with the server timezone.
+const cvUpdatedLabel = cvUpdated.toLocaleDateString("en-GB", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
 
 // cv: real file size in the download label, computed at build time —
 // same pattern as the About section; falls back to plain "(PDF)".
@@ -25,15 +59,17 @@ function cvDownloadMeta(): string {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
+  // seo: single source of truth for the page description — shared by the meta
+  // description, openGraph and twitter tags (same pattern as the root layout).
+  const DESCRIPTION =
+    "Curriculum vitae of Emanuele Zanardo — Electronic Engineer: after-sales and certification experience in power electronics and energy storage, BSc from SUPSI.";
   return {
     title: "CV",
-    description:
-      "Curriculum vitae of Emanuele Zanardo — Electronic Engineer: after-sales and certification experience in power electronics and energy storage, BSc from SUPSI.",
-    alternates: { canonical: "/cv" },
+    description: DESCRIPTION,
+    alternates: { canonical: "/cv", languages: hreflangLanguages('/cv'), types: feedAlternatesTypes },
     openGraph: {
       title: "CV | Emanuele Zanardo",
-      description:
-        "Curriculum vitae of Emanuele Zanardo — Electronic Engineer specializing in power electronics, firmware validation and product certification.",
+      description: DESCRIPTION,
       url: "/cv",
       siteName: "Emanuele Zanardo Portfolio",
       locale: "en_US",
@@ -57,8 +93,7 @@ export async function generateMetadata(): Promise<Metadata> {
       // case-studies + uses usano summary_large_image per sfruttare og:image).
       card: "summary_large_image",
       title: "CV | Emanuele Zanardo",
-      description:
-        "Curriculum vitae of Emanuele Zanardo — Electronic Engineer specializing in power electronics, firmware validation and product certification.",
+      description: DESCRIPTION,
       images: [{ url: "/og-image.png", alt: "CV — Emanuele Zanardo" }],
     },
   };
@@ -117,7 +152,10 @@ const cvJsonLd = {
   "@id": "https://emanuelezanardo.info/cv#profilepage",
   url: "https://emanuelezanardo.info/cv",
   name: "CV | Emanuele Zanardo",
-  inLanguage: "en",
+  // seo: en-US everywhere — this was the only JSON-LD graph on the site
+  // still on bare "en" (house convention is "en-US": layout, blog, case
+  // studies); one spelling keeps the language signal uniform for parsers.
+  inLanguage: "en-US",
   mainEntity: { "@id": "https://emanuelezanardo.info#person" },
   about: {
     "@type": "Person",
@@ -199,6 +237,13 @@ export default function CvPage() {
               below to download the original PDF or print this page — only the
               CV sheet itself is sent to the printer.
             </p>
+            {/* cv: "Last updated" byline — the uses-page convention; recruiters
+                trust a CV that is visibly maintained. <time> keeps it
+                machine-readable. */}
+            <p className="mt-3 text-sm text-muted-foreground">
+              Last updated:{" "}
+              <time dateTime={cvUpdatedISO}>{cvUpdatedLabel}</time>
+            </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Button asChild>
                 <a
@@ -253,7 +298,15 @@ export default function CvPage() {
                   <a
                     href="https://www.linkedin.com/in/emanuele-zanardo-1954aa193"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    // seo: rel="me" — parita' con i link LinkedIn di footer e
+                    // sezione contatti: i profili collegati dichiarano tutti
+                    // la stessa identita' (verifica identita'/IndieWeb).
+                    rel="noopener noreferrer me"
+                    // a11y: il testo visibile e' solo l'URL — annuncia esplicitamente
+                    // la nuova scheda (coerente con gli altri link esterni del sito).
+                    // a11y (WCAG 2.5.3 Label in Name): il nome deve contenere il
+                    // testo visibile — l'URL resta dentro l'aria-label (QA 118).
+                    aria-label="LinkedIn profile linkedin.com/in/emanuele-zanardo-1954aa193 (opens in new tab)"
                     className="hover:underline"
                   >
                     linkedin.com/in/emanuele-zanardo-1954aa193

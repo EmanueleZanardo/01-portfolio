@@ -1,6 +1,7 @@
 import { Phone, Mail, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { ContactFormLazy } from "./contact-form-lazy";
+import { CopyEmailButton } from "./copy-email-button";
 
 // perf: il form contatti (react-hook-form + zod + @hookform/resolvers) e'
 // tutto sotto la fold — viene caricato in lazy in un chunk client separato
@@ -49,6 +50,8 @@ export function Contact() {
               <a href="mailto:emanuele1998zanardo@gmail.com" className="text-lg text-muted-foreground hover:text-primary transition-colors">
                 emanuele1998zanardo@gmail.com
               </a>
+              {/* micro-UX: copia indirizzo senza aprire il client di posta */}
+              <CopyEmailButton />
             </li>
             <li className="flex items-center gap-4">
               <Linkedin aria-hidden="true" className="h-6 w-6 text-primary" />

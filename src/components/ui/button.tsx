@@ -40,11 +40,17 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, type, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
+        // a11y/robustezza (fix QA 20:40): un <button> senza type e'
+        // implicitamente type="submit" — se finisce dentro un <form> lo
+        // invia per sbaglio. Default "button" solo sul render nativo;
+        // con asChild (es. <a>) l'attributo type non e' valido e un type
+        // esplicito viene sempre rispettato.
+        {...(asChild ? {} : { type: type ?? "button" })}
         ref={ref}
         {...props}
       />

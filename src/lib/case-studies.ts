@@ -143,3 +143,26 @@ export function getCaseStudy(slug: string): CaseStudy | undefined {
 export function getCaseStudySlugs(): string[] {
   return caseStudies.map((cs) => cs.slug);
 }
+
+/**
+ * Total word count of a case study's narrative sections (challenge, approach,
+ * outcome) — feeds schema.org `wordCount` on the Article JSON-LD and the
+ * visible reading-time estimate, mirroring the blog pages' postWordCount.
+ */
+export function caseStudyWordCount(cs: CaseStudy): number {
+  return [...cs.challenge, ...cs.approach, ...cs.outcome]
+    .join(" ")
+    .split(/\s+/)
+    .filter((w) => w.length > 0).length;
+}
+
+/**
+ * Reading-time estimate in minutes — mirrors the `readingMinutes` convention
+ * on blog post pages so both content types show a consistent "min read"
+ * byline. Uses the same conservative pace (~80 wpm) the blog posts'
+ * declared reading times work out to (71–105 wpm measured) — technical
+ * prose with code/diagrams reads slower than plain text.
+ */
+export function caseStudyReadingMinutes(cs: CaseStudy): number {
+  return Math.max(1, Math.round(caseStudyWordCount(cs) / 80));
+}

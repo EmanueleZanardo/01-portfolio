@@ -1,6 +1,7 @@
 import React from "react";
 import type { BlogBlock } from "@/lib/blog-posts";
 import { cn } from "@/lib/utils";
+import { CopyCodeButton } from "./copy-code-button";
 
 /**
  * Builds a GitHub-style anchor id from a heading's text: lowercase,
@@ -46,13 +47,46 @@ function renderInline(text: string, keyPrefix: string): React.ReactNode[] {
   });
 }
 
-function CodeBlock({ language, code }: { language: string; code: string }) {
+/**
+ * Accessible name per la <pre> scrollabile di un code block.
+ * a11y (axe landmark-unique / scrollable-region-focusable): ogni regione
+ * deve avere un nome univoco nella pagina. Quando un articolo contiene più
+ * code block (anche dello stesso linguaggio) il nome include il progressivo
+ * "n di N" così due <pre> non condividono mai lo stesso accessible name.
+ */
+function codeRegionLabel(language: string, index: number, total: number): string {
+  const base = language ? `Esempio di codice ${language}` : "Esempio di codice";
+  const numbered = total > 1 ? `${base}, ${index} di ${total}` : base;
+  return `${numbered}, scorrevole orizzontalmente`;
+}
+
+function CodeBlock({
+  language,
+  code,
+  index,
+  total,
+}: {
+  language: string;
+  code: string;
+  index: number;
+  total: number;
+}) {
   return (
     <figure className="my-6 overflow-hidden rounded-lg border border-border/60 bg-muted/40">
-      <figcaption className="border-b border-border/60 px-4 py-1.5 font-code text-xs uppercase tracking-wider text-muted-foreground">
-        {language}
+      {/* micro-ux: header row pairs the language label with a copy button
+          (CopyCodeButton, client component) — readers of a technical blog
+          copy commands/configs constantly; previously they had to
+          select the text by hand. */}
+      <figcaption className="flex items-center justify-between border-b border-border/60 px-4 py-1.5 font-code text-xs uppercase tracking-wider text-muted-foreground print:hidden">
+        <span>{language}</span>
+        <CopyCodeButton code={code} language={language} />
       </figcaption>
-      <pre className="overflow-x-auto p-4 font-code text-sm leading-relaxed">
+      <pre
+        className="overflow-x-auto p-4 font-code text-sm leading-relaxed focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        tabIndex={0}
+        role="region"
+        aria-label={codeRegionLabel(language, index, total)}
+      >
         <code>{code}</code>
       </pre>
     </figure>
@@ -63,8 +97,17 @@ export function ArticleBody({ blocks }: { blocks: BlogBlock[] }) {
   // Tracks generated heading ids so duplicates in one article get unique
   // anchors (see slugifyHeading).
   const usedSlugs = new Set<string>();
+  // Sequenza dei code block nell'articolo: mappa indice-blocco -> progressivo
+  // (1..N). Serve a CodeBlock per nomi regione univoci (landmark-unique).
+  // Calcolata in un passaggio separato prima del render: pura e deterministica,
+  // nessuna mutazione durante la map del JSX (sicura anche in SSR).
+  const codeSeq = new Map<number, number>();
+  let codeTotal = 0;
+  blocks.forEach((b, i) => {
+    if (b.type === "code") codeSeq.set(i, ++codeTotal);
+  });
   return (
-    <div className="space-y-5 text-base leading-7 text-foreground/90">
+    <div className="print-article space-y-5 text-base leading-7 text-foreground/90">
       {blocks.map((block, i) => {
         switch (block.type) {
           case "paragraph":
@@ -81,7 +124,8 @@ export function ArticleBody({ blocks }: { blocks: BlogBlock[] }) {
               <a
                 href={`#${slug}`}
                 aria-label={`Link to section: ${block.text}`}
-                className="ml-2 inline-block align-baseline text-[0.7em] text-primary/50 opacity-0 transition-opacity duration-150 hover:text-primary group-hover:opacity-100 focus-visible:opacity-100 motion-reduce:transition-none"
+                title="Permalink to this section"
+                className="ml-2 inline-block align-baseline text-[0.7em] text-primary/50 opacity-0 transition-opacity duration-150 hover:text-primary group-hover:opacity-100 focus-visible:opacity-100 motion-reduce:transition-none print:hidden"
               >
                 <span aria-hidden="true">#</span>
               </a>
@@ -110,7 +154,15 @@ export function ArticleBody({ blocks }: { blocks: BlogBlock[] }) {
             );
           }
           case "code":
-            return <CodeBlock key={i} language={block.language} code={block.code} />;
+            return (
+              <CodeBlock
+                key={i}
+                language={block.language}
+                code={block.code}
+                index={codeSeq.get(i) ?? 1}
+                total={codeTotal}
+              />
+            );
           case "list":
             return (
               <ul key={i} className="list-disc space-y-2 pl-6 marker:text-primary">

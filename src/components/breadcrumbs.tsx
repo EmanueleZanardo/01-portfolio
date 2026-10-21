@@ -3,10 +3,14 @@ import { ChevronRight } from "lucide-react";
 
 /**
  * a11y + seo: breadcrumb nav condivisa per le pagine indice (blog,
- * case-studies, uses, cv). Renderizza la <nav aria-label="Breadcrumb"> con
+ * case-studies, uses, cv, singularity). Renderizza la <nav aria-label="Breadcrumb"> con
  * aria-current="page" sull'elemento corrente e inietta il BreadcrumbList
  * JSON-LD (stesso schema usato dalle pagine articolo) per i rich result
  * di Google. "Home" e' sempre il primo elemento.
+ *
+ * dark: variante per pagine a tema scuro (es. /singularity) — scambia i
+ * colori testo light (muted-foreground/foreground/primary) con i grigi su
+ * sfondo scuro; il JSON-LD e' identico.
  */
 export interface BreadcrumbItem {
   name: string;
@@ -14,7 +18,13 @@ export interface BreadcrumbItem {
   href?: string;
 }
 
-export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
+export function Breadcrumbs({
+  items,
+  dark = false,
+}: {
+  items: BreadcrumbItem[];
+  dark?: boolean;
+}) {
   const full: BreadcrumbItem[] = [{ name: "Home", href: "/" }, ...items];
   const jsonLd = {
     "@context": "https://schema.org",
@@ -34,8 +44,17 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <nav aria-label="Breadcrumb" className="mb-8">
-        <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
+      <nav
+        aria-label="Breadcrumb"
+        // dark: la strip di /singularity gestisce il proprio padding/margini —
+        // il mb-8 resta solo per le pagine light con layout centrato
+        className={dark ? undefined : "mb-8"}
+      >
+        <ol
+          className={`flex flex-wrap items-center gap-1.5 text-sm ${
+            dark ? "text-gray-400" : "text-muted-foreground"
+          }`}
+        >
           {full.map((item, i) => {
             const isLast = i === full.length - 1;
             return (
@@ -46,14 +65,18 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
                 {item.href && !isLast ? (
                   <Link
                     href={item.href}
-                    className="transition-colors hover:text-primary"
+                    className={
+                      dark
+                        ? "transition-colors hover:text-white"
+                        : "transition-colors hover:text-primary"
+                    }
                   >
                     {item.name}
                   </Link>
                 ) : (
                   <span
                     aria-current={isLast ? "page" : undefined}
-                    className={isLast ? "text-foreground" : undefined}
+                    className={isLast ? (dark ? "text-white" : "text-foreground") : undefined}
                   >
                     {item.name}
                   </span>

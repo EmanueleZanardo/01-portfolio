@@ -1,6 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { FocusMainOnMount } from '@/components/focus-main-on-mount';
+import { Breadcrumbs } from '@/components/breadcrumbs';
+import { feedAlternatesTypes, hreflangLanguages } from '@/lib/metadata';
+
+// seo: single source of truth for the page description — shared by the meta
+// description, openGraph and twitter tags (same pattern as the root layout:
+// a divergent hand-written og:description silently contradicted the meta one).
+const DESCRIPTION =
+  'Singularity Quant ETRM — live energy trading terminal by Emanuele Zanardo: Swissix price analytics, KPIs, load curves and Monte Carlo simulator.';
 
 export const metadata: Metadata = {
   // Title suffix "| Emanuele Zanardo" comes from the layout's title template.
@@ -8,13 +16,11 @@ export const metadata: Metadata = {
   // seo: meta description kept ≤160 chars so Google shows it whole in SERPs
   // (was 176 chars and got truncated); drops "risk management" from the
   // lead — the terminal's core keyword set is preserved.
-  description:
-    'Singularity Quant ETRM — live energy trading terminal by Emanuele Zanardo: Swissix price analytics, KPIs, load curves and Monte Carlo simulator.',
-  alternates: { canonical: '/singularity' },
+  description: DESCRIPTION,
+  alternates: { canonical: '/singularity', languages: hreflangLanguages('/singularity'), types: feedAlternatesTypes },
   openGraph: {
     title: 'Singularity Quant ETRM | Emanuele Zanardo',
-    description:
-      'Live energy trading terminal demo: price analytics, KPIs, load curves and Monte Carlo simulator.',
+    description: DESCRIPTION,
     url: '/singularity',
     siteName: 'Emanuele Zanardo Portfolio',
     locale: 'en_US',
@@ -37,8 +43,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Singularity Quant ETRM | Emanuele Zanardo',
-    description:
-      'Live energy trading terminal demo: price analytics, KPIs, load curves and Monte Carlo simulator.',
+    description: DESCRIPTION,
     images: [
       {
         url: '/og-image.png',
@@ -55,6 +60,10 @@ export default function SingularityPage() {
     name: 'Singularity Quant ETRM',
     applicationCategory: 'FinanceApplication',
     operatingSystem: 'Web',
+    // seo: inLanguage — parita' con gli altri grafi JSON-LD del sito
+    // (layout, blog, case-studies, cv usano tutti "en-US"; ciclo 19:40):
+    // segnale lingua uniforme per i parser sul SoftwareApplication.
+    inLanguage: 'en-US',
     url: 'https://emanuelezanardo.info/singularity',
     author: {
       '@type': 'Person',
@@ -95,11 +104,13 @@ export default function SingularityPage() {
             href="https://czpox8o8x6arnxw96txnvt.streamlit.app/?embed=true"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Open Singularity Quant ETRM live terminal in new tab"
+            aria-label="Open in new tab: Singularity Quant ETRM live terminal"
+            // a11y (WCAG 2.5.3 Label in Name): il nome inizia col testo visibile
+            // e la freccia e' decorativa (aria-hidden) — QA 118.
             // a11y (WCAG 2.5.8): min-h 44px — touch target adeguato su mobile
             className="text-sm font-mono text-gray-400 hover:text-white bg-gray-800 px-3 py-1 rounded min-h-[44px] inline-flex items-center"
           >
-            Open in new tab ↗
+            Open in new tab <span aria-hidden="true">↗</span>
           </a>
           <Link
             href="/"
@@ -109,6 +120,12 @@ export default function SingularityPage() {
             ← Back to Portfolio
           </Link>
         </div>
+      </div>
+      {/* seo + a11y: breadcrumb nav + BreadcrumbList JSON-LD — parita' con le
+          altre pagine indice (blog, case-studies, uses, cv); variante dark
+          per il tema del terminale, strip compatta sotto la header bar */}
+      <div className="bg-[#111827] border-b border-gray-800 px-4 py-2">
+        <Breadcrumbs dark items={[{ name: 'Singularity Quant ETRM' }]} />
       </div>
       <div className="flex-grow w-full">
         <iframe
