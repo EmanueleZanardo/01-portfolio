@@ -62,13 +62,13 @@ export async function generateMetadata(): Promise<Metadata> {
   // seo: single source of truth for the page description — shared by the meta
   // description, openGraph and twitter tags (same pattern as the root layout).
   const DESCRIPTION =
-    "Curriculum vitae of Emanuele Zanardo — Electronic Engineer: after-sales and certification experience in power electronics and energy storage, BSc from SUPSI.";
+    "Curriculum vitae of Emanuele Zanardo — Electronic Engineer: certification experience in power electronics and energy storage, BSc from SUPSI.";
   return {
-    title: "CV",
+    title: "CV — Electronic Engineer",
     description: DESCRIPTION,
     alternates: { canonical: "/cv", languages: hreflangLanguages('/cv'), types: feedAlternatesTypes },
     openGraph: {
-      title: "CV | Emanuele Zanardo",
+      title: "CV — Electronic Engineer | Emanuele Zanardo",
       description: DESCRIPTION,
       url: "/cv",
       siteName: "Emanuele Zanardo Portfolio",
@@ -92,7 +92,7 @@ export async function generateMetadata(): Promise<Metadata> {
       // seo: coerenza con le altre pagine del sito (layout + blog +
       // case-studies + uses usano summary_large_image per sfruttare og:image).
       card: "summary_large_image",
-      title: "CV | Emanuele Zanardo",
+      title: "CV — Electronic Engineer | Emanuele Zanardo",
       description: DESCRIPTION,
       images: [{ url: "/og-image.png", alt: "CV — Emanuele Zanardo" }],
     },

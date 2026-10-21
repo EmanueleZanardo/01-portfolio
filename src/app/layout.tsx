@@ -27,11 +27,11 @@ export const viewport: Viewport = {
   colorScheme: 'dark',
 };
 
-// seo: single source of truth for the site description (159 chars) — shared
+// seo: single source of truth for the site description (148 chars) — shared
 // by the meta description, openGraph and twitter tags, and the WebPage
 // JSON-LD, so they never drift apart.
 const siteDescription =
-  'Portfolio of Emanuele Zanardo, Electronic Engineer: embedded systems, firmware & validation, PCB design, industrial automation — Ticino, Switzerland and Italy.';
+  'Portfolio of Emanuele Zanardo, Electronic Engineer: embedded systems, firmware & validation, PCB design, automation — Ticino, Switzerland and Italy.';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://emanuelezanardo.info'),

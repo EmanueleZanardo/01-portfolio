@@ -12,15 +12,15 @@ import { feedAlternatesTypes, hreflangLanguages } from "@/lib/metadata";
 // description, openGraph and twitter tags (same pattern as the root layout:
 // a divergent hand-written og:description silently contradicted the meta one).
 const DESCRIPTION =
-  "Technical notes by Emanuele Zanardo: energy storage, Linux reliability, Next.js, KiCad PCB design and Streamlit data tooling — from real engineering practice.";
+  "Technical notes: energy storage, Linux reliability, Next.js, KiCad PCB design and Streamlit data tooling — from real engineering practice.";
 
 export const metadata: Metadata = {
   // Title suffix "| Emanuele Zanardo" comes from the layout's title template.
-  title: "Blog",
+  title: "Engineering Blog",
   description: DESCRIPTION,
   alternates: { canonical: "/blog", languages: hreflangLanguages('/blog'), types: feedAlternatesTypes },
   openGraph: {
-    title: "Blog | Emanuele Zanardo",
+    title: "Engineering Blog | Emanuele Zanardo",
     description: DESCRIPTION,
     url: "/blog",
     siteName: "Emanuele Zanardo Portfolio",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog | Emanuele Zanardo",
+    title: "Engineering Blog | Emanuele Zanardo",
     description: DESCRIPTION,
     images: [{ url: "/og-image.png", alt: "Blog — Emanuele Zanardo" }],
   },

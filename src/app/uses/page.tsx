@@ -151,11 +151,11 @@ const DESCRIPTION =
 
 export const metadata: Metadata = {
   // Title suffix "| Emanuele Zanardo" comes from the layout's title template.
-  title: "Uses",
+  title: "Uses — Tools & Stack",
   description: DESCRIPTION,
   alternates: { canonical: "/uses", languages: hreflangLanguages('/uses'), types: feedAlternatesTypes },
   openGraph: {
-    title: "Uses | Emanuele Zanardo",
+    title: "Uses — Tools & Stack | Emanuele Zanardo",
     description: DESCRIPTION,
     url: "/uses",
     siteName: "Emanuele Zanardo Portfolio",
@@ -174,7 +174,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Uses | Emanuele Zanardo",
+    title: "Uses — Tools & Stack | Emanuele Zanardo",
     description: DESCRIPTION,
     images: [{ url: "/og-image.png", alt: "Uses — Emanuele Zanardo" }],
   },
