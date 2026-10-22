@@ -137,7 +137,7 @@ const EXPERIENCE = [
     bullets: [
       "HW & FW test engineer for battery management systems: wrote and executed product tests, stressing the products under test.",
       "Actively engaged with designers, proposing FW (C language) and HW patches that improved the products.",
-      "Project manager for certification projects covering UL 1973, UL 1741, IEC 61508 and ABS regulations.",
+      "Project manager for certification projects covering UL 1973, IEC 61508 and ABS regulations.",
     ],
   },
 ];

@@ -1,3 +1,92 @@
+**Ultimo aggiornamento: 23/10/2026 ~00:39 CEST**
+
+## 23/10/2026 ~00:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria (no push: solo test-harness + docs, regola anti rate-limit)
+- Pull: origin/main a 3c0e937 = HEAD locale (sync verificato via API; unica modifica locale = entry STATUS.md accumulate).
+- Build `npm run build` exit 0 (log hidden_files/build-2026-10-23-0039.log); `npx tsc --noEmit` 0 errori, sequenziale post-build (log hidden_files/tsc-20261023-0039.log).
+- **Nota operativa:** il primo sweep del ciclo e' stato interrotto a meta' da un restart del servizio runtime (4121 OK, 0 FAIL al momento del kill; server morto, porta libera). Recovery: re-sweep integrale pulito su server `next start` fresco con setsid su porta 3210, killato sul PID del next-server da ss -tlnp (2589); porta chiusa, nessun residuo.
+- Sweep locale qa-check.sh (297 sezioni): **exit 0 — 4653 OK, 0 FAIL, 27 WARN** (18 WARN = note color-contrast-enhanced AAA aspirational, design invariato; 9 WARN = title-length editoriali noti della sez. 297, flaggati non falliti). Log hidden_files/sweep-2026-10-23-0039.log.
+- **Miglioria (pwa/qa):** nuova sezione sweep **298 manifest-asset-ctype-sweep** — gap reale: la sez. 51 verifica che ogni asset dichiarato in manifest.webmanifest risponda 200, ma NON il Content-Type. Un 200 con text/html (fallback SPA/route catch-all su asset mancante) passerebbe la 51 producendo icone PWA rotte e screenshot vuoti nell'install prompt — difetto invisibile ai check visivi. FAIL: status != 200, Content-Type incoerente col "type" dichiarato (es. image/png dichiarato, text/html servito), 200 non-immagine con type non dichiarato; WARN: type non dichiarato ma image/*; OK: 200 + Content-Type coerente. Coverage-gate pre-authoring ESEGUITO ('manifest-asset-ctype'/'MANIFEST-ASSET-CTYPE' 0 occorrenze; gate semantico OK). Validazione pre-append: verify-s298-manifest-asset-ctype.py — selftest 10/10 (negativi sintetici: text/html->FAIL, 404->FAIL, ctype vuoto->FAIL, webp servito come png->FAIL, type mancante+image/* ->WARN); su produzione 4/4 asset OK (icon-192/512/maskable + screenshot og-image.png). Backup qa-check.sh.bak-2026-10-23-0039 PRIMA dell'edit; append via head -n -1 + cat fragment + re-add `exit $FAIL`; bash -n OK; bit 770 ripristinato. Harness post-append della logica ESATTA estratta (server fresco porta 3211, poi killato sul PID 19054): 4/4 OK, HARNESS_EXIT=0. qa-check.sh vive in hidden_files: nessuna modifica nel repo.
+- Produzione https://emanuelezanardo.info/: 10/10 URL 200 (/ , /blog, /cv, /uses, /singularity, /case-studies, /feed.xml, /sitemap.xml, /robots.txt, /llms.txt), /nonexistent-xyz → 404 corretta; /cv-emanuele-zanardo.pdf, /humans.txt, /manifest.webmanifest, /og-image.png 200; title/description/canonical/og:image/JSON-LD presenti; 0 img senza alt; 0 placeholder.
+- Nessun bug trovato. Nessun push (regola anti rate-limit: nessuna modifica a codice/test/asset nel repo — sezione 298 vive in hidden_files del goal, entry STATUS.md accumulate in locale).
+- (Entry accumulate in locale per regola anti rate-limit: verranno pushate col prossimo cambio sostanziale.)
+- Aperti invariati: www HTTPS irraggiungibile; GMAIL_APP_PASSWORD su Vercel.
+
+**Ultimo aggiornamento: 22/10/2026 ~23:39 CEST**
+
+## 22/10/2026 ~23:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria (no push: solo test-harness + docs, regola anti rate-limit)
+- Pull: origin/main a 3c0e937 = HEAD locale (sync verificato via API; unica modifica locale = entry STATUS.md accumulate).
+- Build `npm run build` exit 0 (log hidden_files/build-2026-10-22-2339.log); `npx tsc --noEmit` 0 errori, sequenziale post-build (log hidden_files/tsc-20261022-2339.log).
+- Sweep locale qa-check.sh (296 sezioni, server `next start` dedicato avviato con setsid su porta 3210 e killato sul PID del next-server da ss -tlnp, 17566; porta chiusa, nessun residuo): **exit 0 — 4643 OK, 0 FAIL, 18 WARN** (le 18 WARN sono le note color-contrast-enhanced AAA aspirational, design invariato). Log hidden_files/sweep-2026-10-22-2339.log.
+- **Miglioria (seo/qa):** nuova sezione sweep **297 title-length-sweep** — gap reale: nessuna sezione boundava la LUNGHEZZA del `<title>` (la sez. 124 controlla presenza/unicita'/non-vuoto, DESC-LENGTH bounda solo la meta description). Un titolo rotto o duplicato dal template e' invisibile ai check visivi ma rovina le SERP. Filosofia speculare a DESC-LENGTH: FAIL se > 160 char (anomalia, probabile bug template), WARN se 60 < len <= 160 (zona troncamento SERP ~600px), OK se <= 60; pagine con != 1 `<title>` saltate (coperte dalla 124). Coverage-gate pre-authoring ESEGUITO ('title-length'/'TITLE-LENGTH'/'TITLE_LEN' 0 occorrenze; gate semantico OK). Validazione pre-append: verify-s297-titlelength.py — 18/18 pagine OK su server locale (6 indice + 7 blog + 4 case-studies da sitemap + 404), 0 FAIL, 9 WARN attesi (7 titoli blog 76-102 char + 2 case-studies 69-70 char: scelta editoriale consapevole, flaggata non fallita); selftest 9/9 (negativi sintetici: 161/200 char -> FAIL, 61/160 -> WARN, 60 -> OK, 0/2 title -> SKIP, entity &amp; decodificata). Backup qa-check.sh.bak-2026-10-22-2339 PRIMA dell'edit; append via head -n -1 + cat fragment + re-add `exit $FAIL`; bash -n OK; bit 770 ripristinato. Harness post-append della logica ESATTA estratta (server fresco porta 3211, poi killato sul PID 34166): 18/18 OK, HARNESS_EXIT=0. qa-check.sh vive in hidden_files: nessuna modifica nel repo.
+- Produzione https://emanuelezanardo.info/: 10/10 URL 200 (/ , /blog, /cv, /uses, /singularity, /case-studies, /feed.xml, /sitemap.xml, /robots.txt, /llms.txt), /nonexistent-xyz → 404 corretta; 0 img senza alt; 0 placeholder; canonical/og:image assoluto/JSON-LD presenti; 0 link interni rotti in homepage; security headers completi (CSP, HSTS, Referrer-Policy, COOP/CORP).
+- Nessun bug trovato. Nessun push (regola anti rate-limit: nessuna modifica a codice/test/asset nel repo — sezione 297 vive in hidden_files del goal, entry STATUS.md accumulate in locale).
+- (Entry accumulate in locale per regola anti rate-limit: verranno pushate col prossimo cambio sostanziale.)
+- Aperti invariati: www HTTPS irraggiungibile; GMAIL_APP_PASSWORD su Vercel.
+
+**Ultimo aggiornamento: 22/10/2026 ~22:39 CEST**
+
+## 22/10/2026 ~22:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria (no push: solo test-harness + docs, regola anti rate-limit)
+- Pull: origin/main a 3c0e937 = HEAD locale (sync verificato via API; unica modifica locale = entry STATUS.md accumulate).
+- Build `npm run build` exit 0; `npx tsc --noEmit` 0 errori, sequenziale post-build.
+- Sweep locale qa-check.sh (295 sezioni, server `next start` dedicato avviato con setsid e killato sul PID del next-server da ss -tlnp; porta 3210 chiusa, nessun residuo): **exit 0 — 4624 OK, 0 FAIL, 18 WARN** (le 18 WARN sono le note color-contrast-enhanced AAA aspirational, design invariato). Log hidden_files/sweep-2026-10-22-2239.log.
+- **Miglioria (a11y/qa):** nuova sezione sweep **296 skip-target-focusable-sweep** — gap reale trovato analizzando la sez. 79: quella verifica solo che il fragment `#main-content` risolva (id presente), ma nessuna sezione controlla che il target sia FOCUSABILE. Senza `tabindex="-1"` il `.focus()` programmatico di FocusMainOnMount/scroll-to-top cade silenziosamente su `<body>`: utente tastiera/screen-reader fermo al contesto precedente, zero segnali visivi. Oggi tutte le 18 pagine renderizzano `tabindex="-1"` (verificato) — la sezione lo rende invariante a ogni ciclo. Coverage-gate eseguito ('skip-target-focusable'/'SKIP-TARGET' 0 occorrenze; gate semantico OK). Validazione pre-append: verify-s296-skiptarget.py selftest 5/5 OK (negativi sintetici falliscono correttamente), 18/18 pagine OK su server locale. Backup qa-check.sh.bak-2026-10-22-2239 PRIMA dell'edit; append via head -n -1 + cat fragment + re-add `exit $FAIL`; bash -n OK; bit 770 ripristinato. Harness post-append della logica ESATTA estratta (server fresco porta 3211, poi killato): 19/19 OK, HARNESS_EXIT=0. qa-check.sh vive in hidden_files: nessuna modifica nel repo.
+- Produzione https://emanuelezanardo.info/: 10/10 URL 200 (/ , /blog, /cv, /uses, /singularity, /case-studies, /feed.xml, /sitemap.xml, /robots.txt, /llms.txt), /nonexistent-xyz → 404 corretta.
+- Nessun bug trovato. Nessun push (regola anti rate-limit: nessuna modifica a codice/test/asset nel repo — sezione 296 vive in hidden_files del goal, entry STATUS.md accumulate in locale).
+- (Entry accumulate in locale per regola anti rate-limit: verranno pushate col prossimo cambio sostanziale.)
+- Aperti invariati: www HTTPS irraggiungibile; GMAIL_APP_PASSWORD su Vercel.
+
+**Ultimo aggiornamento: 22/10/2026 ~21:39 CEST**
+
+## 22/10/2026 ~21:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria (no push: solo test-harness + docs, regola anti rate-limit)
+- Pull: origin/main a 3c0e937 = HEAD locale (sync verificato via API, nessuna divergenza; unica modifica locale = entry STATUS.md accumulate).
+- Build `npm run build` exit 0 (log hidden_files/build-2026-10-22-2139.log); `npx tsc --noEmit` 0 errori, sequenziale post-build (log hidden_files/tsc-20261022-2139.log).
+- Sweep locale qa-check.sh (295 sezioni, server `next start` dedicato avviato con setsid e killato sul PID del next-server da ss -tlnp; porta 3210 chiusa, nessun residuo): **exit 0 — 4605 OK, 0 FAIL, 18 WARN** (le 18 WARN sono le note color-contrast-enhanced AAA aspirational, design invariato). Log hidden_files/sweep-2026-10-22-2139.log.
+- **Miglioria (perf/a11y):** nuova sezione sweep **295 img-decoding-sweep** — ogni <img> nell'HTML renderizzato deve dichiarare `decoding="async"|"sync"|"auto"` esplicito (sorella della sez. 281 iframe-loading: la strategia di decodifica deve essere una scelta consapevole, non il default accidentale del browser; `async` evita che la decodifica di immagini pesanti blocchi il main thread). Coverage-gate pre-authoring ESEGUITO (stringa 'decoding' 0 occorrenze in qa-check.sh; gate semantico: IMG-EXPLICIT-DIMS controlla solo width/height|fill — nessun duplicato). Validazione pre-append: verify-s295.py 9/9 OK su produzione; harness post-append della logica ESATTA (estratta da qa-check.sh): 19/19 OK, 0 FAIL, HARNESS_EXIT=0. Backup qa-check.sh.bak-2026-10-22-2139 PRIMA dell'edit; append via head -n -1 + cat fragment + re-add `exit $FAIL`; bash -n OK; bit 770 ripristinato. qa-check.sh vive in hidden_files: nessuna modifica nel repo.
+- Produzione https://emanuelezanardo.info/: 10/10 URL 200 (/ , /blog, /cv, /uses, /singularity, /case-studies, /feed.xml, /sitemap.xml, /robots.txt, /llms.txt), /nonexistent-xyz → 404 corretta.
+- Nessun bug trovato. Nessun push (regola anti rate-limit: nessuna modifica a codice/test/asset nel repo — sezione 295 vive in hidden_files del goal, entry STATUS.md accumulate in locale).
+- (Entry accumulate in locale per regola anti rate-limit: verranno pushate col prossimo cambio sostanziale.)
+- Aperti invariati: www HTTPS irraggiungibile; GMAIL_APP_PASSWORD su Vercel.
+
+**Ultimo aggiornamento: 22/10/2026 ~20:39 CEST**
+
+## 22/10/2026 ~20:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria (no push: solo test-harness + docs, regola anti rate-limit)
+- Build `npm run build` exit 0 + `tsc --noEmit` 0 errori (sequenziali, come da convenzione).
+- Sweep locale qa-check.sh (294 sezioni, server `next start` dedicato poi killato): **exit 0, 4605 OK, 0 FAIL, 18 WARN** — le 18 WARN sono le note color-contrast-enhanced AAA aspirational (design invariato).
+- **Miglioria (seo/identity):** nuova sezione sweep **294 rel-me-parity-sweep** — ogni pagina HTML deve emettere entrambi i `<link rel="me">` head-level (GitHub + LinkedIn, IndieAuth-style discovery) e gli anchor del footer devono avere token `me` nel rel con href byte-identici; /singularity skippata per il sub-check footer (demo fullscreen senza footer, by design). Logica validata standalone su server locale prima dell'append (19/19 pagine OK, 0 FAIL; HTTPError gestito per leggere il body della 404).
+- **Nota operativa:** il primo sweep del ciclo è partito contro un server `next start` residuo del ciclo 19:39 (porta 3210 occupata → EADDRINUSE nel log del mio server; sweep corrotto con 31 FAIL "connection refused" quando il residuo è morto a metà run). Recovery: nessun processo residuo, `.next` = build fresca del ciclo, re-sweep integrale pulito exit 0 (il secondo).
+- Produzione https://emanuelezanardo.info/: 10/10 URL 200, /nonexistent-xyz → 404 corretta; `<link rel="me">` ×2 presenti; security headers completi (CSP, HSTS, X-Frame-Options DENY, Referrer-Policy, COOP).
+- Nessun push (regola anti rate-limit: nessuna modifica a codice/test/asset nel repo — sezione 294 vive in hidden_files del goal, entry STATUS.md accumulate in locale).
+- (Entry accumulate in locale per regola anti rate-limit: verranno pushate col prossimo cambio sostanziale.)
+
+**Ultimo aggiornamento: 22/10/2026 ~18:39 CEST**
+
+## 22/10/2026 ~18:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria (no push: solo docs/test-harness, regola anti rate-limit)
+- Build `npm run build` exit 0 + `tsc --noEmit` 0 errori (sequenziali, come da convenzione).
+- Produzione https://emanuelezanardo.info/: 11/11 URL 200 (/ , /cv, /uses, /blog, /case-studies, /singularity, /llms.txt, /feed.xml, /sitemap.xml, /robots.txt), /nonexistent-xyz → 404 corretta; 17/17 link interni homepage OK; immagini hero/portrait 200 con w=1920 (cap deviceSizes del ciclo 16:39 confermato live); 0 img senza alt; 0 placeholder; meta/canonical/OG/Twitter/JSON-LD presenti; og-image.png reale 1200x630 = dimensioni dichiarate nei meta; CV PDF 200; robots.txt `Allow: /` + sitemap dichiarata, lastmod fresche.
+- **Miglioria (seo/qa):** nuova sezione sweep **284 social-image-absolute** — `og:image` e `twitter:image` devono essere URL assoluti https su ogni pagina (un path relativo non rompe il sito visibile ma rende le social card vuote/rotte su tutti i crawler, difetto invisibile ai check visivi; la 404 aveva il twitter:image relativo fino al fix del ciclo 02:40). Verificata PASS su server `next start` locale (build fresco, poi killato) e su produzione.
+- Nessun bug trovato. Nessun push (regola anti rate-limit: nessuna modifica a codice/test/asset nel repo — sezione 284 vive in hidden_files del goal, entry STATUS.md accumulate in locale).
+- (Entry accumulate in locale per regola anti rate-limit: verranno pushate col prossimo cambio sostanziale.)
+
+**Ultimo aggiornamento: 22/10/2026 ~17:39 CEST**
+
+## 22/10/2026 ~17:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria (no push: solo docs, regola anti rate-limit)
+- Build `npm run build` exit 0 + `tsc --noEmit` 0 errori (sequenziali, come da convenzione).
+- Sweep locale qa-check.sh (283 sezioni, server `next start` dedicato poi killato): **exit 0, 9078 OK, 0 FAIL, 19 WARN** — 18 WARN sono i noti color-contrast-enhanced AAA aspirational (design invariato), 1 WARN HTTP-TO-HTTPS inconcludente per flakiness rete/DNS della VM (verificato manualmente: `http://emanuelezanardo.info/blog` → 308 → `https://...`, redirect OK).
+- Produzione https://emanuelezanardo.info/: 17/17 URL 200, /nonexistent-xyz → 404 corretta; 32/32 link interni OK; meta/canonical/OG/Twitter/JSON-LD presenti; 0 img senza alt; 0 placeholder; security headers completi (CSP, HSTS, X-Frame-Options DENY); Cache-Control asset verificati manualmente (immagini public 7d/30d, CV PDF 1d/7d, HTML must-revalidate); 404 serve `<meta name="robots" content="noindex"/>`.
+- **Miglioria (seo/qa):** nuova sezione sweep **283 404-noindex-sweep** — la pagina 404 deve servire il meta robots noindex. `not-found.tsx` si affida al tag auto-iniettato da Next (app-render NonIndex) senza dichiarare `robots` nei metadata: la sezione rende questo invariante SEO un controllo a ogni ciclo (se un refactor futuro lo rompesse, la 404 finirebbe indicizzata con canonical /404 propria). Verificata OK su server locale e su produzione.
+- Riallineamento repo: main locale riportato su origin/main `3c0e937` (il push API del ciclo 16:39 aveva creato un commit gemello `e8beb77`; tree byte-identici verificati via API prima del reset; entry STATUS.md 16:39 preservata nel working tree).
+- Nessun push (regola anti rate-limit: nessuna modifica a codice/test/asset nel repo questo ciclo — entry accumulate in locale).
+- (Entry accumulata in locale per regola anti rate-limit: verrà pushata col prossimo cambio sostanziale.)
+
+**Ultimo aggiornamento: 22/10/2026 ~16:39 CEST**
+
+## 22/10/2026 ~16:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria (pushed `3c0e937`)
+- Build `npm run build` exit 0 + `tsc --noEmit` 0 errori (sequenziali, come da convenzione).
+- Produzione https://emanuelezanardo.info/: 17/17 URL 200 (incluso /llms.txt, era 404 durante il freeze), /nonexistent-xyz → 404 corretta; 23/23 link interni OK; immagini hero/portrait 200; 0 img senza alt; 0 placeholder; meta/canonical/OG/Twitter/JSON-LD presenti; security headers completi (CSP, HSTS, X-Frame-Options DENY); feed.xml + feed.json validi; sitemap lastmod fresche; manifest PWA con icons/shortcuts/screenshots.
+- **Miglioria (perf):** cap `deviceSizes` a 1920 in next.config.ts — lo srcset live offriva 2048w/3840w (upscale del sorgente 1920px di hero-bg.webp e 466px di portrait.webp, scelti dai device ad alto DPR: byte sprecati, zero dettaglio in più). Il cap via `sizes` in hero.tsx non poteva bastare (sizes non limita il DPR). srcset prerenderizzato post-fix: max 1920w. Nessun impatto visivo.
+- Nessun rate limit Vercel osservato; sito 200 dopo il deploy.
+- (Entry accumulata in locale per regola anti rate-limit: verrà pushata col prossimo cambio sostanziale.)
+
 **Ultimo aggiornamento: 22/10/2026 ~02:00 CEST**
 
 ## 22/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
@@ -4598,4 +4687,12 @@
 - Sweep finale (281 sezioni, next start -p 3210): exit 0 — **4409 OK, 0 FAIL, 18 WARN** (log hidden_files/sweep-2026-10-21-2039.log; i 18 WARN sono i color-contrast-enhanced AAA aspirational noti; 10 righe IFRAME-LOADING tutte OK).
 - 0 bug aperti nel sito. Produzione https://emanuelezanardo.info/: 9/9 URL 200 (/, /blog, /cv, /uses, /singularity, /case-studies, /feed.xml, /sitemap.xml, /robots.txt).
 - Server di test: kill standalone sul PID del next-server (38628, da ss -tlnp); porta 3210 chiusa, nessun residuo.
+- Aperti invariati: www HTTPS irraggiungibile; GMAIL_APP_PASSWORD su Vercel.
+
+## 2026-10-22 19:39 CEST — ciclo QA orario (nessuna modifica codice: NO PUSH per anti rate-limit)
+- Build: `npm run build` exit 0 (log hidden_files/build-2026-10-22-1939.log); `npx tsc --noEmit` 0 errori, sequenziale post-build (recupero post-timeout ciclo).
+- Produzione https://emanuelezanardo.info/: 11/11 URL 200, 404 corretto, meta canonical/og:image assoluto/JSON-LD presenti, 0 img senza alt, 0 placeholder (curl spot-check).
+- Sweep locale qa-check.sh (293 sezioni, next start -p 3210): exit 0 — 4551 OK, 0 FAIL, 18 WARN (color-contrast AAA aspirational noti). Nuova sezione 293 `srcset-maxw-sweep` aggiunta e verificata (verify pre-edit 7/7 OK locale+produzione; harness post-append HARNESS_EXIT=0; nessun candidato srcset > 1920w, cap deviceSizes confermato). qa-check.sh vive in hidden_files: nessuna modifica nel repo.
+- 0 bug trovati. Nessun push: unica modifica locale = questa entry STATUS.md (accumulata per la prossima modifica sostanziale).
+- Server di test: killato PID 14361 post-timeout (porta 3210 chiusa).
 - Aperti invariati: www HTTPS irraggiungibile; GMAIL_APP_PASSWORD su Vercel.

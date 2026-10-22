@@ -41,7 +41,7 @@ const TIMELINE = [
     points: [
       "HW & FW test engineering for battery management systems on molten-salt battery storage",
       "Stress testing with C firmware patches and hardware fixes proposed to designers",
-      "Project-managed product certifications: UL 1973, UL 1741, IEC 61508, ABS",
+      "Project-managed product certifications: UL 1973, IEC 61508, ABS",
     ],
   },
   {
@@ -76,7 +76,7 @@ const SKILL_GROUPS = [
       "STM32Cube & Keil IDE",
       "ESP32 firmware development",
       "Hardware & Firmware Validation",
-      "Product Device Certification (UL 1973, UL 1741, IEC 61508, ABS)",
+      "Product Device Certification (UL 1973, IEC 61508, ABS)",
       "Electronic Measurement Equipment",
       "PCB design & bring-up",
       "Version Control (Git / SVN)",
