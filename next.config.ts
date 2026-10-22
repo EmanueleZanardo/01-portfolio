@@ -126,7 +126,14 @@ const nextConfig: NextConfig = {
   // nessun remotePattern: l'ottimizzatore non fa proxy di host esterni.
   // perf: AVIF first per i browser che lo supportano (WebP fallback),
   // riduce hero-bg.webp e portrait.webp rispetto ai PNG/JPEG originali.
-  images: { formats: ['image/avif', 'image/webp'] },
+  // perf: deviceSizes cappati a 1920 — il sorgente piu' grande (hero-bg.webp)
+  // e' 1920x1080, quindi i candidati default 2048w/3840w sarebbero SEMPRE
+  // upscale (byte in piu', zero dettaglio in piu') scelti dai device ad alto
+  // DPR; senza 2048/3840 lo srcset si ferma al 1920w = dimensione reale max.
+  // (QA sito 22/10 16:39: lo srcset live offriva 2048w/3840w nonostante il
+  // cap via sizes in hero.tsx — sizes non puo' limitare il DPR, il cap va
+  // fatto qui.)
+  images: { formats: ['image/avif', 'image/webp'], deviceSizes: [640, 750, 828, 1080, 1200, 1920] },
 };
 
 export default nextConfig;
