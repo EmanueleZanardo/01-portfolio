@@ -1639,7 +1639,86 @@
 
 # STATUS.md — 01-portfolio (Sito personale)
 
-**Ultimo aggiornamento: 07/10/2026 ~02:10 CEST**
+**Ultimo aggiornamento: 22/10/2026 ~02:00 CEST**
+
+## 22/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- **SBLOCCO FREEZE 21/10 ~12:21 (ordine esplicito di Emanuele): PUSH FREEZE del 07/10 REVOCATO.** Push cumulativo `f66027b` (21/10 12:27, 32 file) + riconciliazione history locale/remoto; poi push QA 13:39 (SEO title/description nei budget, `8d198f0`) e 20:39 (`98a58e0`: loading="eager" esplicito iframe Streamlit /singularity + nuova sezione sweep 281 iframe-loading-sweep). Sito live verificato 200 dopo i push, nessun rate limit Vercel.
+- **Cicli QA 21/10 09:39–20:39 TUTTI VERDI, 0 bug nel sito.** Nuove sezioni qa-check.sh: 273 title-length (09:39), 274 http-to-https (10:39), 275 trailing-slash (11:39), 276 h1-unicity (12:39), 281 iframe-loading-sweep (20:39). Sweep finale ~4409 OK / 0 FAIL / 18 WARN (solo color-contrast-enhanced AAA aspirational). Build OK + tsc 0 errori (sequenziali). Produzione https://emanuelezanardo.info/ 200.
+- **Nota di coordinamento:** il job QA-sito documenta ora le sue entry direttamente sul STATUS.md remoto (commit orari "docs: entry STATUS.md QA ..."); questo job fa merge delle proprie sezioni giornaliere sulla base live senza sovrascrivere le entry QA (sezioni 08–21/10 recuperate dalla coda freeze in questo stesso push).
+- **Utilizzo Muse al 100%** (raggiunto 21/10 23:55; reset settimanale 22/10 00:39 CEST avvenuto).
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti).
+## 21/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- **Cicli QA 20/10 12:39 e 21/10 00:39 TUTTI VERDI, 0 bug nel sito.** Nuove sezioni qa-check.sh: 254 static-contrast-check (12:39: audit statico contrasto colore rule axe color-contrast su cascade statica, 1006 nodi testo / 18 pagine, 0 FAIL; 2 bug parser fixati in sviluppo — CSS minificato senza `;` finale, escape `\/` selettori) → re-sweep 4229 OK / 0 FAIL; **264 static-asset-caching** (00:39: audit cache policy asset — FAIL se hashed senza immutable, WARN se HTML immutable o feed/og-image senza s-maxage; 5/5 sintetici validati) → re-sweep finale 4272 OK / 0 FAIL / 18 WARN. Build OK (28/28 statiche) + tsc 0 errori (sequenziali post-sweep). Produzione: 14/15 URL 200 (solo /llms.txt 404 = artefatto freeze noto); /404 corretta; security headers completi.
+- **PUSH FREEZE Vercel dal 07/10 ~05:10 invariato:** tip remoto `a0cbfad` dal 07/10; zero push — documentazione accodata in locale, cumulativa (104 sezioni). Commit locali ~310 accumulati (ultimo f3904a2).
+- **Utilizzo Muse al 100%** (verificato 20/10 21:55 e 21/10 01:55; reset settimanale giovedì 22/10 00:39 CEST).
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti).
+
+## 20/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- **Cicli QA 19/10 01:39–23:39 TUTTI VERDI, 0 bug nel sito.** Nuove sezioni qa-check.sh: 240 empty-table-header (16:00), 241 frame-focusable-content (17:39), 242 meta-refresh EXACT (18:39, POI REVERTITA 22:39 — 5° duplicato in 5 cicli, era già coperta da s211), 243 form-field-multiple-labels EXACT (20:39), 244 autocomplete-valid EXACT (21:39), 245 focus-order-semantics EXACT (22:39), 246 avoid-inline-spacing EXACT (23:39). Incidenti duplicati: s241 (16:39, revertita 17:39), s242 aria-hidden-focus (18:39, revertita — duplicato s194), s242 meta-refresh (22:39, duplicato s211). Lezione dura registrata in AGENTS.md: coverage-gate pre-authoring hardened (doppio quoting `"id"` + `'id'`) — il 4° duplicato è stato bloccato dal gate prima dell'authoring. Sweep: 4013→4067+ OK / 0 FAIL (aritmetica esatta); build OK Next 15.3.8 (28/28 SSG) + tsc 0 errori (sequenziali post-build). Produzione 16/17 200; /llms.txt 404 = artefatto freeze noto.
+- **PUSH FREEZE Vercel dal 07/10 ~05:10 invariato:** tip remoto `a0cbfad` dal 07/10; zero push — documentazione accodata in locale, cumulativa (103 sezioni). Commit locali ~290 accumulati (ultimo 63979ac).
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti).
+
+## 19/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- **Cicli QA 18/10 15:39–19/10 00:39 TUTTI VERDI, 0 bug.** Nuove sezioni qa-check.sh: 217 audio-caption EXACT (15:39), 222 document-title (20:39), 224 image-alt EXACT 20/20 (22:39: sweep 3707 OK/0 FAIL), 225 frame-title EXACT 26/26 (23:39: sweep 3725 OK/0 FAIL), 226 html-xml-lang-mismatch EXACT 26/26 (00:39 19/10: sweep 3743 OK/0 FAIL, aritmetica esatta 3725+18). Build OK Next 15.3.8 (28/28 SSG) + tsc 0 errori (sequenziali post-build). Produzione 6/6 200, 17/17 link, 16/16 asset, 0 img senza alt, 0 placeholder; /llms.txt 404 = artefatto freeze noto.
+- **PUSH FREEZE Vercel dal 07/10 ~05:10 invariato:** tip remoto `a0cbfad` dal 07/10; zero push — documentazione accodata in locale, cumulativa (102 sezioni). Oltre 270 commit locali accumulati (ultimo 1854cdc solo STATUS.md).
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti); duplicazione sezioni "Career"/"esperienze" in valutazione.
+
+## 18/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- **Ciclo QA 22:39 (17/10) VERDE, 0 bug.** Build OK Next 15.3.8 (28/28 SSG) + tsc 0 errori (sequenziali). Produzione 16/17 URL 200; /llms.txt 404 = artefatto freeze noto. **Miglioria:** nuova sezione 200 in qa-check.sh — axe rule 'link-name' EXACT (107/107 probe-vs-axe, 0 divergenze); sweep completo 3275 OK / 0 FAIL. Nessun nuovo ciclo segnalato dopo il 22:39.
+- **PUSH FREEZE Vercel dal 07/10 ~05:10 invariato:** tip remoto `a0cbfad` dal 07/10; zero push — documentazione accodata in locale, cumulativa (101 sezioni). 250 commit locali non pushati accumulati.
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti); date Horien sito vs CV; valutazione aperta su duplicazione sezioni "Career"/"esperienze".
+
+## 17/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- **Ciclo QA 01:39 (17/10) VERDE, 0 bug.** Build exit 0 + tsc 0 errori (sequenziali). qa-check.sh ora a 277 sezioni; sweep 2915 OK / 0 FAIL (sezione aria-command-name valutata su 30 pagine). Produzione: 6/6 URL 200 + 404 corretta (verifica precedente invariata).
+- **PUSH FREEZE Vercel dal 07/10 ~05:10 invariato:** origin/main fermo a `a0cbfad` dal 07/10; zero push — documentazione accodata in locale, cumulativa (100 sezioni).
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti); date Horien sito vs CV; valutazione aperta su duplicazione sezioni "Career"/"esperienze" (15/10, nessuna modifica fatta).
+
+## 16/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- **Ciclo QA 23:39 (15/10) VERDE, 0 bug.** Build exit 0 + tsc 0 errori (sequenziali). Miglioria: nuova sezione 159 in qa-check.sh — landmark-search-is-top-level EXACT (best practice non-axe / WCAG 1.3.1, INFO mai FAIL; axe-core 4.14.0 non ha la regola, evaluate reale via ground-s159.js 34/34); sweep 2537 OK / 0 FAIL. Produzione: 6/6 URL 200 + 404 corretta. Commit locale `7ce56da` (**210 commit locali accumulati**).
+- **PUSH FREEZE Vercel dal 07/10 ~05:10 invariato:** origin/main fermo a `a0cbfad` dal 07/10; zero push — documentazione accodata in locale, cumulativa (99 sezioni). Ogni push durante il rate limit rischia di far ripartire la finestra 24h.
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti); date Horien sito vs CV; valutazione aperta su duplicazione sezioni "Career"/"esperienze" (15/10, nessuna modifica fatta).
+
+## 15/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- **Cicli QA 23:40 (14/10) e 00:40 (15/10) VERDI, 0 bug.** 23:40: build exit 0 + tsc 0 errori, sweep qa-check.sh 2105 OK/0 FAIL, + nuova sezione 135 (valid-lang full sweep axe WCAG 3.1.2: tutti i lang validi, sito dichiara en-US corretto) -> commit locale `7fc2500` (186 commit locali). 00:40: baseline 2105 OK/0 FAIL, + sezione 136 (link-name full sweep axe WCAG 2.4.4/4.1.2: tutti i 490 link delle 18 pagine hanno nome accessibile, probe 20/20) -> 2123 OK/0 FAIL; commit locale `032b50a` (**187 commit locali**).
+- Produzione https://emanuelezanardo.info/: 7/7 URL 200, meta description OK.
+- **PUSH FREEZE Vercel dal 07/10 ~05:10 invariato:** origin/main fermo a `a0cbfad` dal 07/10; zero push — documentazione accodata in locale, cumulativa. Ogni push durante il rate limit rischia di far ripartire la finestra 24h.
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti); date Horien sito vs CV.
+
+## 14/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- **Cicli QA 23:40 (13/10), 00:40 e 01:40 (14/10) VERDI, 0 bug.** 23:40: build exit 0 + tsc 0 errori, baseline 111 sezioni 1673 OK/0 FAIL, + nuova sezione 112 (aria-valid-attr full sweep WCAG 4.1.2: ogni attributo aria-* tra i 47 nomi ARIA 1.2, probe 31/31) -> 1691 OK/0 FAIL; commit locale `898eaf5` (163 commit locali). 00:40: baseline 1691 OK/0 FAIL, + sezione 113 (aria-tooltip-name full sweep: role="tooltip" con nome accessibile, probe 34/34) -> 1709 OK/0 FAIL; commit locale `1de319c` (164 commit locali). 01:40: baseline 1709 OK/0 FAIL, + sezione 114 (autocomplete-valid full sweep WCAG 1.3.5: token autofill WHATWG validi, probe 55/55, 0 violazioni su 18 pagine) -> 1727 OK/0 FAIL; commit locale `261e924` (**165 commit locali**).
+- Produzione https://emanuelezanardo.info/: 9/9 URL 200 + 404 corretta.
+- **PUSH FREEZE Vercel dal 07/10 ~05:10 invariato:** origin/main fermo a `a0cbfad` dal 07/10; zero push — documentazione accodata in locale, cumulativa. Verifica 13/10 17:30 via Commit Status API: TUTTI i push del pomeriggio = FAILURE "Deployment rate limited — retry in 24 hours" (01 a0cbfad incluso); ogni push durante il limite rischia di far ripartire la finestra 24h.
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti); date Horien sito vs CV.
+
+## 13/10/2026 ~02:05 CEST — aggiornamento documentale giornaliero
+- **Cicli QA 00:40 e 01:40 VERDI (verificati dal log 13/10):** 00:40: build exit 0 + tsc 0 errori, baseline 89 sezioni 1277 OK/0 FAIL, + nuova sezione 90 (dangling ARIA reference full sweep: aria-labelledby/describedby + label for su id esistenti, 0 pendenti su 18 pagine) -> suite 90 sezioni 1295 OK/0 FAIL; commit locale `6433fa2` (NON pushato — freeze). 01:40: build exit 0 + tsc 0 errori, baseline 1295 OK/0 FAIL, + nuova sezione 91 (nested interactive controls full sweep WCAG 4.1.2, 18/18 pagine pulite, 12/12 casi sintetici) -> suite 91 sezioni 1313 OK/0 FAIL; commit locale `f4bd416` (NON pushato).
+- Produzione https://emanuelezanardo.info/: 9/9 URL 200 + 404 corretta.
+- **Vercel rate limit ANCORA ATTIVO** (ultimo check 11/10 18:40); origin/main fermo a `a0cbfad` dal 07/10; **142 commit locali accumulati**, in attesa di suo ordine di sblocco. **PUSH FREEZE dal 07/10 ~05:10 invariato:** zero push — documentazione accodata in locale, cumulativa.
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti); date Horien sito vs CV.
+
+## 12/10/2026 ~02:05 CEST — aggiornamento documentale giornaliero
+- **Cicli QA 00:40 e 01:40 VERDI (verificati dal log 12/10):** 00:40: `npm run build` exit 0 + qa-check.sh 65 sezioni baseline 888 OK / 0 FAIL, + nuova sezione 66 (og:image availability full sweep: 17 pagine da sitemap, og:image -> 200 image/png, 17/17 OK) -> 905 OK / 0 FAIL; server test porta 3129 spento. Nessun codice sito toccato. Commit locale `460d0cc` (NON pushato — freeze). 01:40: build exit 0, qa-check.sh 905 OK / 0 FAIL + nuova sezione 67 (img alt full sweep su HTML renderizzato: 6 indice + 7 blog + 4 case studies, 17/17 OK). Commit locale `10eab71` (solo STATUS.md entry, NON pushato).
+- Produzione https://emanuelezanardo.info/: 9/9 URL 200 + 404 corretta. Lista siti 00:42 (richiesta sua): 200 su 10 siti incl. emanuelezanardo.info; dashboard Streamlit 303 (redirect, non errore).
+- **Vercel rate limit ANCORA ATTIVO** (Commit Status API su `a0cbfad` alle 01:40: "Deployment rate limited — retry in 24 hours"). origin/main fermo al 07/10; **119 commit locali accumulati** sopra origin/main, in attesa di suo ordine di sblocco. **PUSH FREEZE dal 07/10 ~05:10 invariato:** zero push — documentazione accodata in locale, cumulativa.
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti); date Horien sito vs CV.
+
+## 11/10/2026 ~02:10 CEST — aggiornamento documentale giornaliero
+- **Cicli QA 00:40 e 01:40 VERDI (verificati dal log 11/10):** 00:40: qa-check.sh 507 OK / 0 FAIL (baseline 496 + 11 nuova sezione 42: full sweep article:tag byte-identici su 7 blog + 4 case studies); nota operativa: il primo edit della sezione 42 aveva cancellato la riga riepilogo della sezione 41 — ripristinata (lezione 10/10 confermata: verifica sezioni + bash -n dopo ogni edit). 01:40: 511 OK / 0 FAIL (nuova sezione 43: feed content full sweep — /feed.xml e /feed.json vs 7 slug sitemap, link/id canonici, enclosure og-image length>0, tags JSON non vuoti). Nessun codice sito toccato, nessun bug.
+- Build `npm run build` exit 0 + `npx tsc --noEmit` 0 errori (sequenziale); produzione https://emanuelezanardo.info/ 9/9 URL 200 (server test spenti, nessun residuo).
+- **Vercel rate limit ANCORA ATTIVO** (Commit Status API su `a0cbfad4` ~00:40 e 01:40: "Deployment rate limited — retry in 24 hours"). origin/main fermo al 07/10; ~95 commit locali accumulati (ultimo `3392b3a`). **PUSH FREEZE dal 07/10 ~05:10 invariato:** zero push — documentazione preparata in locale, accumulata cumulativamente per il post-sblocco.
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti); date Horien sito vs CV.
+
+## 10/10/2026 ~02:10 CEST — aggiornamento documentale giornaliero
+- **Cicli QA 00:40 e 01:40 VERDI (verificati dal log 10/10):** origin/main fermo a `a0cbfad` dal 07/10; 70-71 commit locali accumulati (ultimo `b402ed0` poi `5bceb66`). **Vercel rate limit ANCORA ATTIVO** (Commit Status API ~00:45 e ~01:40: "Deployment rate limited — retry in 24 hours"). PUSH FREEZE dal 07/10 ~05:10 invariato: zero push.
+- Produzione https://emanuelezanardo.info/: 200 su 8-12 endpoint, nessun bug. Build exit 0 pre/post miglioria; tsc 0 errori; qa-check.sh 152-153 OK / 0 FAIL (server test 3139 spento a 01:40, porta chiusa).
+- Migliorie (piccole): 00:40 hreflang self-referencing en-US + x-default su tutte le pagine (helper hreflangLanguages); 01:40 `lang: 'en-US'` nel web app manifest — ultimo segnale lingua bare "en" rimasto, completa l'uniformità BCP 47.
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti); date Horien sito vs CV.
+
+## 09/10/2026 ~02:05 CEST — aggiornamento documentale giornaliero
+- **Ciclo QA 09/10 01:40 VERDE:** build exit 0 (27/27 pagine, Next 15.3.8) + tsc pulito, pre e post miglioria. Produzione emanuelezanardo.info: 200 ovunque; qa-check.sh su next start locale 67 OK / 0 FAIL. Miglioria (piccola): pulsante "Copy" nei code block degli articoli (Clipboard API + fallback, feedback 2s, aria-label dinamica + aria-live) — verificato nell'HTML servito. Bug: nessuno.
+- **Vercel rate limit ANCORA ATTIVO** (Commit Status API su `a0cbfad`, check 01:45 CEST): "Deployment rate limited — retry in 24 hours". PUSH FREEZE dal 07/10 ~05:10 invariato: zero push; 39 commit locali accumulati sopra origin/main `a0cbfad` (ultimo `edcf228`). Pulizia: spenti 2 next-server stale (porte 3109/3110).
+- Blocchi (serve lui): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); date Horien sito vs CV; GMAIL_APP_PASSWORD su Vercel (form contatti).
+
 
 ## 07/10/2026 ~02:10 CEST — aggiornamento documentale giornaliero
 - **Commit `ddc3ec4f` (06/10 23:59 UTC = 07/10 01:59 CEST):** growth — case-studies listing meta/OG/twitter descriptions include streaming pipeline (4 projects).
