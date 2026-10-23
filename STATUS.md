@@ -1,4 +1,12 @@
-**Ultimo aggiornamento: 23/10/2026 ~00:39 CEST**
+**Ultimo aggiornamento: 23/10/2026 ~02:00 CEST**
+
+## 23/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- **Cicli QA sito 22/10 tutti VERDI, 0 bug nel sito.** Sweep qa-check.sh cresciuto 283 → 297 sezioni; nuove sezioni: 284 link-text-hygiene, 285 (404-noindex, miglioria 17:39), 289 title-unique (13:39), 290 title-unique-sweep, 291 external-https-sweep, 292 color-scheme-sweep, 293 (284 social-image-absolute, 18:39), 294 rel-me-parity-sweep (20:39), 295 img-decoding-sweep (21:39), 296 skip-target-focusable-sweep (22:39), 297 title-length-sweep (23:39) + 298 manifest-asset-ctype-sweep (ciclo 23/10 00:39). Produzione https://emanuelezanardo.info/ 10-17/17 URL 200, security headers completi, 0 placeholder.
+- **1 miglioria pushata il 22/10 (16:39, `3c0e937`, fail-closed su base f01d2e4, VERIFY_OK):** cap `deviceSizes` a 1920 in next.config.ts (elimina upscale srcset 2048w/3840w, byte sprecati via, zero impatto visivo). Live 200 dopo deploy, nessun rate limit Vercel.
+- **QA 23/10 01:39 — FIX COMPLIANCE (ordine Emanuele 22/10: "UL 1741 non va piu' dichiarato"):** il sito dichiarava UL 1741 in 4 punti (homepage projects/about, /cv, about). Rimosso da cv/page.tsx, projects.tsx, about.tsx (2x); restano UL 1973, IEC 61508, ABS; CV PDF gia' pulito (0 occorrenze in src/ e nel prerender). Push commit `700c2e8` via git-data API (fail-closed su base 3c0e937, VERIFY_OK; include le entry STATUS.md accumulate). Deploy Vercel automatico: live 200 con fix attivo.
+- **Nota di coordinamento:** il job QA-sito scrive le sue entry direttamente sul STATUS.md remoto (formato proprio, es. entry 00:39 CEST sopra); questo job mergia le proprie sezioni giornaliere sulla base live senza sovrascrivere le entry QA.
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti).
+
 
 ## 23/10/2026 ~00:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria (no push: solo test-harness + docs, regola anti rate-limit)
 - Pull: origin/main a 3c0e937 = HEAD locale (sync verificato via API; unica modifica locale = entry STATUS.md accumulate).
