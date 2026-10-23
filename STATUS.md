@@ -1,4 +1,21 @@
-**Ultimo aggiornamento: 23/10/2026 ~10:05 CEST**
+**Ultimo aggiornamento: 24/10/2026 ~00:39 CEST**
+
+## 24/10/2026 ~00:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria SEO (PUSH: modifica sostanziale)
+- Pull: origin/main a 59fa9bf (sync via API: tree remoto ricorsivo 109 blob vs `git ls-files -s` — unico diff STATUS.md con le entry 20:39–23:55 accumulate in locale; nessuna modifica remota dal ciclo 23:55).
+- Build `npm run build` exit 0 (log hidden_files/build-2026-10-24-0039-post.log); `npx tsc --noEmit` 0 errori.
+- Produzione https://emanuelezanardo.info/: 9/9 URL 200 (/ /cv /blog /case-studies /uses /sitemap.xml /robots.txt /feed.xml /llms.txt); /this-page-does-not-exist-xyz → 404 corretta con noindex; title/description/canonical/OG/Twitter/RSS/hreflang presenti; security headers completi (CSP, HSTS, X-Frame-Options, Permissions-Policy); 0 placeholder; 7/7 img referenziate presenti in public/; asset con dimensioni dichiarate = reali (og-image 1200x630); Cache-Control custom live (PDF 1gg/7gg edge, hero 7gg/30gg edge).
+- Compliance UL 1741 (ordine Emanuele 22/10): 0 occorrenze in src/, nell'HTML di 6 pagine live e nel CV PDF di produzione (306.429 byte, 0 hit) — solo note storiche QA in STATUS.md e git logs.
+- **Miglioria SEO (unica del ciclo):** `inLanguage: 'en-US'` aggiunto ai grafi JSON-LD `Person` e `ProfessionalService` in `src/app/layout.tsx` — erano gli unici 2 grafi senza segnale lingua (WebSite/WebPage/BlogPosting/Article già "en-US"); verificato nell'HTML del build (`"inLanguage":"en-US"` nel grafo Person). 6 righe aggiunte, nessun cambio visivo/comportamentale.
+- PUSH eseguito (modifica sostanziale): commit su main via tree API (fail-closed su base 59fa9bf), include le entry STATUS.md accumulate 20:39–23:55 (regola anti rate-limit).
+- Aperti invariati: www HTTPS irraggiungibile; GMAIL_APP_PASSWORD su Vercel.
+
+## 23/10/2026 ~23:55 CEST — ciclo QA sito VERDE, 0 bug, nessuna nuova sezione (no push: solo STATUS.md, regola anti rate-limit)
+- Pull: origin/main a 59fa9bf (sync via API: tree remoto ricorsivo 109 blob vs `git ls-files -s` — unico diff STATUS.md, allineato in locale; nessuna modifica remota dal push 09:39).
+- Build `npm run build` exit 0 (log hidden_files/build-2026-10-23-2339.log); produzione: 6/6 pagine 200, 404 corretta, title/meta/OG/Twitter OK, CV PDF senza "UL 1741".
+- Sweep locale qa-check.sh (318 sezioni + axe-model fragments, server `next start` setsid porta 3216 in one-shot server+sweep+kill; porta chiusa, nessun residuo): **exit 0 — 4852 OK, 0 FAIL, 28 WARN** (18 contrast AAA aspirational + 9 title-length editoriali + 1 feed-title-parity channel-vs-/blog branding — tutti noti; log hidden_files/sweep-2026-10-23-2339.log).
+- Compliance UL 1741: 0 occorrenze HTML renderizzato (sez. 305), src/ e PDF binario locale + produzione (sez. 306).
+- Nessuna nuova sezione sweep: candidati valutati e scartati — `<html lang>` sulla 404 (duplicato: già coperto dalla sez. 134 html-has-lang incl. /nonexistent-xyz), Expires security.txt (duplicato: già FAIL nella sez. 262), UL1741 nel PDF (già sez. 306). Come il ciclo 22:39: copertura esaustiva, nessun gap reale non duplicato/vacuo trovato.
+- Commit locale in attesa (anti rate-limit): entry STATUS.md accumulate 22:39–23:55, verranno pushate col prossimo cambio sostanziale. Aperti invariati: www HTTPS irraggiungibile; GMAIL_APP_PASSWORD su Vercel; branding feed-title (WARN 318, decisione di Emanuele).
 
 ## 23/10/2026 ~10:05 CEST — ciclo QA sito: 1 BUG COMPLIANCE REALE fixato (UL 1741 nel CV PDF), 1 miglioria sweep (PUSH: modifica sostanziale)
 - Pull: origin/main a 55d8a62 (sync via API: tree remoto ricorsivo vs `git ls-files -s` — 109/109 blob identici, solo STATUS.md differisce per le entry QA accumulate in locale; nessuna modifica remota dal ciclo 09:01).

@@ -128,6 +128,9 @@ const personJsonLd = {
   name: 'Emanuele Zanardo',
   url: 'https://emanuelezanardo.info',
   jobTitle: 'Electronic Engineer',
+  // seo: inLanguage — parita' con WebSite/WebPage/BlogPosting/Article
+  // (tutti "en-US"): il grafo Person era l'unico senza segnale lingua.
+  inLanguage: 'en-US',
   // seo: current employer, already public on the site (experience section) —
   // enriches the knowledge-graph signal with zero privacy exposure.
   worksFor: {
@@ -179,6 +182,9 @@ const servicesJsonLd = {
   url: 'https://emanuelezanardo.info/#services',
   description:
     'Freelance electronics engineering services: hardware design, firmware development, and PCB layout & testing.',
+  // seo: inLanguage — parita' con WebSite/WebPage/BlogPosting/Article/Person
+  // (tutti "en-US"): anche il grafo ProfessionalService ne era sprovvisto.
+  inLanguage: 'en-US',
   // seo: geo-relevance for local search — services target the cross-border
   // area where Emanuele actually works (Varese province IT + Ticino CH).
   areaServed: [
