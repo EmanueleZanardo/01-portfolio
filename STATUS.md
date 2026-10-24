@@ -1,4 +1,13 @@
-**Ultimo aggiornamento: 24/10/2026 ~02:00 CEST**
+**Ultimo aggiornamento: 24/10/2026 ~02:39 CEST**
+
+## 24/10/2026 ~02:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria reale (PUSH: modifica sostanziale)
+- Pull: origin/main a b7a3bfe8 (sync via API: tree remoto ricorsivo 109 blob vs `git ls-files -s` — unico diff STATUS.md, mergiato in locale: base remota 02:00 del job documentale + sezione QA 01:39 dettagliata preservata dopo la daily).
+- Build `npm run build` exit 0 (28 pagine); `npx tsc --noEmit` 0 errori (pre e post miglioria).
+- Produzione https://emanuelezanardo.info/: 18/18 URL 200; 404 corretta (noindex + self-canonical /404); title/description/canonical/OG/Twitter/RSS/hreflang OK; `"inLanguage":"en-US"` live nel grafo Person (miglioria 00:39 deployata); security headers completi (CSP, HSTS, X-Frame-Options DENY, COOP/CORP, Permissions-Policy, Referrer-Policy); feed.json 1.1 valido (7 item); sitemap 18 loc con lastmod content-based; CV PDF produzione (306.429 byte) 0 occorrenze "UL 1741".
+- Sweep locale qa-check.sh (server `next start` porta 3218, poi richiusa; nota operativa: lo script va lanciato dalla sua dir hidden_files, NON copiato in /tmp — da /tmp falliscono 4 sezioni axe-model + 2 verify feed per risoluzione path errata; con l'invocazione corretta: **exit 0 — 4852 OK, 0 FAIL, 28 WARN** (18 contrast AAA aspirational + 9 title-length editoriali + 1 feed-title-parity branding, decisione Emanuele — tutti noti). Log hidden_files/sweep-2026-10-24-0239.log.
+- **Miglioria reale (unica del ciclo):** byline "Last updated" di /cv teneva conto solo di `src/app/cv/page.tsx` (22 ottobre) mentre il PDF scaricabile era cambiato il 23/10 (rimozione UL 1741) — data imprecisa per i recruiter. `cvLastUpdatedDate()` ora prende il max delle date git di page.tsx + public/cv-emanuele-zanardo.pdf (pattern multi-path di sitemap.ts); verificato nel build: `<time dateTime="2026-10-23">23 October 2026</time>`.
+- PUSH eseguito (modifica sostanziale): commit su main via tree API (fail-closed su base b7a3bfe8, VERIFY_OK), include entry STATUS.md accumulate 01:39–02:39 (regola anti rate-limit).
+- Aperti invariati: www HTTPS irraggiungibile (serve suo intervento IONOS); GMAIL_APP_PASSWORD su Vercel.
 
 ## 24/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
 - **QA sito 24/10 00:39 VERDE, 0 bug.** Miglioria SEO pushata: `inLanguage en-US` nei grafi JSON-LD Person e ProfessionalService (coerenza segnali lingua in tutti i grafi structured data, verificato nell'HTML del build). Push commit `f061dd3` via git-data API (fail-closed, VERIFY_OK; include entry STATUS.md accumulate). Produzione 18/18 URL 200.
@@ -6,6 +15,15 @@
 - **Nota di coordinamento:** il job QA-sito scrive le sue entry direttamente sul STATUS.md remoto (formato proprio, es. entry 00:39 CEST sopra); questo job mergia le proprie sezioni giornaliere sulla base live senza sovrascrivere le entry QA.
 - Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti).
 
+
+## 24/10/2026 ~01:39 CEST — ciclo QA sito VERDE, 0 bug, nessuna miglioria reale trovata (no push: solo STATUS.md, regola anti rate-limit)
+- Pull: origin/main a f061dd3f (sync via API: tree remoto ricorsivo 137 file vs working tree `~/workspace/portfolio` — identici tranne il 1-line SHA fill-in in STATUS.md; nessuna modifica remota dal push 00:39).
+- Nota operativa: in `hidden_files/portfolio` del goal vive un clone STANTIO (HEAD 7bfc4d6 del 05/10, ~19 giorni indietro) — la working dir reale dei cicli recenti è `~/workspace/portfolio` (HEAD 1697f1a = tree di f061dd3f). Il controllo sync si fa contro `~/workspace/portfolio`, non contro il clone stantio.
+- Build `npm run build` exit 0 (log hidden_files/build-2026-10-24-0139.log, 28 pagine statiche); `npx tsc --noEmit` 0 errori.
+- Produzione https://emanuelezanardo.info/: 18/18 URL 200 (/ /cv /blog /case-studies /uses /singularity /sitemap.xml /robots.txt /feed.xml /feed.json /llms.txt /humans.txt /manifest.webmanifest /og-image.png /cv-emanuele-zanardo.pdf /favicon.ico /apple-touch-icon.png /.well-known/security.txt); 404 corretta con noindex + card "Page Not Found" propria; title/description/canonical/OG/Twitter/RSS/hreflang (en-US + x-default) presenti; `"inLanguage":"en-US"` live nel grafo Person (miglioria 00:39 deployata ✓); security headers completi (CSP, HSTS, X-Frame-Options DENY, Permissions-Policy); optimizer `/_next/image` 200 (hero 55 KB webp, portrait 29 KB); 2/2 img presenti; 17/17 link interni 200; 0 placeholder; CV PDF produzione (306.429 byte) 0 occorrenze UL 1741.
+- Miglioria cercata, nessuna gap reale: verificati e già coperti — form labels+aria-invalid+char-counter, skip links, search landmark+sr-only label, rel=noopener su tutti i target=_blank, hero LCP priority+sizes cap 1920px, preconnect streamlit, copy-email button, 404 self-canonical+own OG card. Nessun cambio codice: sito maturo, aggiungere rumore peggiorerebbe.
+- Nessun push (regola anti rate-limit: nessuna modifica a codice/test/asset). Entry in accumulo locale.
+- Aperti invariati: www HTTPS irraggiungibile (serve suo intervento IONOS); GMAIL_APP_PASSWORD su Vercel.
 
 ## 24/10/2026 ~00:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria SEO (PUSH: modifica sostanziale)
 - Pull: origin/main a 59fa9bf (sync via API: tree remoto ricorsivo 109 blob vs `git ls-files -s` — unico diff STATUS.md con le entry 20:39–23:55 accumulate in locale; nessuna modifica remota dal ciclo 23:55).

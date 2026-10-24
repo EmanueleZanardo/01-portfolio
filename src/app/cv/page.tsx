@@ -15,24 +15,27 @@ import { join } from "node:path";
 import { execFileSync } from "node:child_process";
 
 // cv-uses: "Last updated" byline — git commit date of the last change to THIS
-// file (same pattern as the uses page and sitemap.ts lastContentChange), so
-// the date reflects actual CV content edits rather than deploy time. Falls
-// back to today if git is unavailable.
+// file or to the downloadable PDF (same multi-path pattern as sitemap.ts
+// lastContentChange), so the date reflects actual CV content edits — page or
+// PDF — rather than deploy time. Falls back to today if git is unavailable.
 function cvLastUpdatedDate(): Date {
-  try {
-    const iso = execFileSync(
-      "git",
-      ["log", "-1", "--format=%cI", "--", "src/app/cv/page.tsx"],
-      { timeout: 5000, stdio: ["ignore", "pipe", "ignore"] }
-    )
-      .toString()
-      .trim();
-    const d = new Date(iso);
-    if (!Number.isNaN(d.getTime())) return d;
-  } catch {
-    // fall through to the fallback below
+  let latest: Date | null = null;
+  for (const p of ["src/app/cv/page.tsx", "public/cv-emanuele-zanardo.pdf"]) {
+    try {
+      const iso = execFileSync(
+        "git",
+        ["log", "-1", "--format=%cI", "--", p],
+        { timeout: 5000, stdio: ["ignore", "pipe", "ignore"] }
+      )
+        .toString()
+        .trim();
+      const d = new Date(iso);
+      if (!Number.isNaN(d.getTime()) && (!latest || d > latest)) latest = d;
+    } catch {
+      // git unavailable for this path — keep the best date found so far
+    }
   }
-  return new Date();
+  return latest ?? new Date();
 }
 
 const cvUpdated = cvLastUpdatedDate();
