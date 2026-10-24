@@ -70,6 +70,16 @@ export async function GET(): Promise<Response> {
       url: SITE,
       avatar: `${SITE}/portrait.webp`,
     },
+    // jsonfeed: top-level date_published / date_modified — JSON Feed 1.1
+    // recommended feed-level fields; readers use them to detect feed-wide
+    // freshness. getAllPosts() is newest-first, so items[0] is the newest
+    // post; date_modified is the max of the per-item date_modified (all
+    // RFC 3339 UTC strings, so lexicographic sort is chronological).
+    date_published: items[0].date_published,
+    date_modified: items
+      .map((i) => i.date_modified)
+      .sort()
+      .at(-1),
     items,
   };
 

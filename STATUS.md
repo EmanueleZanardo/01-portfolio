@@ -1,4 +1,13 @@
-**Ultimo aggiornamento: 24/10/2026 ~03:39 CEST**
+**Ultimo aggiornamento: 24/10/2026 ~04:39 CEST**
+
+## 24/10/2026 ~04:39 CEST — ciclo QA sito VERDE, 0 bug, nessuna miglioria reale trovata (no push: solo STATUS.md, regola anti rate-limit)
+- Sync: origin/main a 9e1efd1 = verify del push 03:39; working tree `~/workspace/portfolio` in sync (HEAD locale e1c0a02 su tree di 9e1efd1), nessuna modifica remota dal ciclo precedente.
+- Build `npm run build` exit 0 (28 pagine, log hidden_files/build-2026-10-24-0439.log); `npx tsc --noEmit` 0 errori.
+- Produzione https://emanuelezanardo.info/: 10/10 URL 200 (/ /cv /blog /uses /case-studies /singularity /sitemap.xml /robots.txt /feed.xml /feed.json); 28/28 link interni 200; 0 placeholder; og:title su tutte le pagine; security.txt/humans.txt aggiornati; /singularity 200.
+- Compliance UL 1741 (ordine Emanuele 22/10): 0 occorrenze nel PDF di produzione (306.429 byte) e in src/ — pulito.
+- Miglioria cercata, nessuna gap reale: verificati e già coperti — article OG tags (published/modified/author/section), SEO 404 (canonical/OG/twitter propri), manifest lang en-US, feed title parity (fix 03:39), form a11y, skip links, security headers. Sweep WARN restanti = noti/deliberati (AAA aspirational + title-length editoriali). Sito maturo: nessun cambio codice, aggiungere rumore peggiorerebbe.
+- Nessun push (regola anti rate-limit: nessuna modifica a codice/test/asset). Entry in accumulo locale.
+- Aperti invariati: www HTTPS irraggiungibile (serve suo intervento IONOS); GMAIL_APP_PASSWORD su Vercel.
 
 ## 24/10/2026 ~03:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria reale (PUSH: modifica sostanziale)
 - Pull: origin/main a cebc973ee (sync via API: tree remoto ricorsivo 109 blob vs `git ls-files -s` su `~/workspace/portfolio` — zero diff; nota: in `hidden_files/portfolio` vive un clone STANTIO del 05/10, la working dir reale è `~/workspace/portfolio`).
@@ -4848,3 +4857,10 @@
 - 0 bug trovati. Nessun push: unica modifica locale = questa entry STATUS.md (accumulata per la prossima modifica sostanziale).
 - Server di test: killato PID 14361 post-timeout (porta 3210 chiusa).
 - Aperti invariati: www HTTPS irraggiungibile; GMAIL_APP_PASSWORD su Vercel.
+
+## QA 24/10 ~05:39 CEST (ciclo verde)
+- Build + tsc verdi (build post-fix OK; tsc exit 0). Sweep su build fresco:
+  route 23/23 OK, feed.xml lastBuildDate 1, sitemap lastmod 18, meta (title/OG/Twitter/description/canonical) presenti su homepage, 0 placeholder (lorem/ipsum/TODO/Coming soon), CV PDF 200 (306 KB), security.txt 200, live https://emanuelezanardo.info/ 200 (1,14 s, CSP/HSTS presenti).
+- Bug: 0.
+- Miglioria: `seo: date_published/date_modified a livello canale in feed.json` (JSON Feed 1.1 recommended fields; items[0]=post più recente, date_modified=max per-item; parità con lastBuildDate di feed.xml). Verificata: feed.json restituisce date_published=2026-10-07T00:00:00Z, date_modified=2026-10-07T00:00:00Z, 7 item.
+- Push: necessario (modifica a codice) — anti rate-limit OK.
