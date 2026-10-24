@@ -1,4 +1,11 @@
-**Ultimo aggiornamento: 24/10/2026 ~00:39 CEST**
+**Ultimo aggiornamento: 24/10/2026 ~02:00 CEST**
+
+## 24/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- **QA sito 24/10 00:39 VERDE, 0 bug.** Miglioria SEO pushata: `inLanguage en-US` nei grafi JSON-LD Person e ProfessionalService (coerenza segnali lingua in tutti i grafi structured data, verificato nell'HTML del build). Push commit `f061dd3` via git-data API (fail-closed, VERIFY_OK; include entry STATUS.md accumulate). Produzione 18/18 URL 200.
+- **QA 24/10 01:39 VERDE, 0 bug, nessun push** (anti rate-limit): build `npm run build` exit 0 (28 pagine), tsc 0 errori, produzione 18/18 URL 200, 404 corretta, meta/OG/Twitter/RSS/hreflang OK, security headers completi, optimizer immagini 200, 17/17 link interni 200, 0 placeholder, **CV PDF 0 occorrenze "UL 1741"** (compliance 22/10 confermata).
+- **Nota di coordinamento:** il job QA-sito scrive le sue entry direttamente sul STATUS.md remoto (formato proprio, es. entry 00:39 CEST sopra); questo job mergia le proprie sezioni giornaliere sulla base live senza sovrascrivere le entry QA.
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti).
+
 
 ## 24/10/2026 ~00:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria SEO (PUSH: modifica sostanziale)
 - Pull: origin/main a 59fa9bf (sync via API: tree remoto ricorsivo 109 blob vs `git ls-files -s` — unico diff STATUS.md con le entry 20:39–23:55 accumulate in locale; nessuna modifica remota dal ciclo 23:55).
