@@ -31,10 +31,10 @@ export const feedAlternatesTypes: NonNullable<
 > = {
   // seo: RSS autodiscovery — lets feed readers and search engines find
   // the blog feed (src/app/feed.xml/route.ts) from every page.
-  'application/rss+xml': [{ url: '/feed.xml', title: 'Emanuele Zanardo — Blog' }],
+  'application/rss+xml': [{ url: '/feed.xml', title: 'Engineering Blog | Emanuele Zanardo' }],
   // seo: JSON Feed autodiscovery (https://www.jsonfeed.org/version/1.1/)
   // — same blog content as /feed.xml for readers that prefer JSON.
-  'application/feed+json': [{ url: '/feed.json', title: 'Emanuele Zanardo — Blog' }],
+  'application/feed+json': [{ url: '/feed.json', title: 'Engineering Blog | Emanuele Zanardo' }],
 };
 
 /**

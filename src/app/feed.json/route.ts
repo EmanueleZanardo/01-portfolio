@@ -51,7 +51,7 @@ export async function GET(): Promise<Response> {
 
   const feed = {
     version: 'https://jsonfeed.org/version/1.1',
-    title: 'Emanuele Zanardo — Blog',
+    title: 'Engineering Blog | Emanuele Zanardo',
     home_page_url: `${SITE}/blog`,
     feed_url: `${SITE}/feed.json`,
     description:

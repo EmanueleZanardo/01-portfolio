@@ -1,4 +1,13 @@
-**Ultimo aggiornamento: 24/10/2026 ~02:39 CEST**
+**Ultimo aggiornamento: 24/10/2026 ~03:39 CEST**
+
+## 24/10/2026 ~03:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria reale (PUSH: modifica sostanziale)
+- Pull: origin/main a cebc973ee (sync via API: tree remoto ricorsivo 109 blob vs `git ls-files -s` su `~/workspace/portfolio` — zero diff; nota: in `hidden_files/portfolio` vive un clone STANTIO del 05/10, la working dir reale è `~/workspace/portfolio`).
+- Build `npm run build` exit 0 (28 pagine) pre e post miglioria (log hidden_files/build-2026-10-24-0339.log / -post.log); `npx tsc --noEmit` 0 errori.
+- Produzione https://emanuelezanardo.info/: 9/9 URL 200 (/ /cv /blog /case-studies /uses /singularity /sitemap.xml /robots.txt /feed.xml).
+- Sweep locale qa-check.sh (server `next start` porta 3210, poi richiusa; nota operativa: il port required fallisce se lanciato senza argomento — `bash qa-check.sh 3210`): **exit 0 — 4852 OK, 0 FAIL, 28 WARN** (18 contrast AAA aspirational + 9 title-length editoriali + 1 feed-title-parity branding, tutti noti). Log hidden_files/sweep-2026-10-24-0339.log.
+- **Miglioria reale (unica del ciclo):** risolta la divergenza branding feed vs pagina segnalata come WARN aspirational dalla sezione 318 ("divergenza preesistente, verificare se deliberata"). I feed usavano `Emanuele Zanardo — Blog` mentre la pagina /blog e tutti i metadata usano la convenzione del sito `%s | Emanuele Zanardo` → `Engineering Blog | Emanuele Zanardo` (metadata, og:title, twitter:title). Allineato il titolo channel/image di feed.xml, il title di feed.json e i title dei link alternate RSS/JSON in metadata.ts: ora tutti `Engineering Blog | Emanuele Zanardo`. Verificato su build fresco (server 3210): s318 exit 0, il WARN branding sparito, item parity 7/7 OK; smoke 200 su /, /blog, /cv, /feed.xml, /feed.json, /sitemap.xml e 404 corretta.
+- PUSH eseguito (modifica sostanziale): commit su main via tree API (fail-closed su base cebc973ee, VERIFY_OK), include entry STATUS.md del ciclo (regola anti rate-limit).
+- Aperti invariati: www HTTPS irraggiungibile (serve suo intervento IONOS); GMAIL_APP_PASSWORD su Vercel.
 
 ## 24/10/2026 ~02:39 CEST — ciclo QA sito VERDE, 0 bug, 1 miglioria reale (PUSH: modifica sostanziale)
 - Pull: origin/main a b7a3bfe8 (sync via API: tree remoto ricorsivo 109 blob vs `git ls-files -s` — unico diff STATUS.md, mergiato in locale: base remota 02:00 del job documentale + sezione QA 01:39 dettagliata preservata dopo la daily).

@@ -72,7 +72,7 @@ ${categories}
   const xml = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/">
   <channel>
-    <title>Emanuele Zanardo — Blog</title>
+    <title>Engineering Blog | Emanuele Zanardo</title>
     <link>${SITE}/blog</link>
     <description>Notes on embedded systems, PCB design, firmware and energy by Emanuele Zanardo.</description>
     <!-- seo: language "en-US" — BCP 47, stessa convenzione inLanguage
@@ -104,7 +104,7 @@ ${categories}
     <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>${SITE}/rss-channel-icon.png</url>
-      <title>Emanuele Zanardo — Blog</title>
+      <title>Engineering Blog | Emanuele Zanardo</title>
       <link>${SITE}/blog</link>
       <width>144</width>
       <height>144</height>
