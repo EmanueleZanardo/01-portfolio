@@ -1,4 +1,11 @@
-**Ultimo aggiornamento: 24/10/2026 ~04:39 CEST**
+**Ultimo aggiornamento: 25/10/2026 ~02:00 CEST**
+
+## 25/10/2026 ~02:00 CEST — aggiornamento documentale giornaliero
+- **QA sito 24/10: tutti i cicli orari VERDI, 0 bug, NESSUN PUSH** (Vercel rate limit persistente): build `npm run build` exit 0 (28 pagine), tsc 0 errori, produzione 18/18 URL sitemap 200, 404 corretta, CV PDF 0 occorrenze "UL 1741" (306.429 byte), meta/OG/Twitter/RSS/hreflang OK, security headers completi. Head remoto `c2501616` (feed.json: date_published/date_modified a livello canale, 24/10 03:46Z) — il suo commit-status Vercel resta failure "Deployment rate limited" (finestra retry ~25/10 05:46 CEST).
+- **Miglioria locale NON pushata (24/10 19:39):** redirect /security.txt → /.well-known/security.txt (riverificato locale 308) + entry QA accumulate in locale in ~/workspace/portfolio/STATUS.md — in attesa dello sblocco rate limit / sue istruzioni.
+- **Nota di coordinamento:** il job QA-sito scrive le sue entry direttamente sul STATUS.md remoto; questo job mergia le proprie sezioni giornaliere sulla base live senza sovrascrivere le entry QA.
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti).
+
 
 ## 24/10/2026 ~04:39 CEST — ciclo QA sito VERDE, 0 bug, nessuna miglioria reale trovata (no push: solo STATUS.md, regola anti rate-limit)
 - Sync: origin/main a 9e1efd1 = verify del push 03:39; working tree `~/workspace/portfolio` in sync (HEAD locale e1c0a02 su tree di 9e1efd1), nessuna modifica remota dal ciclo precedente.
