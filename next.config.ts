@@ -45,6 +45,20 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
+  // micro-UX/compliance (QA sito 24/10 19:39): redirect permanente del
+  // path non standard /security.txt verso il path canonico RFC 9116
+  // /.well-known/security.txt (gia' servito da src/app/.well-known/).
+  // Scanner e tool di security-txt controllano anche la radice: oggi
+  // risponde 404, dopo questo redirect risolve al documento reale.
+  async redirects() {
+    return [
+      {
+        source: '/security.txt',
+        destination: '/.well-known/security.txt',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       // perf: long-lived Cache-Control per gli asset stabili di public/.
