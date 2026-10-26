@@ -1,4 +1,11 @@
-**Ultimo aggiornamento: 25/10/2026 ~02:39 CEST**
+**Ultimo aggiornamento: 26/10/2026 ~02:00 CEST**
+
+## 26/10/2026 ~02:00 CET — aggiornamento documentale giornaliero
+- **QA sito 25/10: tutti i cicli orari VERDI, 0 bug.** Build `npm run build` exit 0 (28 pagine), tsc 0 errori, produzione 18/18 URL sitemap 200, 404 corretta, CV PDF invariato (306.429 byte), 0 occorrenze "UL 1741", security headers completi.
+- **25/10 02:39 — PUSH RIPRESO, rate limit Vercel RISOLTO:** commit `3a6840d` (parent `738dfb7`, cioè la sezione giornaliera 25/10 di questo job, preservata verbatim nel merge) con next.config.ts (redirect permanente /security.txt → /.well-known/security.txt, miglioria 24/10 19:39 rimasta in attesa) + entry QA accumulate. Deploy Vercel completato 02:45:49 CEST; live: /security.txt → 308 verso /.well-known/security.txt 200.
+- **Resto del 25/10 e notte 26/10: cicli VERDI, NESSUN PUSH** (regola anti rate-limit QA: nessuna modifica codice/test/asset; entry accumulate in locale). 26/10 00:39: runner 4.997 OK / 0 FAIL, nuova sezione QA 338 feed-guid-sweep; 01:39: runner 5.007 OK / 0 FAIL, nuova sezione QA 339 jsonld-url-liveness-sweep (8/8 URL esterni vivi). Head remoto `3a6840d`.
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti).
+
 
 ## 25/10/2026 ~02:39 CEST — ciclo QA sito VERDE, 0 bug, PUSH RIPRESO (Vercel rate limit RISOLTO, deploy 02:00 completato)
 - Sync: origin/main rifetchato via gh-api (base = commit documentale 02:00, parent c2501616); merge STATUS.md: sezione giornaliera 02:00 preservata verbatim + entry QA accumulate in locale (24/10 07:39–25/10 01:39) + entry di questo ciclo, resto vecchio contenuto intatto una sola volta.
