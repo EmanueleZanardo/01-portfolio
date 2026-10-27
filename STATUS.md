@@ -1,4 +1,10 @@
-**Ultimo aggiornamento: 26/10/2026 ~02:00 CEST**
+**Ultimo aggiornamento: 27/10/2026 ~02:00 CEST**
+
+## 27/10/2026 ~02:00 CET — aggiornamento documentale giornaliero
+- **QA sito 26/10: tutti i cicli orari VERDI, 0 bug, NESSUN PUSH** (regola anti rate-limit del ciclo QA: nessuna modifica codice/test/asset; entry accumulate in locale). Cicli verificati: 15:39, 16:39 (runner 5.033 OK), 17:39, 18:39, 19:39, 20:39, 21:39 (runner 5.033 OK, sezione QA 358 og-image-dimensions-parity-sweep), 22:39 (build 28/28 pagine, tsc 0 errori), 23:39 (runner 5.035 OK, sezione QA 360 feed-content-type-sweep).
+- **Notte 27/10 00:39: ciclo VERDE, 0 bug, NESSUN PUSH.** Build + tsc OK, runner 5.041 OK / 0 FAIL (sezione s360 entrata nel runner), produzione 12/12 URL 200, header completi, feed 7+7 item; nuova sezione QA s361 sitemap-noindex-exclusion-sweep (selftest 8/8). Head remoto immobile `2839e7e` (sezione giornaliera 26/10 di questo job).
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti).
+
 
 ## 26/10/2026 ~02:00 CET — aggiornamento documentale giornaliero
 - **QA sito 25/10: tutti i cicli orari VERDI, 0 bug.** Build `npm run build` exit 0 (28 pagine), tsc 0 errori, produzione 18/18 URL sitemap 200, 404 corretta, CV PDF invariato (306.429 byte), 0 occorrenze "UL 1741", security headers completi.
