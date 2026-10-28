@@ -1,4 +1,10 @@
-**Ultimo aggiornamento: 27/10/2026 ~02:00 CEST**
+**Ultimo aggiornamento: 28/10/2026 ~02:00 CEST**
+
+## 28/10/2026 ~02:00 CET — aggiornamento documentale giornaliero
+- **QA sito 27/10: tutti i cicli orari VERDI, 0 bug, NESSUN PUSH** (regola anti rate-limit del ciclo QA: nessuna modifica codice/test/asset; entry accumulate in locale). Cicli verificati: 19:39 (runner 5.092 OK, sezione QA 380 cv-pdf-structure-sweep, selftest 13/13), 20:39 (runner 5.094 OK, sezione 381 feed-blog-coverage-sweep, selftest 10/10), 21:39 (runner 5.098 OK, sezione 382 index-listing-coverage-sweep), 22:39 (runner 5.103 OK, sezione 383 sitemap-canonical-parity-sweep, selftest 12/12), 23:39 (runner 5.125 OK, sezione 384 redirect-308-security.txt-sweep). Produzione 12–17/17 URL 200 a seconda del ciclo, build 28/28 pagine, tsc 0 errori.
+- **Remoto fermo a `6ded714`** (solo STATUS.md, commit giornaliero 27/10 di questo job); HEAD locale 2839e7e. Merge al prossimo push sostanziale.
+- Blocchi (azioni di Emanuele): www.emanuelezanardo.info HTTPS irraggiungibile (IONOS/Vercel); GMAIL_APP_PASSWORD su Vercel (form contatti).
+
 
 ## 27/10/2026 ~02:00 CET — aggiornamento documentale giornaliero
 - **QA sito 26/10: tutti i cicli orari VERDI, 0 bug, NESSUN PUSH** (regola anti rate-limit del ciclo QA: nessuna modifica codice/test/asset; entry accumulate in locale). Cicli verificati: 15:39, 16:39 (runner 5.033 OK), 17:39, 18:39, 19:39, 20:39, 21:39 (runner 5.033 OK, sezione QA 358 og-image-dimensions-parity-sweep), 22:39 (build 28/28 pagine, tsc 0 errori), 23:39 (runner 5.035 OK, sezione QA 360 feed-content-type-sweep).
