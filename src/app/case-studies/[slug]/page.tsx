@@ -17,6 +17,11 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { feedAlternatesTypes, hreflangLanguages, truncateDescription } from "@/lib/metadata";
 
+// a11y/seo: come blog/[slug] — slug sconosciuti vanno al not-found
+// statico con HTML completo (senza: la 404 dinamica arrivava solo via
+// payload RSC, corpo HTML vuoto senza JS: niente h1, niente link home).
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return getCaseStudySlugs().map((slug) => ({ slug }));
 }
