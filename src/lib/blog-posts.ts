@@ -260,7 +260,13 @@ const posts: BlogPost[] = [
   {
     slug: "linux-watchdog-patterns-supervising-processes",
     title:
-      "Watchdogs That Actually Restart Things: Supervising Long-Running Processes on Linux",
+      // seo: titolo accorciato (QA sito 02/11 20:02, ciclo giornaliero):
+      // il <title> con suffisso era 102 char, in zona troncamento SERP
+      // (>60); 36 + 19 di suffisso = 55, sotto soglia. Parole chiave
+      // (Linux, watchdog, restart) preservate; il dettaglio resta in
+      // excerpt, tag e corpo. H1, listing e feed derivano dalla stessa
+      // sorgente, quindi le parita' s512-s517 restano verdi.
+      "Linux Watchdogs That Restart Things",
     excerpt:
       "flock, pidfiles with /proc verification, and pgrep patterns that don't match your own shell — patterns that keep 24/7 data pipelines alive on a Linux VM.",
     date: "2026-10-06",
