@@ -95,7 +95,14 @@ const posts: BlogPost[] = [
   },
   {
     slug: "nextjs-15-static-rendering-lessons",
-    title: "Next.js 15 Static Rendering: Four Lessons from Shipping a Real Portfolio",
+    // seo: titolo accorciato (QA sito 03/11, ciclo giornaliero):
+    // il <title> con suffisso era 91 char, in zona troncamento SERP
+    // (>60); 35 + 19 di suffisso = 54, sotto soglia. Parole chiave
+    // (Next.js 15, static rendering, lessons) preservate; il dettaglio
+    // ("four lessons", "shipping a real portfolio") resta in excerpt
+    // e corpo. H1, listing e feed derivano dalla stessa sorgente,
+    // quindi le parita' s512-s517 restano verdi.
+    title: "Next.js 15 Static Rendering Lessons",
     excerpt:
       "fetch() is no longer cached, params are promises, and one careless import can de-static a whole route — what changed in Next.js 15 and how to keep pages fast.",
     date: "2026-09-26",
