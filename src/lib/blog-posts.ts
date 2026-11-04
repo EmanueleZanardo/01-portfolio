@@ -353,7 +353,13 @@ const posts: BlogPost[] = [
   {
     slug: "diy-lifepo4-battery-bank-build",
     title:
-      "Building a DIY LiFePO4 Battery Bank: What Comes After the Sizing Math",
+      // seo: titolo accorciato (QA sito 04/11, ciclo giornaliero):
+      // il <title> con suffisso era 88 char, in zona troncamento SERP
+      // (>60); 35 + 19 di suffisso = 54, sotto soglia. Parole chiave
+      // (DIY, LiFePO4, battery bank) preservate; il dettaglio resta in
+      // excerpt, tag e corpo. H1, listing e feed derivano dalla stessa
+      // sorgente, quindi le parita' titolo restano verdi.
+      "Building a DIY LiFePO4 Battery Bank",
     excerpt:
       "Cells, a BMS, busbars, fuses and torque: the practical build checklist for a 24 V LiFePO4 bank — and why the BMS is the one part you never skip.",
     date: "2026-10-07",
