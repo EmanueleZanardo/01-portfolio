@@ -213,7 +213,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "streamlit-at-scale-energy-analysts",
-    title: "Streamlit for Energy Analysts: Keeping a Data-Heavy Dashboard Fast",
+    title: "Streamlit for Energy Analysts",
     excerpt:
       "Cache the data pulls, fragment the reruns, lazy-load the tabs — how to keep a Streamlit dashboard with years of hourly energy prices responsive.",
     date: "2026-10-04",
