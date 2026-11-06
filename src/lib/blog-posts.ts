@@ -31,7 +31,14 @@ export interface BlogPost {
 const posts: BlogPost[] = [
   {
     slug: "residential-battery-sizing-basics",
-    title: "Sizing a Residential Battery Bank: The Math That Actually Matters",
+    // seo: titolo accorciato (QA sito 06/11, ciclo giornaliero):
+    // il <title> con suffisso era 84 char, in zona troncamento SERP
+    // (>60); 33 + 19 di suffisso = 52, sotto soglia. Parole chiave
+    // (sizing, residential, battery bank) preservate; il dettaglio
+    // ("the math that actually matters", i quattro numeri) resta in
+    // excerpt e corpo. H1, listing e feed derivano dalla stessa
+    // sorgente, quindi le parita' s512-s517 restano verdi.
+    title: "Sizing a Residential Battery Bank",
     excerpt:
       "Daily energy first, peak power second: usable capacity, depth of discharge, C-rate and inverter losses — the four numbers behind a battery bank that actually works.",
     date: "2026-09-18",
