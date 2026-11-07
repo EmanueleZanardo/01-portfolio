@@ -438,7 +438,7 @@ const posts: BlogPost[] = [
   },
   {
     slug: "embedding-streamlit-in-nextjs",
-    title: "Embedding a Streamlit App in a Next.js Site: What Actually Works",
+    title: "Embedding a Streamlit App in Next.js",
     excerpt:
       "iframe with ?embed=true, preconnect, no lazy-load above the fold, and a fallback link — how I embedded a live Streamlit terminal in a Next.js page reliably.",
     date: "2026-10-07",
