@@ -167,7 +167,14 @@ const posts: BlogPost[] = [
   },
   {
     slug: "kicad-freerouting-6-layer-power-board",
-    title: "KiCad + FreeRouting on a 6-Layer Power Board: Field Notes",
+    title:
+      // seo: titolo accorciato (QA sito 08/11, ciclo giornaliero):
+      // il <title> con suffisso era 76 char, in zona troncamento SERP
+      // (>60); 40 + 19 di suffisso = 59, sotto soglia. Parole chiave
+      // (KiCad, FreeRouting, 6-layer) preservate; il dettaglio resta in
+      // excerpt, tag e corpo. H1, listing e feed derivano dalla stessa
+      // sorgente, quindi le parita' titolo restano verdi.
+      "KiCad + FreeRouting on a 6-Layer Board",
     excerpt:
       "Bound the batch run or it never ends, hand-route the critical nets, and never trust the autorouter with trace width — practical notes from autorouting a dense power PCB.",
     date: "2026-10-01",
