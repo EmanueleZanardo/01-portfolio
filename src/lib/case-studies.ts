@@ -30,7 +30,12 @@ export interface CaseStudy {
 export const caseStudies: CaseStudy[] = [
   {
     slug: "energy-analytics-workspace",
-    title: "Singularity Quant ETRM — Energy Analytics Workspace",
+    // seo: titolo accorciato (QA sito 09/11, ciclo giornaliero):
+    // il <title> con suffisso era 70 char, in zona troncamento SERP
+    // (>60); 51 char misurati dal runner QA, sotto soglia. Parole chiave
+    // (Singularity Quant, ETRM, analytics) preservate; il dettaglio
+    // ("Energy Analytics Workspace") resta in summary e corpo.
+    title: "Singularity Quant ETRM Analytics",
     summary:
       "An open-source Streamlit workspace for Swiss day-ahead electricity price analytics: KPI dashboards, period comparison, threshold alerts, hourly heatmaps, F1/F2/F3 time bands, CSV export and a Monte Carlo simulator.",
     timeline: "September 2026 – in progress",
@@ -112,7 +117,12 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "live-data-streaming-pipeline",
-    title: "24/7 Live Data Streaming Pipeline — YouTube Charts",
+    // seo: titolo accorciato (QA sito 09/11, ciclo giornaliero):
+    // il <title> con suffisso era 69 char, in zona troncamento SERP
+    // (>60); 52 char misurati dal runner QA, sotto soglia. Parole chiave
+    // (live data streaming pipeline, 24/7) preservate; il dettaglio
+    // ("YouTube Charts") resta in summary e corpo.
+    title: "24/7 Live Data Streaming Pipeline",
     summary:
       "A self-hosted pipeline that renders live data charts with Python and streams them to YouTube around the clock from a small Linux VM — with watchdog supervision, rotated logs, and recovery after reboots.",
     timeline: "September 2026 – in progress",
